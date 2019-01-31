@@ -8,7 +8,7 @@ namespace RentACar.Models
     public class Vozilo
     {
 
-        public int VoziloID { get; set; } //Id od Vozila
+        public int VoziloID { get; set; } 
 
         public int BrojSasije { get; set; }
         public string RegistarskaOznaka { get; set; }
