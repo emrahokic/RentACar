@@ -32,9 +32,7 @@ namespace RentACar.Models
         public string JMBG { get; set; }
         public string Spol { get; set; }
 
-        public int ApplicationUserRoleID { get; set; }
-        public ApplicationUserRole ApplicationUserRole { get; set; }
-
+       
 
 
     }
