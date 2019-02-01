@@ -15,6 +15,10 @@ namespace RentACar.Data
         {
 
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
         public DbSet<DodatneUsluge> DodatneUsluge { get; set; }
         public DbSet<Drzava> Drzava { get; set; }
