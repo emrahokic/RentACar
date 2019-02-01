@@ -25,6 +25,9 @@ namespace RentACar.Models
         public int VoziloID { get; set; }
         public Vozilo Vozilo { get; set; }
 
+        public int PoslovnicaID { get; set; }
+        public Poslovnica Poslovnica { get; set; }
+
         public int KlijentID { get; set; }
         public ApplicationUser Klijent { get; set; }
 

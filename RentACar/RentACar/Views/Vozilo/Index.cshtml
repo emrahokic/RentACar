@@ -1,0 +1,155 @@
+﻿@model IEnumerable<RentACar.Models.Vozilo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BrojSasije)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistarskaOznaka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GodinaProizvodnje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SnagaMotora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumMijenjanjUlja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Domet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrojMjesta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrojVrata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZapreminaPrtljaznika)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZapreminaPrtljaznikaNaprijed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brend)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Klima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipVozila)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DodatniOpis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gorivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pogon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transmisija)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrupniTipVozila)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojSasije)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistarskaOznaka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Boja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GodinaProizvodnje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SnagaMotora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumMijenjanjUlja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Domet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojMjesta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrojVrata)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZapreminaPrtljaznika)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZapreminaPrtljaznikaNaprijed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brend.BrendID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipVozila)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DodatniOpis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gorivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pogon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transmisija)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrupniTipVozila)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VoziloID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.VoziloID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.VoziloID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

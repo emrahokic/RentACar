@@ -1,0 +1,37 @@
+﻿@model RezervacijaDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Dodaj</h2>
+
+<form asp-action="Dodaj" method="post" >
+
+    <div class="form-group">
+        <label>Vozila</label>
+        <select asp-for="VoziloID" asp-items="Model.Vozila" class="form-control"> </select>
+
+        <label>Datum preuzimanja</label>
+        <input asp-for="DatumPreuzimanja" class="form-control" />
+
+        <label>Datum Povratka</label>
+        <input asp-for="DatumPovrata" class="form-control" />
+
+        <label>Nacin Plaćanja</label>
+        <input asp-for="NacinPlacanja" class="form-control" />
+
+           <label>Vrsta rezervacije</label>
+        <input asp-for="VrstaRezervacije" class="form-control" />   
+      
+
+    
+
+
+
+
+
+    </div>
+    
+    <button type="submit" class="btn btn-success">Kreiraj</button>
+</form>
