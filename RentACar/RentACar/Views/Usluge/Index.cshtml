@@ -1,0 +1,35 @@
+﻿@model RentACar.ViewModels.DodatneUslugeIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Cijena</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+        <tr>
+            <th>@x.Naziv</th>
+            <th>@x.Opis</th>
+            <th>@x.Cijena</th>
+            <th>
+                <a class="btn btn-danger" href="/Usluge/Obrisi/@x.DodatneUslugeID">Obrisi</a>
+                <a class="btn btn-success" asp-action="Uredi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID">Uredi</a>
+            </th>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="DodajForm" asp-controller="Usluge">Dodaj</a>
+
+
