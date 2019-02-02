@@ -15,11 +15,9 @@ public class UslugeController: Controller
     {
         _context = context;
     }
-
+ 
     public IActionResult Index()
-    {
-        List<DodatneUsluge> model = _context.DodatneUsluge.ToList();
-
+    {        
         var model1 = new DodatneUslugeIndexVM
         {
             rows = _context.DodatneUsluge.Select(k => new Rows
@@ -31,8 +29,7 @@ public class UslugeController: Controller
             }).ToList()
         };
 
-        //_context.Dispose();
-        
+        //_context.Dispose();        
         return View("Index", model1);
     }
 
@@ -57,9 +54,12 @@ public class UslugeController: Controller
         return Redirect("/Usluge/Index");
     }
 
+    
     public IActionResult Obrisi(int id)
     {
-        DodatneUsluge temp = _context.DodatneUsluge.Find(id);
+
+        DodatneUsluge temp = new DodatneUsluge();
+        temp = _context.DodatneUsluge.Find(id);
         if (temp == null)
         {
             return Content("Usluga ne postoji");
@@ -67,12 +67,35 @@ public class UslugeController: Controller
         _context.Remove(temp);
 
         _context.SaveChanges();
+        _context.Dispose();
 
-        return Redirect("Index");
+        return RedirectToAction("Index");
     }
 
-    public IActionResult Uredi(int id)
+    public IActionResult UrediForm(int id)
     {
+        DodatneUsluge temp = new DodatneUsluge();
+        temp = _context.DodatneUsluge.Find(id);
+        if (temp == null)
+        {
+            return Content("Usluga ne postoji");
+        }
+
+        return View("UrediForm", temp);
+    }
+
+    public IActionResult UrediSnimi(int DodatneUslugeID, string Naziv, string Opis, double Cijena)
+    {
+        DodatneUsluge x = _context.DodatneUsluge.Find(DodatneUslugeID);
+
+        x.DodatneUslugeID = DodatneUslugeID;
+        x.Naziv = Naziv;
+        x.Opis = Opis;
+        x.Cijena = Cijena;
+
+        _context.SaveChanges();
+        _context.Dispose();
+
         return Redirect("/Usluge/Index");
     }
 }
