@@ -1,0 +1,85 @@
+﻿@model RentACar.ViewModels.PrikolicaDetaljiVM
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+
+<h3>Detalji o prikolici</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" value="@Model.PrikolicaID" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="Sirina" class="control-label"></label>
+            <input asp-for="Sirina" class="form-control" value="@Model.Sirina" readonly />
+            <span asp-validation-for="Sirina" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Zapremina" class="control-label"></label>
+            <input asp-for="Zapremina" class="form-control" value="@Model.Zapremina" readonly />
+            <span asp-validation-for="Zapremina" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Duzina" class="control-label"></label>
+            <input asp-for="Duzina" class="form-control" value="@Model.Duzina" readonly />
+            <span asp-validation-for="Duzina" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TipPrikolice" class="control-label"></label>
+            <input asp-for="TipPrikolice" class="form-control" value="@Model.TipPrikolice" readonly />
+            <span asp-validation-for="TipPrikolice" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>TipKuke</th>
+            <th>Tezina</th>
+            <th>Vozilo</th>
+            <th>Tip vozila</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <th>@x.TipKuke</th>
+                <th>@x.Tezina</th>
+                <th>@x.Auto</th>
+                <th>@x.tipAuta</th>
+                <th></th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" id="pozivID" >Dodaj vozilo</a>
+
+<strong id="dodajVozilo">
+  
+</strong>
+
+<br />
+<div>
+    <a asp-action="Index" asp-controller="Prikolica">Back to List</a>
+</div>
+
+<script>
+    $("#pozivID").click(function (event) {
+        $.get("/Prikolica/DodajVozilo?id=@Model.PrikolicaID",
+            function (rezultat, status) {
+                $("#dodajVozilo").html(rezultat);
+
+            });
+        });
+</script>

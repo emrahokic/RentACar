@@ -1,0 +1,35 @@
+﻿@model RentACar.ViewModels.PrikolicaVM
+@{
+    ViewData["Title"] = "Index";
+}
+<h3>Prikolice</h3>
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Sirina</th>
+            <th>Zapremina</th>
+            <th>Duzina</th>
+            <th>Tip prikolice</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <th>@x.Sirina</th>
+                <th>@x.Zapremina</th>
+                <th>@x.Duzina</th>
+                <th>@x.TipPrikolice</th>
+                <th>
+                    <a class="btn btn-success" asp-controller="Prikolica" asp-action="Uredi" asp-route-id="@x.PrikolicaID">Uredi</a>
+                    <a class="btn btn-success" asp-controller="Prikolica" asp-action="Detalji" asp-route-id="@x.PrikolicaID">Detalji</a>
+                    <a class="btn btn-danger" asp-controller="Prikolica" asp-action="Obrisi" asp-route-id="@x.PrikolicaID">Obrisi</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-success" asp-controller="Prikolica" asp-action="Dodaj">Dodaj</a>
+

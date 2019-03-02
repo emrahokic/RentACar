@@ -1,0 +1,44 @@
+﻿@model RentACar.ViewModels.DodajVoziloPrikolicaVM
+@{
+    ViewData["Title"] = "DodajVozilo";
+}
+
+<h3>Dodaj vozilo za prikolicu</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
+            <input type="text" name="PrikolicaID" value="@Model.PrikolicaID"/>
+            <div class="form-group">
+                <label>Tip kuke: </label>
+                <div>
+                    <input type="text" name="tipKuke" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Tezina: </label>
+                <div>
+                    <input type="text" name="tezina" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Razrednik/Nastavnik: </label>
+                <div>
+                    <select type="text" name="VoziloID" class="form-control">
+                        @foreach (var x in Model.vozila)
+                        {
+                            <option value="@x.Value"> @x.Text </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Snimi</button>
+            </div>
+
+        </form>
+    </div>
+</div>

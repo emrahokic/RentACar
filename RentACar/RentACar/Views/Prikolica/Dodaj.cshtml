@@ -1,0 +1,46 @@
+﻿@model RentACar.Models.Prikolica
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h3>Dodaj novu prikolicu</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
+
+            <div class="form-group">
+                <label asp-for="Sirina" class="control-label"></label>
+                <input asp-for="Sirina" class="form-control"  />
+                <span asp-validation-for="Sirina" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Zapremina" class="control-label"></label>
+                <input asp-for="Zapremina" class="form-control" />
+                <span asp-validation-for="Zapremina" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Duzina" class="control-label"></label>
+                <input asp-for="Duzina" class="form-control" />
+                <span asp-validation-for="Duzina" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipPrikolice" class="control-label"></label>
+                <input asp-for="TipPrikolice" class="form-control" />
+                <span asp-validation-for="TipPrikolice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Snimi</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Prikolica">Back to List</a>
+</div>

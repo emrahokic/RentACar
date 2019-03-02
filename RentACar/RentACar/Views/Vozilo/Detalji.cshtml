@@ -1,0 +1,199 @@
+﻿@model RentACar.ViewModels.VoziloDetaljnoVM
+@{
+    ViewData["Title"] = "Detalji";
+}
+<head>
+    <!-- Slideshow css and js -->
+    <link href="~/css/slideshow.css" rel="stylesheet" />
+
+</head>
+
+<!-- Slideshow container -->
+<div class="slideshow-container">
+    @foreach (var x in Model.Slike)
+    {
+        <div class="mySlides fade_sl">
+            <img src="@x" alt="image place" width="500" height="300" />
+        </div>
+    }
+
+    <!-- Next and previous buttons -->
+    <a class="prev_p" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next_p" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+
+<div class="container col-lg-6">
+    <h3>Osnovne informacije</h3>
+    <hr />
+    <!--Prvi red-->
+    <div class="kartice_ic">
+        <div class="form-group card_ic">
+            <span>Brend: </span>
+            <span class="second_lab_ic">@Model.Brend</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Naziv: </span>
+            <span class="second_lab_ic">@Model.Naziv</span>
+        </div>
+        <div class="form-group card_ic">
+            <span>Model: </span>
+            <span class="second_lab_ic">@Model.Model</span>
+        </div>
+    </div>
+
+    <!--Drugi red-->
+    <div class="kartice_ic">
+        <div class="form-group card_ic">
+            <span>Tip vozila: </span>
+            <span class="second_lab_ic">@Model.TipVozila</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Gorivo: </span>
+            <span class="second_lab_ic">@Model.Gorivo</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Godina proizvodnje: </span>
+            <span class="second_lab_ic">@Model.GodinaProizvodnje</span>
+        </div>
+    </div>
+
+    <!--Treci red-->
+    <div class="kartice_ic">
+        <div class="form-group card_ic">
+            <span>Snaga motora: </span>
+            <span class="second_lab_ic">@Model.SnagaMotora</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Transmisija: </span>
+            <span class="second_lab_ic">@Model.Transmisija</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Klima: </span>
+            <span class="second_lab_ic">@Model.Klima</span>
+        </div>
+    </div>
+
+    <!--Cetvrti red-->
+    <div class="kartice_ic">
+        <div class="form-group card_ic">
+            <span>Boja: </span>
+            <span class="second_lab_ic">@Model.Boja</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Broj mjesta: </span>
+            <span class="second_lab_ic">@Model.BrojMjesta</span>
+        </div>
+
+        <div class="form-group card_ic">
+            <span>Broj vrata: </span>
+            <span class="second_lab_ic">@Model.BrojVrata</span>
+        </div>
+    </div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div class="container col-lg-12">
+        <h3>Detaljne informacije</h3>
+        <hr />
+        <div class="kartice_ic">
+            <div class="form-group card_ic">
+                <span>Pogon: </span>
+                <span class="second_lab_ic">@Model.Pogon</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Domet: </span>
+                <span class="second_lab_ic">@Model.Domet</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Zapremina prtljaznika: </span>
+                <span class="second_lab_ic">@Model.ZapreminaPrtljaznika</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Zapremina prtljaznika naprijed: </span>
+                <span class="second_lab_ic">@Model.ZapreminaPrtljaznikaNaprijed</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Grupni tip vozila: </span>
+                <span class="second_lab_ic">@Model.GrupniTipVozila</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Datum mijenjanja ulja: </span>
+                <span class="second_lab_ic">@Model.DatumMijenjanjUlja</span>
+            </div>
+        </div>
+
+        <div class="kartice_ic">
+            <div class="form-group card_ic">
+                <span>Registarska oznaka: </span>
+                <span class="second_lab_ic">@Model.RegistarskaOznaka</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Broj sasije: </span>
+                <span class="second_lab_ic">@Model.BrojSasije</span>
+            </div>
+
+            <div class="form-group card_ic">
+                <span>Dodatni opis: </span>
+                <span class="second_lab_ic">@Model.DodatniOpis</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="btn btn-success">Rezervisi</button>
+    <button class="btn btn-success">Uredi</button>
+    <br />
+    <h3>Prikolice</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sirina</th>
+                <th>Zapremina</th>
+                <th>Duzina</th>
+                <th>Tip prikolice</th>
+                <th>Tip kuke</th>
+                <th>Tezina</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.prikolice)
+            {
+                <tr>
+                    <th>@x.Sirina</th>
+                    <th>@x.Zapremina</th>
+                    <th>@x.Duzina</th>
+                    <th>@x.TipPrikolice</th>
+                    <th>@x.TipKuke</th>
+                    <th>@x.Tezina</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+<script src="~/js/slideshow.js"></script>
