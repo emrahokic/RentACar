@@ -4,13 +4,16 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>@ViewData["Title"]</h2>
 
+<h2>@ViewData["Title"]</h2>
+<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8 radiousStyle input-stil " style="padding-top: 20px;">
+        
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Create a new account</h4>
             <hr />
+            <br />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -27,6 +30,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <br />
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>

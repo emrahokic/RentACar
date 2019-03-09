@@ -5,38 +5,50 @@
 <button class="btn btn-success">Slobodna</button>
 <button class="btn btn-danger">Rezervisana</button>
 
-<h3>Vozila</h3>
-<hr />
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-info">
+            <h4 class="card-title mt-0"> Vozila </h4>
+            <p class="card-category"> lista vozila</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Brend</th>
+                            <th>Naziv</th>
+                            <th>Model</th>
+                            <th>Broj vrata</th>
+                            <th>Tip vozila</th>
+                            <th>Transmisija</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.rows)
+                        {
+                            <tr>
+                                <th>@x.Brend</th>
+                                <th>@x.Naziv</th>
+                                <th>@x.Model</th>
+                                <th>@x.BrojVrata</th>
+                                <th>@x.TipVozila</th>
+                                <th>@x.Transmisija</th>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Brend</th>
-            <th>Naziv</th>
-            <th>Model</th>
-            <th>Broj vrata</th>
-            <th>Tip vozila</th>
-            <th>Transmisija</th>
-            <th></th>
+                                <th>
+                                    <a class="btn btn-success" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@x.VoziloID">Detalji</a>
+                                    <a class="btn btn-success" href="#">Uredi</a>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model.rows)
-        {
-            <tr>
-                <th>@x.Brend</th>
-                <th>@x.Naziv</th>
-                <th>@x.Model</th>
-                <th>@x.BrojVrata</th>
-                <th>@x.TipVozila</th>
-                <th>@x.Transmisija</th>
-
-                <th>
-                    <a class="btn btn-success" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@x.VoziloID">Detalji</a>
-                    <a class="btn btn-success" href="#">Uredi</a>
-                </th>
-            </tr>
-        }
-    </tbody>
-</table>
+<script>
+    document.getElementById("vozila").className = "active";
+</script>
