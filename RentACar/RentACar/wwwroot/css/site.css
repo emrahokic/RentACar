@@ -1,8 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    margin: 0;
 }
 
 /* Wrapping element */
@@ -24,7 +23,7 @@ body {
 }
 
 .radiousStyle {
-    border-radius:20px;
+    border-radius: 20px;
 }
 .radious100Style {
     border-radius:100px;
@@ -39,7 +38,27 @@ body {
     padding: 20px;
 }
 .loginNoteDesign{
-    padding: 20px;
+
+}
+.main-rentcar {
+    background-color: rgba(0,0,0,0.90); 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    margin: 0; 
+    margin-bottom: 20px; 
+    color: white;
+}
+.con-rentcar {
+    
+}
+.text-info-new {
+    padding-top: 165px;
+    padding-bottom: 165px;
+    margin-top: 24px;
+    box-shadow: 3px 3px 10px grey;
+}
+.input-stil {
+    box-shadow: 3px 3px 10px grey;
 }
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

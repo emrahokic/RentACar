@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
@@ -10,6 +11,7 @@ using RentACar.ViewModels;
 
 namespace RentACar.Controllers
 {
+    [Authorize]
     public class PrikolicaController : Controller
     {
         private ApplicationDbContext _context;

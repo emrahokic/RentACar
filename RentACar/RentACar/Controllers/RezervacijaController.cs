@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using RentACar.Models.ViewModels;
 
 namespace RentACar.Controllers
 {
+    [Authorize]
     public class RezervacijaController : Controller
     {
         private  UserManager<ApplicationUser> _signInManager;
