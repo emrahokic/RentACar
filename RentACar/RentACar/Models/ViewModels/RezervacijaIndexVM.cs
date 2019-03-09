@@ -17,6 +17,7 @@ namespace RentACar.Models.ViewModels
             public DateTime DatumPovrata { get; set; }
             public bool Zakljucen { get; set; }
             
+            public int? UposlenikID { get; set; }
             public string Vozilo { get; set; }
             public string Brend { get; set; }
             public string Poslovnica{ get; set; }

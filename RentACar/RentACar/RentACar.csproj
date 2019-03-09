@@ -15,6 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Rezervacija\Detalji.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Rezervacija\IndexUposlenik.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Usluge\UrediForm.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

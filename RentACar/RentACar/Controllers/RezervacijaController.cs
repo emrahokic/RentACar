@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
 using RentACar.Models;
 using RentACar.Models.ViewModels;
+using RentACar.ViewModels;
 
 namespace RentACar.Controllers
 {
@@ -23,9 +24,34 @@ namespace RentACar.Controllers
             db = _db;
             _signInManager = signInManager;
         }
-        public IActionResult Index(int? KlijentID)
+
+        //Rezervacije za Uposlenika id = userID
+        public IActionResult IndexUposlenik(int id)
         {
-            KlijentID = int.Parse(_signInManager.GetUserId(User));
+            int PoslovnicaID = db.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == id).PoslovnicaID;
+            RezervacijaIndexVM model = new RezervacijaIndexVM()
+            {
+                Rows = db.Rezervacija.Where(z => z.PoslovnicaID == PoslovnicaID && (z.UposlenikID == id || z.UposlenikID == null)).Select(x => new RezervacijaIndexVM.Row()
+                {
+                    RezervacijaID = x.RezervacijaID,
+                    Vozilo = x.Vozilo.Naziv,
+                    DatumPreuzimanja = x.DatumPreuzimanja,
+                    DatumPovrata = x.DatumPovrata,
+                    UposlenikID = x.UposlenikID,
+                    Poslovnica = x.Poslovnica.Naziv,
+                    VrstaRezervacije = x.VrstaRezervacije,
+                    Zakljucen = x.Zakljucen,
+                    Brend = x.Vozilo.Brend.Naziv
+                }).ToList()
+
+            };
+            return View(model);
+        }
+
+        //Rezervacije za Klijenta
+        public IActionResult Index()
+        {
+            int KlijentID = int.Parse(_signInManager.GetUserId(User));
             RezervacijaIndexVM model = new RezervacijaIndexVM() {
                 Rows = db.Rezervacija.Where(z => z.KlijentID == KlijentID || KlijentID == null).Select(x => new RezervacijaIndexVM.Row()
                 {
@@ -33,7 +59,7 @@ namespace RentACar.Controllers
                      Vozilo = x.Vozilo.Naziv,
                      DatumPreuzimanja = x.DatumPreuzimanja,
                      DatumPovrata = x.DatumPovrata,
-                     Poslovnica = db.UgovorZaposlenja.FirstOrDefault(y=> y.UposlenikID == x.UposlenikID).Poslovnica.Naziv,
+                     Poslovnica = x.Poslovnica.Naziv,
                      VrstaRezervacije = x.VrstaRezervacije,
                      Zakljucen = x.Zakljucen,
                      Brend = x.Vozilo.Brend.Naziv
@@ -66,15 +92,14 @@ namespace RentACar.Controllers
                 DatumPovrata = model.DatumPovrata,
                 NacinPlacanja = model.NacinPlacanja,
                 KlijentID = int.Parse(_signInManager.GetUserId(User)),
-                BrojDanaIznajmljivanja=1,
+                BrojDanaIznajmljivanja = dateDiff(model.DatumPreuzimanja, model.DatumPovrata),
                 Cijena=1,
                 VoziloID=model.VoziloID,
                 PoslovnicaID=db.TrenutnaPoslovnica.FirstOrDefault(s=>s.VoziloID==model.VoziloID).PoslovnicaID,
                 VrijemePovrata=model.DatumPovrata,
                 VrijemePreuzimanja=model.DatumPreuzimanja,
                 VrstaRezervacije=model.VrstaRezervacije,
-                Zakljucen=false,
-                UposlenikID= 3
+                Zakljucen=false
                 
                 
 
@@ -82,6 +107,53 @@ namespace RentACar.Controllers
             db.Rezervacija.Add(rezervacija);
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        private int dateDiff(DateTime datumPreuzimanja, DateTime datumPovrata)
+        {
+            TimeSpan t = datumPovrata - datumPreuzimanja;
+            return t.Days;
+        }
+
+
+
+        public IActionResult Detalji(int id)
+        {
+            RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM {
+                RezervacijaID = x.RezervacijaID,
+                VrstaRezervacije = x.VrstaRezervacije,
+                DatumRezervacije = x.DatumRezervacije,
+                SlikaVozila= db.Slika.Where(sl => sl.VoziloID == x.VoziloID && sl.Pozicija ==1 ).Select(c => new Slika
+                {
+                    Name = c.Name,
+                    SlikaID = c.SlikaID,
+                    URL = c.URL,
+                    Pozicija = c.Pozicija
+                }).FirstOrDefault(),
+                DatumPreuzimanja = x.DatumPreuzimanja,
+                DatumPovrata = x.DatumPovrata,
+                Zakljucen = x.Zakljucen,
+                Cijena = x.Cijena,
+                BrojDanaIznajmljivanja = x.BrojDanaIznajmljivanja,
+                NacinPlacanja = x.NacinPlacanja,
+                Vozilo = x.Vozilo.Naziv,
+                Brend = x.Vozilo.Brend.Naziv,
+                Poslovnica = db.TrenutnaPoslovnica.FirstOrDefault(s => s.VoziloID == x.VoziloID).Poslovnica.Naziv,
+                ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
+                {
+                    Poruka = c.Poruka,
+                    OcjenaVrijednost = c.OcjenaVrijednost
+                }).FirstOrDefault(),
+                dodatneUsluge = db.RezervisanaUsluga.Where(u => u.RezervacijaID == x.RezervacijaID).Select(ru => new RezervacijaDetaljnoVM.Row{
+                    RezervisanaUslugaID = ru.RezervisanaUslugaID,
+                    Cijena = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Cijena,
+                    Kolicina = ru.Kolicina,
+                    Opis = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Opis,
+                    UkupnaCijenaUsluge = ru.UkupnaCijenaUsluge
+                }).ToList()
+            }).FirstOrDefault();
+
+            return View(nameof(Detalji), model);
         }
 
     }

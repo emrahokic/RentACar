@@ -6,6 +6,60 @@
 
 <div class="col-md-12">
     <div class="card card-plain">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title mt-0"> Rezervacije </h4>
+            <p class="card-category"> lista rezervacija</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Poslovnica</th>
+                            <th>Vozilo</th>
+                            <th>Datum Preuzimanja</th>
+                            <th>Datum Povratka</th>
+                            <th>Zakuljucen</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Item in Model.Rows)
+                        {
+                        @if(Item.UposlenikID == null){
+                        <tr>
+                            <th>@Item.Poslovnica</th>
+                            <th>@Item.Vozilo</th>
+                            <th>@Item.DatumPreuzimanja</th>
+                            <th>@Item.DatumPovrata</th>
+                            @if (Item.Zakljucen)
+                            {
+                            <th>
+                                Završeno
+                            </th>
+                            }
+                            else
+                            {
+                            <th>
+                                U toku
+                            </th>
+                            }
+                            <th>
+                                <a class="btn btn-info" asp-controller="Rezervacija" asp-action="Detalji" asp-route-id="@Item.RezervacijaID">Detalji</a>
+                                <a class="btn btn-success" href="#">Prihvati rezervaciju</a>
+                                <a class="btn btn-danger" href="#">Odbij rezervaciju</a>
+                            </th>
+
+                        </tr>}
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card card-plain">
         <div class="card-header card-header-info">
             <h4 class="card-title mt-0"> Rezervacije </h4>
             <p class="card-category"> lista rezervacija</p>
@@ -26,6 +80,8 @@
                     <tbody>
                         @foreach (var Item in Model.Rows)
                         {
+                         @if(Item.UposlenikID != null){
+
                         <tr>
                             <th>@Item.Poslovnica</th>
                             <th>@Item.Vozilo</th>
@@ -49,6 +105,7 @@
                             </th>
 
                         </tr>
+                        }
                         }
                     </tbody>
                 </table>
