@@ -11,7 +11,17 @@ using RentACar.ViewModels;
 
 namespace RentACar.Controllers
 {
-    [Authorize]
+    /****************************************
+     *
+     * 
+     * 
+     *       Trebas dodati koje su role za Authorize
+     *      [Authorize(Roles = "Administrator,Uposlenik")]
+     *       
+     * 
+     * 
+     ***************************************/
+    [Authorize(Roles = "Administrator,Uposlenik")]
     public class PrikolicaController : Controller
     {
         private ApplicationDbContext _context;

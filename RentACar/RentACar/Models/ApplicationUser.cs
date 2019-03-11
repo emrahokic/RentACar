@@ -14,7 +14,7 @@ namespace RentACar.Models
         [StringLength(50, MinimumLength = 2)]
         [RegularExpression(@"^[A-Ža-ž\s]+$")]
         public string Ime { get; set; }
-
+        public string Slika { get; set; }
         [Required(ErrorMessage = "Prezime je obavezno polje")]
         [StringLength(50, MinimumLength = 2)]
         [RegularExpression(@"^[A-Ža-ž\s]+$")]

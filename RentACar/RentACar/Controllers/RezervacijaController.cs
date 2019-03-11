@@ -26,6 +26,7 @@ namespace RentACar.Controllers
         }
 
         //Rezervacije za Uposlenika id = userID
+        [Authorize(Roles = "Administrator,Uposlenik")]
         public IActionResult IndexUposlenik(int id)
         {
             int PoslovnicaID = db.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == id).PoslovnicaID;
@@ -122,6 +123,7 @@ namespace RentACar.Controllers
             RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM {
                 RezervacijaID = x.RezervacijaID,
                 VrstaRezervacije = x.VrstaRezervacije,
+                Grad = x.Poslovnica.Grad.Naziv,
                 DatumRezervacije = x.DatumRezervacije,
                 SlikaVozila= db.Slika.Where(sl => sl.VoziloID == x.VoziloID && sl.Pozicija ==1 ).Select(c => new Slika
                 {
@@ -138,13 +140,14 @@ namespace RentACar.Controllers
                 NacinPlacanja = x.NacinPlacanja,
                 Vozilo = x.Vozilo.Naziv,
                 Brend = x.Vozilo.Brend.Naziv,
-                Poslovnica = db.TrenutnaPoslovnica.FirstOrDefault(s => s.VoziloID == x.VoziloID).Poslovnica.Naziv,
+                Poslovnica = x.Poslovnica.Naziv,
                 ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
                 {
                     Poruka = c.Poruka,
                     OcjenaVrijednost = c.OcjenaVrijednost
                 }).FirstOrDefault(),
                 dodatneUsluge = db.RezervisanaUsluga.Where(u => u.RezervacijaID == x.RezervacijaID).Select(ru => new RezervacijaDetaljnoVM.Row{
+                    Naziv = ru.DodatneUsluge.Naziv,
                     RezervisanaUslugaID = ru.RezervisanaUslugaID,
                     Cijena = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Cijena,
                     Kolicina = ru.Kolicina,

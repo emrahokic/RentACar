@@ -2,4 +2,255 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-<p>@Json.Serialize(Model)</p>
+
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-info">
+            <h3 class="card-title mt-0"> Rezervacija</h3>
+            <h5 class="card-title mt-0">Datum: @Model.DatumRezervacije</h5>
+        </div>
+    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-primary card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">store</i>
+                                    </div>
+                                    <h3 class="card-title" style="text-align:center">@Model.Poslovnica</h3>
+                                    <p class="card-category"></p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="content">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card card-stats">
+                                                        <div class="card-header card-header-info card-header-icon">
+                                                            <div class="card-icon">
+                                                                <i class="material-icons">directions_car</i>
+                                                            </div>
+                                                            <h3 class="card-title" style="text-align:center">@Model.Vozilo</h3>
+                                                        </div>
+                                                        <div class="card-body" style="text-align:left">
+                                                            <img src="@Model.SlikaVozila.URL" width="100%" title="@Model.SlikaVozila.Name" alt="@Model.SlikaVozila.Name" />
+
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="stats">
+                                                                <i class="material-icons">access_time</i> Datum rezervacije: @Model.DatumRezervacije
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card card-stats">
+                                                        <div class="card-header card-header-info card-header-icon">
+                                                            <div class="card-icon">
+                                                                <i class="material-icons">info</i>
+                                                            </div>
+                                                            <h3 class="card-title" style="text-align:center">Detalji rezervacije</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+
+                                                                    <tbody style="text-align:left">
+                                                                        <tr>
+                                                                            <th>
+                                                                                Brend Vozila
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.Brend
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Vozilo
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.Vozilo
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+
+                                                                            <th>
+                                                                                Vrsta rezervacije
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.VrstaRezervacije
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Datum preuzimanja vozila
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.DatumPreuzimanja
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Datum povrata vozila
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.DatumPovrata
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Ukupno dana rentanja
+                                                                            </th>
+                                                                            <td>
+                                                                                @Model.BrojDanaIznajmljivanja
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Zakuljucen</th>
+                                                                            @if (Model.Zakljucen)
+                                                                            {
+                                                                                <td>
+                                                                                    Završeno
+                                                                                </td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td>
+                                                                                    U toku
+                                                                                </td>
+                                                                            }
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="stats">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="card card-stats">
+                                                        <div class="card-header card-header-warning card-header-icon">
+                                                            <div class="card-icon">
+                                                                <i class="material-icons">attach_money</i>
+                                                            </div>
+                                                            <h3 class="card-title" style="text-align:center">@Model.Ukupno KM</h3>
+                                                        </div>
+                                                        <div class="card-body" style="text-align:left">
+                                                            <p>
+                                                                Rezervisana usluga: @Model.Cijena KM
+                                                            </p>
+                                                            <p>
+                                                                Dodatne usluge: @Model.UkupnaCijenaUsluga KM
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="stats">
+                                                                <i class="material-icons">attach_money</i> Način plaćanja: @Model.NacinPlacanja
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card card-stats">
+                                                        <div class="card-header card-header-primary card-header-icon">
+                                                            <div class="card-icon">
+                                                                <i class="material-icons">add_shopping_cart</i>
+                                                            </div>
+                                                            <h3 class="card-title" style="text-align:center">Dodatne Usluge</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead class="text-primary" style="text-align:left">
+                                                                        <tr>
+                                                                            <th>
+                                                                                Naziv
+                                                                            </th>
+                                                                            <th>
+                                                                                Opis
+                                                                            </th>
+                                                                            <th>
+                                                                                Kolicina
+                                                                            </th>
+                                                                            <th>
+                                                                                Cijena
+                                                                            </th>
+                                                                            <th>
+                                                                                Ukupno
+                                                                            </th>
+                                                                        </tr>
+                                                                   
+                                                                    </thead>
+                                                                    <tbody style="text-align:left">
+                                                                        @foreach (var item in Model.dodatneUsluge)
+                                                                        {
+                                                                            <tr>
+                                                                                <th>
+                                                                                    @item.Naziv
+                                                                                </th>
+                                                                                <th>
+                                                                                    @item.Opis
+                                                                                </th>
+                                                                                <th>
+                                                                                    @item.Kolicina
+                                                                                </th>
+                                                                                <th>
+                                                                                    @item.Cijena
+                                                                                </th>
+                                                                                <th>
+                                                                                    @item.UkupnaCijenaUsluge
+                                                                                </th>
+
+                                                                            </tr>
+                                                                        }
+
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <div class="stats">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">pin_drop</i> Lokacija: @Model.Grad
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+</div>

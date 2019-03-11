@@ -18,7 +18,7 @@ namespace RentACar.ViewModels
         public double Cijena { get; set; }
         public int BrojDanaIznajmljivanja { get; set; }
         public string NacinPlacanja { get; set; }
-
+        public string Grad { get; set; }
         public string Vozilo { get; set; }
         public string Brend { get; set; }
         public string Poslovnica { get; set; }
@@ -28,12 +28,31 @@ namespace RentACar.ViewModels
         public class Row
         {
             public int RezervisanaUslugaID { get; set; }
-
+            public string Naziv { get; set; }
             public double UkupnaCijenaUsluge { get; set; }
             public int Kolicina { get; set; }
             public string Opis { get; set; }
             public double Cijena { get; set; }
 
+        }
+        public double Ukupno {
+            get {
+
+                return Cijena + UkupnaCijenaUsluga;
+            }
+        }
+
+        public double UkupnaCijenaUsluga
+        {
+            get
+            {
+                double sum=0;
+                for (int i = 0; i < dodatneUsluge.Count; i++)
+                {
+                    sum += dodatneUsluge[i].Cijena * dodatneUsluge[i].Kolicina;
+                }
+                return sum;
+            }
         }
     }
 }
