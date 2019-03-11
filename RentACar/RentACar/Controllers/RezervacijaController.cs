@@ -110,6 +110,24 @@ namespace RentACar.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult DodajOcjenuKomentar(string Poruka, int Ocjena, int RezervacijaID)
+        {
+            int KlijentID = int.Parse(_signInManager.GetUserId(User));
+            Rezervacija tempR = db.Rezervacija.Find(RezervacijaID);
+            ApplicationUser tempK = db.Users.Find(KlijentID);
+            OcjenaRezervacija rezervacija = new OcjenaRezervacija()
+            {
+                Poruka = Poruka,
+                OcjenaVrijednost = Ocjena,
+                Rezervacija = tempR,
+                Klijent = tempK
+            };
+            db.OcjenaRezervacija.Add(rezervacija);
+            db.SaveChanges();
+            return Redirect("Detalji/"+tempR.RezervacijaID);
+        }
+
         private int dateDiff(DateTime datumPreuzimanja, DateTime datumPovrata)
         {
             TimeSpan t = datumPovrata - datumPreuzimanja;

@@ -46,68 +46,64 @@
                 {
 
 
-                    <ul class="nav">
-                        <li class="nav-item" id="dashboard">
-                            <a class="nav-link" href="/Home/Index">
-                                <i class="material-icons">dashboard</i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="rezervacije">
-                            <a class="nav-link " asp-area="" asp-controller="Rezervacija" asp-route-id="@UserManager.GetUserId(User)" asp-action="IndexUposlenik">
-                                <i class="material-icons">insert_invitation</i>
-                                <p>Rezervacije</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="vozila">
-                            <a class="nav-link" href="/Vozilo/Index">
-                                <i class="material-icons">directions_car</i>
-                                <p>Vozila</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="usluge">
-                            <a class="nav-link" href="/Usluge/Index">
-                                <i class="material-icons">library_books</i>
-                                <p>Usluge</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="prikolice">
-                            <a class="nav-link" href="/Prikolica/Index">
-                                <i class="material-icons">link</i>
-                                <p>Prikolice</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./map.html">
-                                <i class="material-icons">credit_card</i>
-                                <p>Uplate</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./notifications.html">
-                                <i class="material-icons">build</i>
-                                <p>Podesavanja</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./rtl.html">
-                                <i class="material-icons">info</i>
-                                <p>Informacije</p>
-                            </a>
-                        </li>
-                    </ul>
+                <ul class="nav">
+                    <li class="nav-item" id="dashboard">
+                        <a class="nav-link" href="/Home/Index">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                  
+                    <li class="nav-item" id="rezervacije">
+                        <a class="nav-link " asp-area="" asp-controller="Rezervacija" asp-route-id="@UserManager.GetUserId(User)" asp-action="IndexUposlenik">
+                            <i class="material-icons">insert_invitation</i>
+                            <p>Rezervacije</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="vozila">
+                        <a class="nav-link" href="/Vozilo/Index">
+                            <i class="material-icons">directions_car</i>
+                            <p>Vozila</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="usluge">
+                        <a class="nav-link" href="/Usluge/Index">
+                            <i class="material-icons">library_books</i>
+                            <p>Usluge</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="prikolice">
+                        <a class="nav-link" href="/Prikolica/Index">
+                            <i class="material-icons">link</i>
+                            <p>Prikolice</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./map.html">
+                            <i class="material-icons">credit_card</i>
+                            <p>Uplate</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./notifications.html">
+                            <i class="material-icons">build</i>
+                            <p>Podesavanja</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./rtl.html">
+                            <i class="material-icons">info</i>
+                            <p>Informacije</p>
+                        </a>
+                    </li>
+                </ul>
                 }
                 @if (this.User.IsInRole("Klijent"))
                 {
 
 
                     <ul class="nav">
-                        <li class="nav-item" id="profil">
-                            <a class="nav-link" asp-area="" asp-controller="Profil" asp-action="Index">
-                                <i class="material-icons">person</i>
-                                <p>Profil</p>
-                            </a>
-                        </li>
+                       
                         <li class="nav-item" id="rezervacije">
                             <a class="nav-link " asp-area="" asp-controller="Rezervacija" asp-action="Index">
                                 <i class="material-icons">insert_invitation</i>
