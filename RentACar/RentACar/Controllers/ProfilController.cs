@@ -52,7 +52,16 @@ namespace RentACar.Controllers
             {
             model.Notification = msg;
             }
+            if (model.Slika == null)
+            {
+                model.Slika = Path.Combine("\\images\\Profilne\\65U.svg");
+
+            }
+            else
+            {
+
             model.Slika = Path.Combine("\\images\\Profilne", model.Slika);
+            }
             List<SelectListItem> listagradova = new List<SelectListItem>();
             listagradova.AddRange(db.Grad.Select(x => new SelectListItem()
             {
