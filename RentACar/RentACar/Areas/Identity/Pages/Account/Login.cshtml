@@ -38,6 +38,7 @@
                     <p>
                         <a class="btn btn-warning radiousStyle btn-block" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
+                    @Html.AntiForgeryToken()
                     <p>
                         <a asp-page="./Register" class="btn btn-info radiousStyle btn-block" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>

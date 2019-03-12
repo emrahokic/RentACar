@@ -49,6 +49,7 @@ namespace RentACar.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        [ValidateAntiForgeryToken]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))

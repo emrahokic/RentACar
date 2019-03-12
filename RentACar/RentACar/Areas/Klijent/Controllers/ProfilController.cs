@@ -16,7 +16,8 @@ using RentACar.Models;
 
 namespace RentACar.Areas.Klijent.Controlers
 {
-   [Area("Klijent")]
+    [Authorize(Roles = "Klijent")]
+    [Area("Klijent")]
     public class ProfilController : Controller
     {
         private UserManager<ApplicationUser> _signInManager;

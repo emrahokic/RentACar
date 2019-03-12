@@ -12,7 +12,7 @@ using RentACar.Areas.Klijent.ViewModels;
 
 namespace RentACar.Areas.Klijent.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Klijent")]
     [Area("Klijent")]
     public class RezervacijaController : Controller
     {
