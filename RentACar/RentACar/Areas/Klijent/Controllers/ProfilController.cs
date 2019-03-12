@@ -10,12 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
+using RentACar.Areas.Klijent.ViewModels;
 using RentACar.Data;
 using RentACar.Models;
 
-using RentACar.ViewModels;
-namespace RentACar.Controllers
+namespace RentACar.Areas.Klijent.Controlers
 {
+   [Area("Klijent")]
     public class ProfilController : Controller
     {
         private UserManager<ApplicationUser> _signInManager;
@@ -102,12 +103,13 @@ namespace RentACar.Controllers
             ap.Email = model.Email;
             ap.UserName = model.Username;
             ap.PhoneNumber = model.BrTelefona;
+            ap.Ime = model.Ime;
             ap.Prezime = model.Prezime;
             ap.Spol = model.Spol;
             ap.DatumRodjenja = model.DatumRodjenja;
             ap.JMBG = model.JMBG;
             ap.GradID = model.GradID ;
-
+            
             db.SaveChanges();
             db.Dispose();
 

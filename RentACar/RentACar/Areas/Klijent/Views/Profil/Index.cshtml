@@ -13,7 +13,7 @@
                 <p class="card-category">Complete your profile</p>
             </div>
             <div class="card-body">
-                <form asp-action="UpdateProfil" asp-controller="Profil" method="put">
+                <form asp-action="UpdateProfil" asp-area="Klijent" asp-controller="Profil" method="put">
                     <div class="row">
 
                         <div class="col-md-3">
@@ -127,7 +127,7 @@
             </div>
         </div>
     </div>
-    <form asp-action="UpdateProfilImage" asp-controller="Profil" method="post" enctype="multipart/form-data">
+    <form asp-action="UpdateProfilImage" asp-area="Klijent" asp-controller="Profil" method="post" enctype="multipart/form-data">
         <input id="File" type="file" style="visibility: hidden" multiple name="SlikaURL" /><br />
         <button type="submit" id="SubmitButton1" style="visibility: hidden" class="btn btn-primary pull-right"><div class="ripple-container"></div></button>
     </form>

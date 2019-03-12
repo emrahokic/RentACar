@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RentACar.ViewModels
+namespace RentACar.Areas.Klijent.ViewModels
 {
     public class RezervacijaDetaljnoVM
     {

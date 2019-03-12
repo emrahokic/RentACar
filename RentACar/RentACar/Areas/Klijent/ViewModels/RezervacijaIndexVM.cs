@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RentACar.Models.ViewModels
+namespace RentACar.Areas.Klijent.ViewModels
 {
     public class RezervacijaIndexVM
     {

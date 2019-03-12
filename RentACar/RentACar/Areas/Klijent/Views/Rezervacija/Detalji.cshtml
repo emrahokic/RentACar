@@ -1,4 +1,4 @@
-﻿@model RentACar.ViewModels.RezervacijaDetaljnoVM
+﻿@model RezervacijaDetaljnoVM
 @{
     ViewData["Title"] = "Detalji";
 }
@@ -314,7 +314,7 @@
 
                                                                 <div class="card-body">
 
-                                                                    <form asp-controller="Rezervacija" asp-action="DodajOcjenuKomentar" method="post">
+                                                                    <form asp-controller="Rezervacija" asp-area="Klijent" asp-action="DodajOcjenuKomentar" method="post">
                                                                         <div class="row">
                                                                             <div class="col-md-12" style="text-align:center">
                                                                                 <button id="btn1" class="btn btn-round">1<div class="ripple-container"></div></button>

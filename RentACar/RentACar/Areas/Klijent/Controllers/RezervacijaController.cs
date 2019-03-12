@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
 using RentACar.Models;
-using RentACar.Models.ViewModels;
-using RentACar.ViewModels;
+using RentACar.Areas.Klijent.ViewModels;
 
-namespace RentACar.Controllers
+namespace RentACar.Areas.Klijent.Controllers
 {
     [Authorize]
+    [Area("Klijent")]
     public class RezervacijaController : Controller
     {
         private  UserManager<ApplicationUser> _signInManager;
