@@ -62,7 +62,7 @@
                         if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Profil" asp-area="Administrator" onclick="scrollToDownload()">
+                                <a class="nav-link" asp-controller="Profil" asp-area="Administrator" asp-action="Index"  onclick="scrollToDownload()">
                                     <i class="material-icons">dashboard</i> Dashboard ( @User.Identity.Name )
                                 </a>
                             </li>
@@ -70,7 +70,7 @@
                         else if (User.IsInRole("Klijent"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Profil" asp-area="Klijent" onclick="scrollToDownload()">
+                                <a class="nav-link" asp-controller="Profil" asp-area="Klijent" asp-action="Index"  onclick="scrollToDownload()">
                                     <i class="material-icons">dashboard</i> Dashboard  ( @User.Identity.Name )
                                 </a>
                             </li>
@@ -78,7 +78,7 @@
                         else if (User.IsInRole("Uposlenik"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Profil" asp-area="Uposlenik" onclick="scrollToDownload()">
+                                <a class="nav-link" asp-controller="Profil" asp-area="Uposlenik" asp-action="Index" onclick="scrollToDownload()">
                                     <i class="material-icons">dashboard</i> Dashboard ( @User.Identity.Name )
                                 </a>
                             </li>
