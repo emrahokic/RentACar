@@ -12,7 +12,6 @@ using RentACar.ViewModels;
 
 namespace RentACar.Controllers
 {
-    [Authorize]
     public class VoziloController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +21,7 @@ namespace RentACar.Controllers
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var model = new VoziloVM
