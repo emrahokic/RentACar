@@ -8,18 +8,23 @@
 
 @if (showBanner)
 {
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " >
-            <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <div id="cookieConsent" class="alert alert-warning alert-dismissible fade show" style="width:100%" role="alert">
+        <nav class=" fixed-bottom " style="margin-top:10px" >
+            <div class="content">
+                <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="cookieConsent" class="alert alert-primary alert-dismissible fade show"  role="alert">
                         <strong>Holy cookie!</strong> Use this space to summarize your privacy and cookie use policy.
 
                         <div>
-                            <a asp-controller="Home" asp-action="Privacy" class="btn btn-info navbar-btn">Learn More</a>
-                            <button class="btn btn-success pull-right" data-dismiss="alert" data-cookie-string="@cookieString">Accept</button>
+                            <a asp-controller="Home" asp-action="Privacy" class="btn btn-rose navbar-btn">Learn More</a>
+                            <button class="btn btn-rose pull-right" data-dismiss="alert" data-cookie-string="@cookieString">Accept</button>
                         </div>
 
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </nav>

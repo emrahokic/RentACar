@@ -36,6 +36,9 @@
     <Content Update="Areas\Klijent\Views\Rezervacija\IndexUposlenik.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\_LayoutSite.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_LayoutKlijent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

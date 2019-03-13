@@ -9,7 +9,6 @@ using RentACar.Models;
 
 namespace RentACar.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

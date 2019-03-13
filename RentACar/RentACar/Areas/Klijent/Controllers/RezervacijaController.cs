@@ -12,7 +12,7 @@ using RentACar.Areas.Klijent.ViewModels;
 
 namespace RentACar.Areas.Klijent.Controllers
 {
-    [Authorize(Roles = "Klijent")]
+    [Authorize(Roles = "Klijent,Uposlenik")]
     [Area("Klijent")]
     public class RezervacijaController : Controller
     {
@@ -26,7 +26,7 @@ namespace RentACar.Areas.Klijent.Controllers
         }
 
         //Rezervacije za Uposlenika id = userID
-        [Authorize(Roles = "Administrator,Uposlenik")]
+        [Authorize(Roles = "Uposlenik")]
         public IActionResult IndexUposlenik(int id)
         {
             int PoslovnicaID = db.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == id).PoslovnicaID;
@@ -111,6 +111,7 @@ namespace RentACar.Areas.Klijent.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DodajOcjenuKomentar(string Poruka, int Ocjena, int RezervacijaID)
         {
             int KlijentID = int.Parse(_signInManager.GetUserId(User));

@@ -42,13 +42,8 @@
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
-                    @{ 
-                        ApplicationUser u = await UserManager.GetUserAsync(User);
-
-                        if (UserManager.IsInRoleAsync(u, "Uposlenik").Result)
-                        {
-
-
+                   
+                       
                         <ul class="nav">
                             <li class="nav-item" id="dashboard">
                                 <a class="nav-link" href="/Home/Index">
@@ -58,7 +53,7 @@
                             </li>
 
                             <li class="nav-item" id="rezervacije">
-                                <a class="nav-link " asp-area="" asp-controller="Rezervacija" asp-route-id="@UserManager.GetUserId(User)" asp-action="IndexUposlenik">
+                                <a class="nav-link " asp-area="Klijent" asp-controller="Rezervacija" asp-route-id="@UserManager.GetUserId(User)" asp-action="IndexUposlenik">
                                     <i class="material-icons">insert_invitation</i>
                                     <p>Rezervacije</p>
                                 </a>
@@ -100,30 +95,7 @@
                                 </a>
                             </li>
                         </ul>
-                        }
-                    @if (UserManager.IsInRoleAsync(u, "Klijent").Result)
-                    {
-
-
-                        <ul class="nav">
-
-                            <li class="nav-item" id="rezervacije">
-                                <a class="nav-link " asp-area="Klijent" asp-controller="Rezervacija" asp-action="Index">
-                                    <i class="material-icons">insert_invitation</i>
-                                    <p>Rezervacije</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item ">
-                                <a class="nav-link" href="./map.html">
-                                    <i class="material-icons">credit_card</i>
-                                    <p>Uplate</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                        }
-                    }
+                   
                 </div>
             </div>
             <div class="main-panel ps-container ps-theme-default">
@@ -131,31 +103,9 @@
                 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " style="border-bottom: 1px solid #d3d3d3; ">
                     <div class="container-fluid">
                         <div class="navbar-wrapper">
-                            @*<a class="navbar-brand" href="#pablo">Nova rezervacija</a>*@
-                            @if (this.User.IsInRole("Klijent"))
-                            {
-
-                                <div>Klijent: @UserManager.GetUserName(User) </div>
-
-                            }
-                            @if (this.User.IsInRole("Administrator"))
-                            {
-
-                                <div>Admin: @UserManager.GetUserName(User)  </div>
-
-                            }
-                            @if (this.User.IsInRole("Uposlenik"))
-                            {
 
                                 <div>Uposlenik: @UserManager.GetUserName(User)</div>
 
-                            }
-                            @if (this.User.IsInRole("Mehaničar"))
-                            {
-
-                                <div>Mehaničar: @UserManager.GetUserName(User) </div>
-
-                            }
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="sr-only">Toggle navigation</span>

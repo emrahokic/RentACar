@@ -76,6 +76,7 @@ namespace RentACar.Areas.Klijent.Controlers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProfilImage(ProfilDetaljnoVM model, IFormFile SlikaURL)
         {
 
@@ -95,6 +96,8 @@ namespace RentACar.Areas.Klijent.Controlers
             return RedirectToAction(nameof(Index),values);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UpdateProfil(ProfilDetaljnoVM model)
         {
             int id = int.Parse(_signInManager.GetUserId(User));
