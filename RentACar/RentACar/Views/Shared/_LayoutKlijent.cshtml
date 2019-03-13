@@ -126,8 +126,9 @@
                                         <a class="dropdown-item" asp-area="Klijent" asp-controller="Profil" asp-action="Index">Profil</a>
                                         <a class="dropdown-item" href="#">Podesavanja</a>
                                         <div class="dropdown-divider"></div>
+
                                         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-                                            <button type="submit" class="btn btn-link navbar-btn navbar-link">ODJAVA</button>
+                                            <button type="submit" class="btn btn-link navbar-btn navbar-link">LOG OUT</button>
                                         </form>
                                     </div>
                                 </li>
