@@ -14,7 +14,7 @@ using RentACar.Areas.Klijent.ViewModels;
 using RentACar.Data;
 using RentACar.Models;
 
-namespace RentACar.Areas.Klijent.Controlers
+namespace RentACar.Areas.Klijent.Controllers
 {
     [Authorize(Roles = "Klijent")]
     [Area("Klijent")]
@@ -77,7 +77,7 @@ namespace RentACar.Areas.Klijent.Controlers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProfilImage(ProfilDetaljnoVM model, IFormFile SlikaURL)
+        public IActionResult UpdateProfilImage(ProfilDetaljnoVM model, IFormFile SlikaURL)
         {
 
             int id = int.Parse(_signInManager.GetUserId(User));
@@ -93,7 +93,7 @@ namespace RentACar.Areas.Klijent.Controlers
 
             var values = new RouteValueDictionary();
             values.Add("msg", "ok");
-            return RedirectToAction(nameof(Index),values);
+            return RedirectToAction(nameof(Index), values);
         }
 
         [HttpPost]

@@ -17,6 +17,7 @@
     <Folder Include="Areas\Uposlenik\Controllers\" />
     <Folder Include="Areas\Uposlenik\Data\" />
     <Folder Include="Areas\Uposlenik\Models\" />
+    <Folder Include="Areas\Uposlenik\ViewModels\" />
     <Folder Include="Areas\Uposlenik\Views\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\ViewModels\" />
