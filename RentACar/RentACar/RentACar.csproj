@@ -14,10 +14,8 @@
   <ItemGroup>
     <Folder Include="Areas\Klijent\Data\" />
     <Folder Include="Areas\Klijent\Models\" />
-    <Folder Include="Areas\Uposlenik\Controllers\" />
     <Folder Include="Areas\Uposlenik\Data\" />
     <Folder Include="Areas\Uposlenik\Models\" />
-    <Folder Include="Areas\Uposlenik\Views\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="wwwroot\images\Profilne\" />
@@ -36,13 +34,31 @@
     <Content Update="Areas\Klijent\Views\Rezervacija\IndexUposlenik.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Uposlenik\Views\Profil\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\Vozilo\Detalji.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\Vozilo\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\Vozilo\Index2.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_LayoutSite.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\_LayoutKlijent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Usluge\UrediForm.cshtml">
+    <Content Update="Areas\Uposlenik\Views\Usluge\UrediForm.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

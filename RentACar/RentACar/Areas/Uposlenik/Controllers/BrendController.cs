@@ -9,9 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.Models;
 
-namespace RentACar.Controllers
+namespace RentACar.Areas.Uposlenik.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Uposlenik")]
+    [Area("Uposlenik")]
     public class BrendController : Controller
     {
         private readonly ApplicationDbContext _context;

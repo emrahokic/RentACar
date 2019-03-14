@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
 using RentACar.Models;
-using RentACar.ViewModels;
+using RentACar.Areas.Uposlenik.ViewModels;
 
-namespace RentACar.Controllers
+namespace RentACar.Areas.Uposlenik.Controllers
 {
     /****************************************
      *
@@ -22,6 +22,7 @@ namespace RentACar.Controllers
      * 
      ***************************************/
     [Authorize(Roles = "Administrator,Uposlenik")]
+    [Area("Uposlenik")]
     public class PrikolicaController : Controller
     {
         private ApplicationDbContext _context;

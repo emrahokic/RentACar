@@ -1,31 +1,33 @@
-﻿@model RentACar.ViewModels.DodatneUslugeVM
-@{
-    Layout = "_Layout";
-}
+﻿@model RentACar.Models.DodatneUsluge
 
-<h3>Dodaj uslugu</h3>
+
+<h3>Izmjena postojece usluge</h3>
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Dodaj" asp-controller="Usluge" method="post">
+        <form asp-area="Uposlenik" asp-action="UrediSnimi" asp-controller="Usluge" method="post">
+
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <input type="hidden" value="@Model.DodatneUslugeID" name="DodatneUslugeID"/>
+            </div>
+            <div class="form-group">
                 <label asp-for="Naziv" class="control-label"></label>
-                <input asp-for="Naziv" class="form-control" />
+                <input asp-for="Naziv" class="form-control" value="@Model.Naziv"/>
                 <span asp-validation-for="Naziv" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Opis" class="control-label"></label>
-                <input asp-for="Opis" class="form-control" />
+                <input asp-for="Opis" class="form-control" value="@Model.Opis"/>
                 <span asp-validation-for="Opis" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Cijena" class="control-label"></label>
-                <input asp-for="Cijena" class="form-control" />
+                <input asp-for="Cijena" class="form-control" value="@Model.Cijena" />
                 <span asp-validation-for="Cijena" class="text-danger"></span>
             </div>
 
@@ -38,5 +40,5 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Usluge">Back to List</a>
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Usluge">Back to List</a>
 </div>

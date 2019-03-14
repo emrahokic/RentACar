@@ -24,22 +24,22 @@ namespace RentACar
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                //try
-                //{
+                try
+                {
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
                     var dbInitializerLogger = services.GetRequiredService<ILogger<DatabaseDataMaker>>();
                     DatabaseDataMaker.Napuni(context, userManager, roleManager, dbInitializerLogger).Wait();
-                //}
-                //catch (Exception ex)
-                //{
+                }
+                catch (Exception ex)
+                {
 
-                //    var logger = services.GetRequiredService<ILogger<Program>>();
-                //    logger.LogError(ex, "An error occured while seeding the database.");
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occured while seeding the database.");
 
-                //}
+                }
             }
                 host.Run();
         }

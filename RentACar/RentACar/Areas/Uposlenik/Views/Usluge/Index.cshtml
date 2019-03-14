@@ -1,4 +1,4 @@
-﻿@model RentACar.ViewModels.DodatneUslugeIndexVM
+﻿@model DodatneUslugeIndexVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -23,15 +23,15 @@
             <th>@x.Opis</th>
             <th>@x.Cijena</th>
             <th>
-                <a class="btn btn-danger" href="/Usluge/Obrisi/@x.DodatneUslugeID">Obrisi</a>
-                <a class="btn btn-success" asp-action="UrediForm" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID">Uredi</a>
+                <a class="btn btn-danger" asp-area="Uposlenik" asp-action="Obrisi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID" >Obrisi</a>
+                <a class="btn btn-success" asp-area="Uposlenik" asp-action="UrediForm" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID">Uredi</a>
             </th>
         </tr>
         }
     </tbody>
 </table>
 
-<a class="btn btn-success" asp-action="DodajForm" asp-controller="Usluge">Dodaj</a>
+<a class="btn btn-success" asp-area="Uposleik" asp-action="DodajForm" asp-controller="Usluge">Dodaj</a>
 <script>
     document.getElementById("usluge").className = "active";
 </script>

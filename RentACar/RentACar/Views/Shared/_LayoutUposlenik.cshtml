@@ -53,43 +53,43 @@
                             </li>
 
                             <li class="nav-item" id="rezervacije">
-                                <a class="nav-link " asp-area="Klijent" asp-controller="Rezervacija" asp-route-id="@UserManager.GetUserId(User)" asp-action="IndexUposlenik">
+                                <a class="nav-link " asp-area="" asp-controller="" asp-route-id="" asp-action="">
                                     <i class="material-icons">insert_invitation</i>
                                     <p>Rezervacije</p>
                                 </a>
                             </li>
                             <li class="nav-item" id="vozila">
-                                <a class="nav-link" href="/Vozilo/Index">
+                                <a class="nav-link" asp-area="Uposlenik" asp-controller="Vozilo" asp-action="Index">
                                     <i class="material-icons">directions_car</i>
                                     <p>Vozila</p>
                                 </a>
                             </li>
                             <li class="nav-item" id="usluge">
-                                <a class="nav-link" href="/Usluge/Index">
+                                <a class="nav-link" asp-area="Uposlenik" asp-controller="Usluge" asp-action="Index">
                                     <i class="material-icons">library_books</i>
                                     <p>Usluge</p>
                                 </a>
                             </li>
                             <li class="nav-item" id="prikolice">
-                                <a class="nav-link" href="/Prikolica/Index">
+                                <a class="nav-link" asp-area="Uposlenik" asp-controller="Prikolica" asp-action="Index">
                                     <i class="material-icons">link</i>
                                     <p>Prikolice</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="./map.html">
+                                <a class="nav-link" href="#">
                                     <i class="material-icons">credit_card</i>
                                     <p>Uplate</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="./notifications.html">
+                                <a class="nav-link" href="#">
                                     <i class="material-icons">build</i>
                                     <p>Podesavanja</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="./rtl.html">
+                                <a class="nav-link" href="#">
                                     <i class="material-icons">info</i>
                                     <p>Informacije</p>
                                 </a>
@@ -154,7 +154,7 @@
                                         </p>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                        <a class="dropdown-item" asp-area="Klijent" asp-controller="Profil" asp-action="Index">Profil</a>
+                                        <a class="dropdown-item" asp-area="Uposlenik" asp-controller="Profil" asp-action="Index">Profil</a>
                                         <a class="dropdown-item" href="#">Podesavanja</a>
                                         <div class="dropdown-divider"></div>
                                         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">

@@ -121,7 +121,7 @@ namespace RentACar.Data
             //kreiranje usera admin, uposlenik, klijent
             string uposlenik = "Uposlenik";
             string klijent = "Klijent";
-            string admin = "Admin";
+            string admin = "Administrator";
             string mehanicar = "Mehanicar";
             string vozac = "Vozac";
 
@@ -343,6 +343,13 @@ namespace RentACar.Data
             context.AddRange(vozilaPrijevoz);
             context.SaveChanges();
 
+            //dodavanje slika vozilima
+            slike.Add(new Slika { Name = "BMW X6", Pozicija = 1, URL = "/images/Vozila/BMWX6/BMWX6_bijela_1.jpg", Vozilo = bmwx6 });
+            slike.Add(new Slika { Name = "BMW X6", Pozicija = 2, URL = "/images/Vozila/BMWX6/BMWX6_bijela_2.jpg", Vozilo = bmwx6 });
+            slike.Add(new Slika { Name = "BMW X6", Pozicija = 3, URL = "/images/Vozila/BMWX6/BMWX6_bijela_3.jpg", Vozilo = bmwx6 });
+            slike.Add(new Slika { Name = "BMW X6", Pozicija = 4, URL = "/images/Vozila/BMWX6/BMWX6_bijela_4.jpg", Vozilo = bmwx6 });
+            context.AddRange(slike);
+            context.SaveChanges();
 
         }
 

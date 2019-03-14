@@ -1,4 +1,4 @@
-﻿@model RentACar.ViewModels.DodajVoziloPrikolicaVM
+﻿@model DodajVoziloPrikolicaVM
 @{
     ViewData["Title"] = "DodajVozilo";
 }
@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
+        <form asp-area="Uposlenik" asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
             <input type="text" name="PrikolicaID" value="@Model.PrikolicaID"/>
             <div class="form-group">
                 <label>Tip kuke: </label>
