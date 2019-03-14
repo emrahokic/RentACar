@@ -7,7 +7,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
+        <form asp-area="Uposlenik" asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
 
             <div class="form-group">
                 <label asp-for="Sirina" class="control-label"></label>
@@ -42,7 +42,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Prikolica">Back to List</a>
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
 </div>
 
 <script>

@@ -1,12 +1,11 @@
-﻿@model RentACar.ViewModels.DodatneUslugeVM
-
+﻿@model DodatneUslugeVM
 
 <h3>Dodaj uslugu</h3>
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Dodaj" asp-controller="Usluge" method="post">
+        <form asp-area="Uposlenik" asp-action="Dodaj" asp-controller="Usluge" method="post">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -36,5 +35,5 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Usluge">Back to List</a>
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Usluge">Back to List</a>
 </div>

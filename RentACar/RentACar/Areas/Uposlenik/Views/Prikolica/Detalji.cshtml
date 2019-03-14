@@ -1,4 +1,5 @@
-﻿@model RentACar.ViewModels.PrikolicaDetaljiVM
+﻿@model PrikolicaDetaljiVM
+
 @{
     ViewData["Title"] = "Detalji";
 }
@@ -71,12 +72,12 @@
 
 <br />
 <div>
-    <a asp-action="Index" asp-controller="Prikolica">Back to List</a>
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
 </div>
 
 <script>
     $("#pozivID").click(function (event) {
-        $.get("/Prikolica/DodajVozilo?id=@Model.PrikolicaID",
+        $.get("/Areas/Uposlenik/Prikolica/DodajVozilo?id=@Model.PrikolicaID",
             function (rezultat, status) {
                 $("#dodajVozilo").html(rezultat);
 

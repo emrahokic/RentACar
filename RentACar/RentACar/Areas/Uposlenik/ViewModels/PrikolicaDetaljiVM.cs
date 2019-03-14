@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RentACar.ViewModels
+namespace RentACar.Areas.Uposlenik.ViewModels
 {
     public class PrikolicaDetaljiVM
     {

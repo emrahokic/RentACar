@@ -1,0 +1,195 @@
+﻿@model ProfilDetaljnoVM
+@{
+    ViewData["Title"] = "Index";
+    var n = Model.Notification;
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Edit Profile</h4>
+                <p class="card-category">Complete your profile</p>
+            </div>
+            <div class="card-body">
+                <form asp-action="UpdateProfil" asp-area="Uspolenik" asp-controller="Profil" method="post">
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Username</label>
+                                <input asp-for="Username" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Email address</label>
+                                <input asp-for="Email" class="form-control" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Fist Name</label>
+                                <input asp-for="Ime" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Last Name</label>
+                                <input asp-for="Prezime" class="form-control" />
+
+                            </div>
+                        </div><div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Birth date</label>
+                                <input asp-for="DatumRodjenja" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Gender</label>
+                                <input asp-for="Spol" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Phone number</label>
+                                <input asp-for="BrTelefona" class="form-control" />
+                            </div>
+                        </div> 
+                        <div class="col-md-4" >
+                            <div class="form-group bmd-form-group is-filled">
+                                <label  class="bmd-label-floating">JMBG</label>
+                                <input asp-for="JMBG" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Adress</label>
+                                <input asp-for="Adresa" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">City</label>
+                                <select asp-for="GradID" asp-items="Model.Gradovi" class="form-control"> </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>About Me</label>
+                                <div class="form-group bmd-form-group">
+                                    <textarea class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile<div class="ripple-container"></div></button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-profile">
+            <div class="card-avatar" style="text-align:center">
+
+                <a id="Select" style="cursor:pointer">
+                    <img id="ProfileImg" class="img" src="@Model.Slika" alt="Profilna Slika" title="Upload new image">
+                </a>
+
+            </div>
+          
+
+            <div class="card-body">
+                <button id="SubmitButton2" style="visibility:hidden"  class="btn btn-primary  btn-round btn-just-icon badge"><i class="material-icons">check</i><div class="ripple-container"></div></button>
+
+                <h6 class="card-category text-gray">@Model.Grad</h6>
+                <h4 class="card-title">@Model.Ime @Model.Prezime</h4>
+                <h4 class="card-title">@Model.Username</h4>
+                <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+            </div>
+        </div>
+    </div>
+    <form asp-action="UpdateProfilImage" asp-area="Uposlenik" asp-controller="Profil" method="post" enctype="multipart/form-data">
+        <input id="File" type="file" style="visibility: hidden" multiple name="SlikaURL" /><br />
+        @Html.AntiForgeryToken()
+
+        <button type="submit" id="SubmitButton1" style="visibility: hidden" class="btn btn-primary pull-right"><div class="ripple-container"></div></button>
+    </form>
+    <p id="Message" style="visibility:hidden">@Model.Notification</p>
+</div>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        var x = $("#Message").text();
+        if (x == "ok") {
+
+            showNotification('top', 'center');
+            
+        }
+
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ProfileImg').attr('src', e.target.result);
+                $('#SubmitButton2').css("visibility","visible")
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+
+    $('#Select').click(function () {
+        $('#File').click();
+    });
+    $('#SubmitButton2').click(function () {
+        $('#SubmitButton1').click();
+    });
+    $('input[type="file"]').change(function (e) {
+        readURL(this);
+
+    });
+    function showNotification(from, align) {
+
+        $.notify({
+            icon: "check",
+            message: "Profile image successuful updated!"
+
+        }, {
+                type: 'success',
+                timer: 4000,
+                placement: {
+                    from: from,
+                    align: align
+                }
+            });
+    }
+</script>

@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <h3>Izmjena podataka za prikolicu</h3>
         <hr />
-        <form asp-action="UrediSnimi" asp-controller="Prikolica" method="post">
+        <form asp-area="Uposlenik" asp-action="UrediSnimi" asp-controller="Prikolica" method="post">
 
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -49,7 +49,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Prikolica">Back to List</a>
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
 </div>
 
 <script>
