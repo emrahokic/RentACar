@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<a asp-action="Dodaj" class="btn btn-primary">Dodaj rezervaciju</a>
+<a asp-action="Dodaj" asp-area="Klijent" class="btn btn-primary">Dodaj rezervaciju</a>
 
 <div class="col-md-12">
     <div class="card card-plain">
@@ -44,7 +44,7 @@
                                 </th>
                             }
                             <th>
-                                <a class="btn btn-success" asp-controller="Rezervacija" asp-action="Detalji" asp-route-id="@Item.RezervacijaID">Detalji</a>
+                                <a class="btn btn-success" asp-controller="Rezervacija" asp-action="Detalji" asp-area="Klijent" asp-route-id="@Item.RezervacijaID">Detalji</a>
                                 <a class="btn btn-success" href="#">Uredi</a>
                             </th>
 

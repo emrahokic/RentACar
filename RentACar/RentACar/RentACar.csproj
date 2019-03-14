@@ -31,10 +31,16 @@
     <Content Update="Areas\Klijent\Views\Rezervacija\Detalji.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Klijent\Views\Rezervacija\IndexUposlenik.cshtml">
+    <Content Update="Areas\Uposlenik\Views\Profil\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Uposlenik\Views\Profil\Index.cshtml">
+    <Content Update="Areas\Uposlenik\Views\Rezervacija\Detalji.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\Rezervacija\Dodaj.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Uposlenik\Views\Rezervacija\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Uposlenik\Views\Vozilo\Detalji.cshtml">
