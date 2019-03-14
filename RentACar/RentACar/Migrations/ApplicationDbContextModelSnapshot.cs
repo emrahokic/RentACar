@@ -15,7 +15,7 @@ namespace RentACar.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -266,11 +266,13 @@ namespace RentACar.Migrations
 
                     b.Property<string>("Naziv");
 
-                    b.Property<int>("OpcinaID");
+                    b.Property<int>("PostanskiBroj");
+
+                    b.Property<int>("RegijaID");
 
                     b.HasKey("GradID");
 
-                    b.HasIndex("OpcinaID");
+                    b.HasIndex("RegijaID");
 
                     b.ToTable("Grad");
                 });
@@ -346,25 +348,6 @@ namespace RentACar.Migrations
                     b.HasIndex("RezervacijaID");
 
                     b.ToTable("OcjenaRezervacija");
-                });
-
-            modelBuilder.Entity("RentACar.Models.Opcina", b =>
-                {
-                    b.Property<int>("OpcinaID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Naziv");
-
-                    b.Property<int>("PostanskiBroj");
-
-                    b.Property<int>("RegijaID");
-
-                    b.HasKey("OpcinaID");
-
-                    b.HasIndex("RegijaID");
-
-                    b.ToTable("Opcina");
                 });
 
             modelBuilder.Entity("RentACar.Models.OstecenjeInfo", b =>
@@ -493,6 +476,8 @@ namespace RentACar.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("DrzavaID");
+
+                    b.Property<string>("Naziv");
 
                     b.HasKey("RegijaID");
 
@@ -772,9 +757,9 @@ namespace RentACar.Migrations
 
             modelBuilder.Entity("RentACar.Models.Grad", b =>
                 {
-                    b.HasOne("RentACar.Models.Opcina", "Opcina")
-                        .WithMany("gradovi")
-                        .HasForeignKey("OpcinaID")
+                    b.HasOne("RentACar.Models.Regija", "Regija")
+                        .WithMany()
+                        .HasForeignKey("RegijaID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -818,14 +803,6 @@ namespace RentACar.Migrations
                     b.HasOne("RentACar.Models.Rezervacija", "Rezervacija")
                         .WithMany("Ocjene")
                         .HasForeignKey("RezervacijaID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("RentACar.Models.Opcina", b =>
-                {
-                    b.HasOne("RentACar.Models.Regija", "Regija")
-                        .WithMany("opcine")
-                        .HasForeignKey("RegijaID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

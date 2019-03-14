@@ -19,7 +19,7 @@ namespace RentACar.Data
      *******************************************************************************************************************************/
     public class DatabaseDataMaker
     {
-        public static readonly Random random = new Random();
+        
         public static async Task Napuni(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<int>> roleManager, ILogger<DatabaseDataMaker> logger)
         {
             //context.Database.EnsureCreated(); 
@@ -244,14 +244,14 @@ namespace RentACar.Data
             {
                 Prikolica = context.Prikolica.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
                 Vozilo = context.Vozilo.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
-                Tezina = (random.Next(50, 90)).ToString(),
+                Tezina = "50",
                 TipKuke = "Otvorena",
             });
             kompatibilnostPrikolice.Add(new KompatibilnostPrikolica
             {
                 Prikolica = context.Prikolica.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
                 Vozilo = context.Vozilo.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
-                Tezina = (random.Next(50, 90)).ToString(),
+                Tezina = "60",
                 TipKuke = "Otvorena",
             });
             context.AddRange(kompatibilnostPrikolice);

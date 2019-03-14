@@ -10,8 +10,8 @@ using RentACar.Data;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190313144659_opcina izbacena")]
-    partial class opcinaizbacena
+    [Migration("20190314003909_after rockn roll")]
+    partial class afterrocknroll
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -589,7 +589,7 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DatumIzlaza");
+                    b.Property<DateTime?>("DatumIzlaza");
 
                     b.Property<DateTime>("DatumUlaza");
 
@@ -760,7 +760,7 @@ namespace RentACar.Migrations
             modelBuilder.Entity("RentACar.Models.Grad", b =>
                 {
                     b.HasOne("RentACar.Models.Regija", "Regija")
-                        .WithMany("gradovi")
+                        .WithMany()
                         .HasForeignKey("RegijaID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

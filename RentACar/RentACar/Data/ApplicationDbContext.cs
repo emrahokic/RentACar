@@ -24,7 +24,6 @@ namespace RentACar.Data
         public DbSet<Drzava> Drzava { get; set; }
         public DbSet<Grad> Grad { get; set; }
         public DbSet<KompatibilnostPrikolica> KompatibilnostPrikolica { get; set; }
-        public DbSet<Opcina> Opcina { get; set; }
         public DbSet<OstecenjeInfo> OstecenjeInfo { get; set; }
         public DbSet<Poslovnica> Poslovnica { get; set; }
         public DbSet<Prijevoz> Prijevoz { get; set; }
