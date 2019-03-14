@@ -87,16 +87,7 @@
                                                             </td>
 
                                                         </tr>
-                                                        <tr>
-
-                                                            <th>
-                                                                Vrsta rezervacije
-                                                            </th>
-                                                            <td>
-                                                                @Model.VrstaRezervacije
-                                                            </td>
-
-                                                        </tr>
+                                                        
                                                         <tr>
                                                             <th>
                                                                 Datum preuzimanja vozila
@@ -126,7 +117,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Zakuljucen</th>
-                                                            @if (Model.Zakljucen)
+                                                            @if (Model.Zakljucen == (int) InfoRezervacija.Zavrsena)
                                                             {
                                                                 <td>
                                                                     Završeno

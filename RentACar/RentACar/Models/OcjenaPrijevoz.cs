@@ -10,10 +10,10 @@ namespace RentACar.Models
         public int OcjenaPrijevozID { get; set; }
         public int OcjenaVrijednost { get; set; }
         public string Poruka { get; set; }
-
+        public DateTime DatumOcjene { get; set; }
        
         public int PrijevozID { get; set; }
-        public PrijevozVozilo PrijevozVozilo { get; set; }
+        public Prijevoz Prijevoz { get; set; }
 
         public int KlijentID { get; set; }
         public ApplicationUser Klijent { get; set; }

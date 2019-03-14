@@ -31,7 +31,8 @@
                             <th>@Item.Vozilo</th>
                             <th>@Item.DatumPreuzimanja</th>
                             <th>@Item.DatumPovrata</th>
-                            @if (Item.Zakljucen)
+                            
+                            @if (Item.Zakljucen ==(int) InfoRezervacija.Zavrsena)
                             {
                                 <th>
                                     Završeno

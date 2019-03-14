@@ -9,15 +9,14 @@ namespace RentACar.Areas.Uposlenik.ViewModels
     public class RezervacijaDetaljnoVM
     {
         public int RezervacijaID { get; set; }
-        public string VrstaRezervacije { get; set; }
-        public DateTime DatumRezervacije { get; set; }
         public Slika SlikaVozila { get; set; }
         public DateTime DatumPreuzimanja { get; set; }
+        public DateTime DatumRezervacije { get; set; }
         public DateTime DatumPovrata { get; set; }
-        public bool Zakljucen { get; set; }
+        public int Zakljucen { get; set; }
         public double Cijena { get; set; }
         public int BrojDanaIznajmljivanja { get; set; }
-        public string NacinPlacanja { get; set; }
+        public int NacinPlacanja { get; set; }
         public string Grad { get; set; }
         public string Vozilo { get; set; }
         public string Brend { get; set; }

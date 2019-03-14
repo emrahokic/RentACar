@@ -8,7 +8,6 @@ namespace RentACar.Models
     {
         public int UposlenikPrijevozID { get; set; }
 
-        public int BrojVozaca { get; set; }
         public int UposlenikID { get; set; }
         public ApplicationUser Uposlenik { get; set; }
         public int PrijevozID { get; set; }

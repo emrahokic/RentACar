@@ -11,17 +11,13 @@ namespace RentACar.Models
         public int RezervacijaID { get; set; }
 
         public DateTime DatumRezervacije { get; set; }
-        public DateTime DatumRentanja { get; set; }
         public double Cijena { get; set; }
-        public string VrstaRezervacije { get; set; }
         public DateTime DatumPreuzimanja { get; set; }
-        public DateTime VrijemePreuzimanja { get; set; }
         public DateTime DatumPovrata { get; set; }
-        public DateTime VrijemePovrata { get; set; }
-        public string NacinPlacanja { get; set; }
+        public int NacinPlacanja { get; set; }
         public int BrojDanaIznajmljivanja { get; set; }
-        public bool Zakljucen { get; set; }
-
+        public int Zakljucen { get; set; }
+        public string SifraRezervacije { get; set; }
         public int VoziloID { get; set; }
         public Vozilo Vozilo { get; set; }
 

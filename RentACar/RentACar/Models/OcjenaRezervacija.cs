@@ -11,6 +11,7 @@ namespace RentACar.Models
         public int OcjenaRezervacijaID { get; set; }
         public int OcjenaVrijednost { get; set; }
         public string Poruka { get; set; }
+        public DateTime DatumOcjene { get; set; }
 
         public int RezervacijaID { get; set; }
         public Rezervacija Rezervacija { get; set; }

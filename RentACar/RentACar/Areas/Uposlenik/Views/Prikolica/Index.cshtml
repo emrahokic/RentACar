@@ -21,7 +21,7 @@
                 <th>@x.Sirina</th>
                 <th>@x.Zapremina</th>
                 <th>@x.Duzina</th>
-                <th>@x.TipPrikolice</th>
+                <th>@Enum.GetName(typeof(TipPrikolice),x.TipPrikolice)</th>
                 <th>
                     <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Prikolica" asp-action="Uredi" asp-route-id="@x.PrikolicaID">Uredi</a>
                     <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Prikolica" asp-action="Detalji" asp-route-id="@x.PrikolicaID">Detalji</a>

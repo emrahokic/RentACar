@@ -59,7 +59,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return View(nameof(Uredi), model);
         }
         
-        public IActionResult UrediSnimi(int PrikolicaID, double Sirina, double Zapremina, double Duzina, string TipPrikolice)
+        public IActionResult UrediSnimi(int PrikolicaID, double Sirina, double Zapremina, double Duzina, int TipPrikolice)
         {
             Prikolica x = _context.Prikolica.Find(PrikolicaID);
 
@@ -96,7 +96,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return View(nameof(Dodaj));
         }
 
-        public IActionResult DodajSnimi(double Sirina, double Zapremina, double Duzina, string TipPrikolice)
+        public IActionResult DodajSnimi(double Sirina, double Zapremina, double Duzina, int TipPrikolice)
         {
             Prikolica nova = new Prikolica()
             {

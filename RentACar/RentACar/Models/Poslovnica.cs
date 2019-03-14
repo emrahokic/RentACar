@@ -12,6 +12,7 @@ namespace RentACar.Models
         public string BrojTelefona { get; set; }
         public string Email { get; set; }
 
+
         public List<TrenutnaPoslovnica> trenutneposlovnice { get; set; }
 
 

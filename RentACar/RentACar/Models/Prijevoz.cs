@@ -13,8 +13,11 @@ namespace RentACar.Models
         public DateTime DatumPrijevoza { get; set; }
         public double CijenaPoKilometru { get; set; }
         public double CijenaCekanjaPoSatu { get; set; }
-        public string NacinPlacanja { get; set; }
-        public string TipPrijevoza { get; set; }
+        public double CijenaPoVozacu { get; set; }
+        public int NacinPlacanja { get; set; }
+        public int TipPrijevoza { get; set; }
+        public int BrojVozila { get; set; }
+        public int BrojVozaca { get; set; }
 
         public int KlijentID { get; set; }
         public ApplicationUser Klijent { get; set; }

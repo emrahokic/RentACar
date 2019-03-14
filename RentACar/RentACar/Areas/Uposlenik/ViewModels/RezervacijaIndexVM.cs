@@ -15,7 +15,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public string VrstaRezervacije { get; set; }
             public DateTime DatumPreuzimanja { get; set; }
             public DateTime DatumPovrata { get; set; }
-            public bool Zakljucen { get; set; }
+            public int Zakljucen { get; set; }
             
             public int? UposlenikID { get; set; }
             public string Vozilo { get; set; }

@@ -89,12 +89,7 @@
                                                         </tr>
                                                         <tr>
 
-                                                            <th>
-                                                                Vrsta rezervacije
-                                                            </th>
-                                                            <td>
-                                                                @Model.VrstaRezervacije
-                                                            </td>
+                                                           
 
                                                         </tr>
                                                         <tr>
@@ -126,7 +121,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Zakuljucen</th>
-                                                            @if (Model.Zakljucen)
+                                                            @if (Model.Zakljucen == (int)InfoRezervacija.Zavrsena)
                                                             {
                                                                 <td>
                                                                     Završeno

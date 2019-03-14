@@ -11,7 +11,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public double Sirina { get; set; }
         public double  Zapremina { get; set; }
         public double Duzina { get; set; }
-        public string TipPrikolice { get; set; }
+        public int TipPrikolice { get; set; }
 
         public List<Row> rows { get; set; }
         public class Row
@@ -19,7 +19,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public string TipKuke { get; set; }
             public string Tezina { get; set; }
             public string Auto { get; set; }
-            public string tipAuta { get; set; }
+            public int tipAuta { get; set; }
         }
     }
 }

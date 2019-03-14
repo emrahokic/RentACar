@@ -59,7 +59,7 @@ namespace RentACar.Migrations
                     Sirina = table.Column<double>(nullable: false),
                     Zapremina = table.Column<double>(nullable: false),
                     Duzina = table.Column<double>(nullable: false),
-                    TipPrikolice = table.Column<string>(nullable: true)
+                    TipPrikolice = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,14 +100,15 @@ namespace RentACar.Migrations
                     ZapreminaPrtljaznika = table.Column<double>(nullable: false),
                     ZapreminaPrtljaznikaNaprijed = table.Column<double>(nullable: false),
                     Naziv = table.Column<string>(nullable: true),
+                    Kilometraza = table.Column<int>(nullable: false),
                     BrendID = table.Column<int>(nullable: false),
                     Klima = table.Column<bool>(nullable: false),
-                    TipVozila = table.Column<string>(nullable: true),
+                    TipVozila = table.Column<int>(nullable: false),
                     DodatniOpis = table.Column<string>(nullable: true),
-                    Gorivo = table.Column<string>(nullable: true),
+                    Gorivo = table.Column<int>(nullable: false),
                     Pogon = table.Column<string>(nullable: true),
-                    Transmisija = table.Column<string>(nullable: true),
-                    GrupniTipVozila = table.Column<string>(nullable: true)
+                    Transmisija = table.Column<int>(nullable: false),
+                    GrupniTipVozila = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -334,8 +335,11 @@ namespace RentACar.Migrations
                     DatumPrijevoza = table.Column<DateTime>(nullable: false),
                     CijenaPoKilometru = table.Column<double>(nullable: false),
                     CijenaCekanjaPoSatu = table.Column<double>(nullable: false),
-                    NacinPlacanja = table.Column<string>(nullable: true),
-                    TipPrijevoza = table.Column<string>(nullable: true),
+                    CijenaPoVozacu = table.Column<double>(nullable: false),
+                    NacinPlacanja = table.Column<int>(nullable: false),
+                    TipPrijevoza = table.Column<int>(nullable: false),
+                    BrojVozila = table.Column<int>(nullable: false),
+                    BrojVozaca = table.Column<int>(nullable: false),
                     KlijentID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -356,16 +360,13 @@ namespace RentACar.Migrations
                     RezervacijaID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DatumRezervacije = table.Column<DateTime>(nullable: false),
-                    DatumRentanja = table.Column<DateTime>(nullable: false),
                     Cijena = table.Column<double>(nullable: false),
-                    VrstaRezervacije = table.Column<string>(nullable: true),
                     DatumPreuzimanja = table.Column<DateTime>(nullable: false),
-                    VrijemePreuzimanja = table.Column<DateTime>(nullable: false),
                     DatumPovrata = table.Column<DateTime>(nullable: false),
-                    VrijemePovrata = table.Column<DateTime>(nullable: false),
-                    NacinPlacanja = table.Column<string>(nullable: true),
+                    NacinPlacanja = table.Column<int>(nullable: false),
                     BrojDanaIznajmljivanja = table.Column<int>(nullable: false),
-                    Zakljucen = table.Column<bool>(nullable: false),
+                    Zakljucen = table.Column<int>(nullable: false),
+                    SifraRezervacije = table.Column<string>(nullable: true),
                     VoziloID = table.Column<int>(nullable: false),
                     PoslovnicaID = table.Column<int>(nullable: false),
                     KlijentID = table.Column<int>(nullable: false),
@@ -514,12 +515,42 @@ namespace RentACar.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OcjenaPrijevoz",
+                columns: table => new
+                {
+                    OcjenaPrijevozID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OcjenaVrijednost = table.Column<int>(nullable: false),
+                    Poruka = table.Column<string>(nullable: true),
+                    DatumOcjene = table.Column<DateTime>(nullable: false),
+                    PrijevozID = table.Column<int>(nullable: false),
+                    KlijentID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OcjenaPrijevoz", x => x.OcjenaPrijevozID);
+                    table.ForeignKey(
+                        name: "FK_OcjenaPrijevoz_User_KlijentID",
+                        column: x => x.KlijentID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OcjenaPrijevoz_Prijevoz_PrijevozID",
+                        column: x => x.PrijevozID,
+                        principalTable: "Prijevoz",
+                        principalColumn: "PrijevozID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PrijevozVozilo",
                 columns: table => new
                 {
                     PrijevozVoziloID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BrojVozila = table.Column<int>(nullable: false),
+                    PocetnaKilometraza = table.Column<int>(nullable: false),
+                    ZavrsnaKilometraza = table.Column<int>(nullable: false),
                     PrijevozID = table.Column<int>(nullable: false),
                     VoziloID = table.Column<int>(nullable: false)
                 },
@@ -546,7 +577,6 @@ namespace RentACar.Migrations
                 {
                     UposlenikPrijevozID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BrojVozaca = table.Column<int>(nullable: false),
                     UposlenikID = table.Column<int>(nullable: false),
                     PrijevozID = table.Column<int>(nullable: false)
                 },
@@ -558,13 +588,13 @@ namespace RentACar.Migrations
                         column: x => x.PrijevozID,
                         principalTable: "Prijevoz",
                         principalColumn: "PrijevozID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UposlenikPrijevoz_User_UposlenikID",
                         column: x => x.UposlenikID,
                         principalTable: "User",
                         principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -575,6 +605,7 @@ namespace RentACar.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OcjenaVrijednost = table.Column<int>(nullable: false),
                     Poruka = table.Column<string>(nullable: true),
+                    DatumOcjene = table.Column<DateTime>(nullable: false),
                     RezervacijaID = table.Column<int>(nullable: false),
                     KlijentID = table.Column<int>(nullable: false)
                 },
@@ -660,41 +691,6 @@ namespace RentACar.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "OcjenaPrijevoz",
-                columns: table => new
-                {
-                    OcjenaPrijevozID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OcjenaVrijednost = table.Column<int>(nullable: false),
-                    Poruka = table.Column<string>(nullable: true),
-                    PrijevozID = table.Column<int>(nullable: false),
-                    PrijevozVoziloID = table.Column<int>(nullable: true),
-                    KlijentID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OcjenaPrijevoz", x => x.OcjenaPrijevozID);
-                    table.ForeignKey(
-                        name: "FK_OcjenaPrijevoz_User_KlijentID",
-                        column: x => x.KlijentID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OcjenaPrijevoz_Prijevoz_PrijevozID",
-                        column: x => x.PrijevozID,
-                        principalTable: "Prijevoz",
-                        principalColumn: "PrijevozID",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_OcjenaPrijevoz_PrijevozVozilo_PrijevozVoziloID",
-                        column: x => x.PrijevozVoziloID,
-                        principalTable: "PrijevozVozilo",
-                        principalColumn: "PrijevozVoziloID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Grad_RegijaID",
                 table: "Grad",
@@ -719,11 +715,6 @@ namespace RentACar.Migrations
                 name: "IX_OcjenaPrijevoz_PrijevozID",
                 table: "OcjenaPrijevoz",
                 column: "PrijevozID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OcjenaPrijevoz_PrijevozVoziloID",
-                table: "OcjenaPrijevoz",
-                column: "PrijevozVoziloID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OcjenaRezervacija_KlijentID",
@@ -905,6 +896,9 @@ namespace RentACar.Migrations
                 name: "OstecenjeInfo");
 
             migrationBuilder.DropTable(
+                name: "PrijevozVozilo");
+
+            migrationBuilder.DropTable(
                 name: "RezervisanaUsluga");
 
             migrationBuilder.DropTable(
@@ -938,19 +932,16 @@ namespace RentACar.Migrations
                 name: "Prikolica");
 
             migrationBuilder.DropTable(
-                name: "PrijevozVozilo");
-
-            migrationBuilder.DropTable(
                 name: "DodatneUsluge");
 
             migrationBuilder.DropTable(
                 name: "Rezervacija");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Prijevoz");
 
             migrationBuilder.DropTable(
-                name: "Prijevoz");
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Poslovnica");

@@ -8,7 +8,7 @@ namespace RentACar.Models
     public class Vozilo
     {
 
-        public int VoziloID { get; set; } 
+        public int VoziloID { get; set; }
 
         public int BrojSasije { get; set; }
         public string RegistarskaOznaka { get; set; }
@@ -23,17 +23,18 @@ namespace RentACar.Models
         public double ZapreminaPrtljaznika { get; set; }
         public double ZapreminaPrtljaznikaNaprijed { get; set; }
         public string Naziv { get; set; }
+        public int Kilometraza {get;set;}
 
         public int BrendID { get; set; }
         public Brend Brend { get; set; }
 
         public bool Klima { get; set; }
-        public string TipVozila { get; set; }
+        public int TipVozila { get; set; }
         public string DodatniOpis { get; set; }
-        public string Gorivo { get; set; }
+        public int Gorivo { get; set; }
         public string Pogon { get; set; }
-        public string Transmisija { get; set; }
-        public string GrupniTipVozila { get; set; }
+        public int Transmisija { get; set; }
+        public int GrupniTipVozila { get; set; }
 
 
         public List<Rezervacija> rezervisano { get; set; }

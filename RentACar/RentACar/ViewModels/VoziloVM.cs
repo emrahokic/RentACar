@@ -15,8 +15,8 @@ namespace RentACar.ViewModels
             public string Naziv { get; set; }
             public string Model { get; set; }
             public int BrojVrata { get; set; }
-            public string TipVozila { get; set; }
-            public string Transmisija { get; set; }
+            public int TipVozila { get; set; }
+            public int Transmisija { get; set; }
         }
     }
 }

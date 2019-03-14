@@ -23,12 +23,12 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public string Naziv { get; set; }
         public string Brend { get; set; }
         public bool Klima { get; set; }
-        public string TipVozila { get; set; }
+        public int TipVozila { get; set; }
         public string DodatniOpis { get; set; }
-        public string Gorivo { get; set; }
+        public int Gorivo { get; set; }
         public string Pogon { get; set; }
-        public string Transmisija { get; set; }
-        public string GrupniTipVozila { get; set; }
+        public int Transmisija { get; set; }
+        public int GrupniTipVozila { get; set; }
         public List<string> Slike { get; set; }
 
         public List<Row> prikolice { get; set; }
@@ -39,7 +39,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public double Sirina { get; set; }
             public double Zapremina { get; set; }
             public double Duzina { get; set; }
-            public string TipPrikolice { get; set; }
+            public int TipPrikolice { get; set; }
             public string TipKuke { get; set; }
             public string Tezina { get; set; }
         }

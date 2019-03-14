@@ -10,7 +10,7 @@ using RentACar.Data;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190314014810_initial")]
+    [Migration("20190314211202_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -308,6 +308,8 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("DatumOcjene");
+
                     b.Property<int>("KlijentID");
 
                     b.Property<int>("OcjenaVrijednost");
@@ -316,15 +318,11 @@ namespace RentACar.Migrations
 
                     b.Property<int>("PrijevozID");
 
-                    b.Property<int?>("PrijevozVoziloID");
-
                     b.HasKey("OcjenaPrijevozID");
 
                     b.HasIndex("KlijentID");
 
                     b.HasIndex("PrijevozID");
-
-                    b.HasIndex("PrijevozVoziloID");
 
                     b.ToTable("OcjenaPrijevoz");
                 });
@@ -334,6 +332,8 @@ namespace RentACar.Migrations
                     b.Property<int>("OcjenaRezervacijaID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DatumOcjene");
 
                     b.Property<int>("KlijentID");
 
@@ -410,9 +410,15 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BrojVozaca");
+
+                    b.Property<int>("BrojVozila");
+
                     b.Property<double>("CijenaCekanjaPoSatu");
 
                     b.Property<double>("CijenaPoKilometru");
+
+                    b.Property<double>("CijenaPoVozacu");
 
                     b.Property<DateTime>("DatumPrijevoza");
 
@@ -420,9 +426,9 @@ namespace RentACar.Migrations
 
                     b.Property<int>("KlijentID");
 
-                    b.Property<string>("NacinPlacanja");
+                    b.Property<int>("NacinPlacanja");
 
-                    b.Property<string>("TipPrijevoza");
+                    b.Property<int>("TipPrijevoza");
 
                     b.HasKey("PrijevozID");
 
@@ -437,11 +443,13 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrojVozila");
+                    b.Property<int>("PocetnaKilometraza");
 
                     b.Property<int>("PrijevozID");
 
                     b.Property<int>("VoziloID");
+
+                    b.Property<int>("ZavrsnaKilometraza");
 
                     b.HasKey("PrijevozVoziloID");
 
@@ -462,7 +470,7 @@ namespace RentACar.Migrations
 
                     b.Property<double>("Sirina");
 
-                    b.Property<string>("TipPrikolice");
+                    b.Property<int>("TipPrikolice");
 
                     b.Property<double>("Zapremina");
 
@@ -502,27 +510,21 @@ namespace RentACar.Migrations
 
                     b.Property<DateTime>("DatumPreuzimanja");
 
-                    b.Property<DateTime>("DatumRentanja");
-
                     b.Property<DateTime>("DatumRezervacije");
 
                     b.Property<int>("KlijentID");
 
-                    b.Property<string>("NacinPlacanja");
+                    b.Property<int>("NacinPlacanja");
 
                     b.Property<int>("PoslovnicaID");
+
+                    b.Property<string>("SifraRezervacije");
 
                     b.Property<int?>("UposlenikID");
 
                     b.Property<int>("VoziloID");
 
-                    b.Property<DateTime>("VrijemePovrata");
-
-                    b.Property<DateTime>("VrijemePreuzimanja");
-
-                    b.Property<string>("VrstaRezervacije");
-
-                    b.Property<bool>("Zakljucen");
+                    b.Property<int>("Zakljucen");
 
                     b.HasKey("RezervacijaID");
 
@@ -635,8 +637,6 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrojVozaca");
-
                     b.Property<int>("PrijevozID");
 
                     b.Property<int>("UposlenikID");
@@ -674,9 +674,11 @@ namespace RentACar.Migrations
 
                     b.Property<int>("GodinaProizvodnje");
 
-                    b.Property<string>("Gorivo");
+                    b.Property<int>("Gorivo");
 
-                    b.Property<string>("GrupniTipVozila");
+                    b.Property<int>("GrupniTipVozila");
+
+                    b.Property<int>("Kilometraza");
 
                     b.Property<bool>("Klima");
 
@@ -690,9 +692,9 @@ namespace RentACar.Migrations
 
                     b.Property<int>("SnagaMotora");
 
-                    b.Property<string>("TipVozila");
+                    b.Property<int>("TipVozila");
 
-                    b.Property<string>("Transmisija");
+                    b.Property<int>("Transmisija");
 
                     b.Property<double>("ZapreminaPrtljaznika");
 
@@ -785,14 +787,10 @@ namespace RentACar.Migrations
                         .HasForeignKey("KlijentID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RentACar.Models.Prijevoz")
+                    b.HasOne("RentACar.Models.Prijevoz", "Prijevoz")
                         .WithMany("Ocjene")
                         .HasForeignKey("PrijevozID")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RentACar.Models.PrijevozVozilo", "PrijevozVozilo")
-                        .WithMany()
-                        .HasForeignKey("PrijevozVoziloID");
                 });
 
             modelBuilder.Entity("RentACar.Models.OcjenaRezervacija", b =>

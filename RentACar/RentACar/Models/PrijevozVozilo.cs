@@ -8,7 +8,8 @@ namespace RentACar.Models
     {
         public int PrijevozVoziloID { get; set; }
 
-        public int BrojVozila { get; set; }
+        public int PocetnaKilometraza { get; set; }
+        public int ZavrsnaKilometraza { get; set; }
 
         public int PrijevozID { get; set; }
         public Prijevoz Prijevoz { get; set; }

@@ -17,6 +17,7 @@
     <Folder Include="Areas\Uposlenik\Data\" />
     <Folder Include="Areas\Uposlenik\Models\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="wwwroot\images\Profilne\" />
   </ItemGroup>

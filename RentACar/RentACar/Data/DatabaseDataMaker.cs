@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using RentACar.Models;
+using RentACar.Helper;
 
 namespace RentACar.Data
 {
@@ -80,7 +81,7 @@ namespace RentACar.Data
             gradovi.Add(new Grad { Naziv = "Brcko", Regija = br });
             context.AddRange(gradovi);
             context.SaveChanges();
-
+            
             //dodatne usluge 
             dodatneUsluge.Add(new DodatneUsluge { Naziv = "Dodatna usluge 1", Cijena = 50, Opis = "Opis dodatne usluge 1" });
             dodatneUsluge.Add(new DodatneUsluge { Naziv = "Dodatna usluge 2", Cijena = 60, Opis = "Opis dodatne usluge 2" });
@@ -98,7 +99,7 @@ namespace RentACar.Data
             brendovi.Add(new Brend { Naziv = "Skoda" });
             context.AddRange(brendovi);
             context.SaveChanges();
-
+            
             //dodavanje poslovnica 
             var Sarajevo = context.Grad.Select(s => s).SingleOrDefault(p => p.Naziv == "Sarajevo");
             poslovnice.Add(new Poslovnica { Naziv = "Poslovnica Aeodrom", Adresa = "Butimirska Cesta bb", BrojTelefona = "+387 33 111 111", Email = "sunnycars@sunnygroup.com", Grad = Sarajevo });
@@ -108,13 +109,12 @@ namespace RentACar.Data
             poslovnice.Add(new Poslovnica { Naziv = "Poslovnica Mostar 1", Adresa = "Mostarska bb", BrojTelefona = "+387 35 333 333", Email = "sunnycars@sunnygroup.com", Grad = Mostar });
             context.AddRange(poslovnice);
             context.SaveChanges();
-
             //dodavanje prikolica 
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 180, TipPrikolice = "Velika", Zapremina = 200 });
-            prikolice.Add(new Prikolica { Duzina = 220, Sirina = 175, TipPrikolice = "Srednja", Zapremina = 170 });
-            prikolice.Add(new Prikolica { Duzina = 200, Sirina = 180, TipPrikolice = "Mala", Zapremina = 150 });
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 185, TipPrikolice = "Velika", Zapremina = 200 });
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 195, TipPrikolice = "Zatvorena velika", Zapremina = 220 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 180, TipPrikolice = (int) TipPrikolice.Velika , Zapremina = 200 });
+            prikolice.Add(new Prikolica { Duzina = 220, Sirina = 175, TipPrikolice = (int ) TipPrikolice.Srednja , Zapremina = 170 });
+            prikolice.Add(new Prikolica { Duzina = 200, Sirina = 180, TipPrikolice = (int) TipPrikolice.Mala, Zapremina = 150 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 185, TipPrikolice = (int) TipPrikolice.Srednja, Zapremina = 200 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 195, TipPrikolice = (int ) TipPrikolice.Zatvorena_Velika, Zapremina = 220 });
             context.AddRange(prikolice);
             context.SaveChanges();
 
@@ -180,12 +180,12 @@ namespace RentACar.Data
                 Naziv = "Audi A6",
                 Brend = audi,
                 Klima = true,
-                TipVozila = "Normal",
+                TipVozila = (int) TipVozila.Normal,
                 DodatniOpis = "Bez dodatnog opisa",
-                Gorivo = "Dizel",
+                Gorivo = (int) Gorivo.Dizel,
                 Pogon = "4x4",
-                Transmisija = "Automatik",
-                GrupniTipVozila = "Putnicko"
+                Transmisija = (int) Transmisija.Automatik,
+                GrupniTipVozila =(int) GrupniTipVozila.Putnicko
             });
             vozila.Add(new Vozilo
             {
@@ -204,12 +204,12 @@ namespace RentACar.Data
                 Naziv = "Audi A4",
                 Brend = audi,
                 Klima = true,
-                TipVozila = "Normal",
+                TipVozila = (int)TipVozila.Normal,
                 DodatniOpis = "Bez dodatnog opisa",
-                Gorivo = "Dizel",
+                Gorivo = (int)Gorivo.Dizel,
                 Pogon = "Prednji",
-                Transmisija = "Automatik",
-                GrupniTipVozila = "Putnicko"
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
             });
             var bmw = context.Brend.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW");
             vozila.Add(new Vozilo
@@ -229,12 +229,12 @@ namespace RentACar.Data
                 Naziv = "BMW X6",
                 Brend = bmw,
                 Klima = true,
-                TipVozila = "Normal",
+                TipVozila = (int)TipVozila.Normal,
                 DodatniOpis = "Bez dodatnog opisa",
-                Gorivo = "Benzin",
+                Gorivo = (int)Gorivo.Benzin,
                 Pogon = "4x4",
-                Transmisija = "Automatik",
-                GrupniTipVozila = "Putnicko"
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
             });
             context.AddRange(vozila);
             context.SaveChanges();
@@ -263,7 +263,7 @@ namespace RentACar.Data
             var bmwx6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW X6");
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now, Poslovnica = aeodrom, Vozilo = audia4});
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now, Poslovnica = aeodrom, Vozilo = audia6 });
-            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now, Poslovnica = aeodrom, Vozilo = bmwx6 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, Poslovnica = aeodrom, Vozilo = bmwx6 });
             context.AddRange(trenutnePoslovnice);
             context.SaveChanges();
 
@@ -272,16 +272,13 @@ namespace RentACar.Data
             rezervacije.Add(new Rezervacija
             {
                 DatumRezervacije = DateTime.Now,
-                DatumRentanja = DateTime.Now,
                 Cijena = 400,
-                VrstaRezervacije = "Normalna",
                 DatumPreuzimanja = DateTime.Now,
-                VrijemePreuzimanja = DateTime.Now,
                 DatumPovrata = DateTime.Now,
-                VrijemePovrata = DateTime.Now,
                 BrojDanaIznajmljivanja = 4,
-                Zakljucen = false,
+                Zakljucen = (int) InfoRezervacija.U_Obradi, 
                 Vozilo = audia6,
+                SifraRezervacije = "001/19",
                 Klijent = klijentAdil.Result,
                 Uposlenik = dona.Result,
                 Poslovnica = aeodrom
@@ -289,16 +286,13 @@ namespace RentACar.Data
             rezervacije.Add(new Rezervacija
             {
                 DatumRezervacije = DateTime.Now,
-                DatumRentanja = DateTime.Now,
                 Cijena = 400,
-                VrstaRezervacije = "Normalna",
                 DatumPreuzimanja = DateTime.Now,
-                VrijemePreuzimanja = DateTime.Now,
                 DatumPovrata = DateTime.Now,
-                VrijemePovrata = DateTime.Now,
                 BrojDanaIznajmljivanja = 4,
-                Zakljucen = false,
+                Zakljucen = (int)InfoRezervacija.Odobrena,
                 Vozilo = audia4,
+                SifraRezervacije = "002/19",
                 Klijent = klijentAdil.Result,
                 Uposlenik = dona.Result,
                 Poslovnica = aeodrom
@@ -317,7 +311,6 @@ namespace RentACar.Data
             });
             context.AddRange(rezervisaneUsluge);
             context.SaveChanges();
-
             //dodavanje prijevoza 
             var klijentNina = userManager.FindByEmailAsync("nina@gmail.com");
             prijevozi.Add(new Prijevoz
@@ -326,8 +319,8 @@ namespace RentACar.Data
                 DatumPrijevoza = DateTime.Now,
                 CijenaPoKilometru = 1.5,
                 CijenaCekanjaPoSatu = 0.3,
-                NacinPlacanja = "Karticno",
-                TipPrijevoza = "specijalni",
+                NacinPlacanja = (int) NacinPlacanja.Karticno,
+                TipPrijevoza = (int) TipPrijevoza.Specijal,
                 Klijent = klijentNina.Result
             });
             context.AddRange(prijevozi);
@@ -335,11 +328,11 @@ namespace RentACar.Data
 
             var vozacMile = userManager.FindByEmailAsync("mile@sunnycars.vozac.com");
             var prijevoz1 = context.Prijevoz.Where(x => x.Klijent.Email == "nina@gmail.com").SingleOrDefault();
-            uposleniciPrijevoz.Add(new UposlenikPrijevoz { BrojVozaca = 1, Uposlenik = vozacMile.Result, Prijevoz = prijevoz1 });
+            uposleniciPrijevoz.Add(new UposlenikPrijevoz { Uposlenik = vozacMile.Result, Prijevoz = prijevoz1 });
             context.AddRange(uposleniciPrijevoz);
             context.SaveChanges();
 
-            vozilaPrijevoz.Add(new PrijevozVozilo { BrojVozila = 1, Prijevoz = prijevoz1, Vozilo = bmwx6 });
+            vozilaPrijevoz.Add(new PrijevozVozilo { Prijevoz = prijevoz1, Vozilo = bmwx6 });
             context.AddRange(vozilaPrijevoz);
             context.SaveChanges();
 
@@ -352,7 +345,7 @@ namespace RentACar.Data
             context.SaveChanges();
 
         }
-
+       
         private static async Task KreirajKorisnika(UserManager<ApplicationUser> um, string username, string ime, string prezime, string adresa, Grad grad, string jmbg, DateTime datumRodjena, string spol, string slika, string password, string rola)
         {
             await um.CreateAsync(new ApplicationUser

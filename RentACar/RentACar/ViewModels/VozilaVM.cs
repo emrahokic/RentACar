@@ -15,9 +15,9 @@ namespace RentACar.ViewModels
             public int VoziloID { get; set; }
             public string Brend { get; set; }
             public string Naziv { get; set; }
-            public string TipVozila { get; set; }
-            public string Transmisija { get; set; }
-            public string Gorivo { get; set; }
+            public int TipVozila { get; set; }
+            public int Transmisija { get; set; }
+            public int Gorivo { get; set; }
             public Slika Slika { get; set; }
             public int PoslovnicaID { get; set; }
             public string PoslovnicaNaziv { get; set; }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
 using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
+using RentACar.Helper;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -41,7 +42,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     DatumPovrata = x.DatumPovrata,
                     UposlenikID = x.UposlenikID,
                     Poslovnica = x.Poslovnica.Naziv,
-                    VrstaRezervacije = x.VrstaRezervacije,
                     Zakljucen = x.Zakljucen,
                     Brend = x.Vozilo.Brend.Naziv
                 }).ToList()
@@ -73,7 +73,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
         {
             Rezervacija rezervacija = new Rezervacija() {
                 DatumRezervacije = System.DateTime.Now,
-                DatumRentanja = System.DateTime.Now,
                 DatumPreuzimanja = model.DatumPreuzimanja,
                 DatumPovrata = model.DatumPovrata,
                 NacinPlacanja = model.NacinPlacanja,
@@ -82,10 +81,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Cijena=1,
                 VoziloID=model.VoziloID,
                 PoslovnicaID=db.TrenutnaPoslovnica.FirstOrDefault(s=>s.VoziloID==model.VoziloID).PoslovnicaID,
-                VrijemePovrata=model.DatumPovrata,
-                VrijemePreuzimanja=model.DatumPreuzimanja,
-                VrstaRezervacije=model.VrstaRezervacije,
-                Zakljucen=false
+                Zakljucen=(int) InfoRezervacija.U_Obradi
                 
                 
 
@@ -129,7 +125,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
         {
             RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM {
                 RezervacijaID = x.RezervacijaID,
-                VrstaRezervacije = x.VrstaRezervacije,
                 Grad = x.Poslovnica.Grad.Naziv,
                 DatumRezervacije = x.DatumRezervacije,
                 SlikaVozila= db.Slika.Where(sl => sl.VoziloID == x.VoziloID && sl.Pozicija ==1 ).Select(c => new Slika
