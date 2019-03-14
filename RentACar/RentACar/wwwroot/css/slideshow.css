@@ -110,27 +110,12 @@
 }
 
 /*CSS za formatiranje informacija o autu*/
-.card_ic {
-    margin: 2px;
-    display: inline;
-    margin-right: 5px;
-    text-align: center;
-    border: 1px solid lightgrey;
-    border-radius: 3px;
-    padding: 5px;
-    padding-right: 0px;
-    word-spacing: -4px;
-}
-.first_lab_ic {
-    padding: 5px;
-    margin-bottom: 5px;
-}
-.second_lab_ic {
-    background-color: #f67519;
-    padding: 5px;
+.osnovne-style-info {
+    border-bottom: 1px solid grey;
+    border-radius: 5px;
+    margin-bottom: 0;
 }
 
-.kartice_ic {
-    padding: 5px;
-    margin-bottom: 20px;
+.desno {
+    padding-right: 20px;
 }

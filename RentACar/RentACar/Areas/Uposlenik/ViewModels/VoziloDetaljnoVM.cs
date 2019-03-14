@@ -30,7 +30,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public int Transmisija { get; set; }
         public int GrupniTipVozila { get; set; }
         public List<string> Slike { get; set; }
-
+        public int Kilometraza { get; set; }
         public List<Row> prikolice { get; set; }
         
         public class Row
