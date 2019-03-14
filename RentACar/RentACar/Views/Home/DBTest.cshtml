@@ -1,0 +1,12 @@
+﻿@using RentACar.Data
+@model RentACar.Data.ApplicationDbContext
+@{
+    ViewData["Title"] = "DBTest";
+}
+
+<h2>DBTest</h2>
+
+<p>Drzave:   @Model.Drzava.Count() </p>
+<br />
+<p>Regije:   @Model.Regija.Count() </p>
+<br />
