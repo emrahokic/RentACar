@@ -8,7 +8,7 @@ namespace RentACar.Models
     {
         public int TrenutnaPoslovnicaID { get; set; }
         public DateTime DatumUlaza { get; set; }
-        public DateTime DatumIzlaza { get; set; }
+        public DateTime? DatumIzlaza { get; set; }
 
         public int VoziloID { get; set; }
         public Vozilo Vozilo { get; set; }

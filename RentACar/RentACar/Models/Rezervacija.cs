@@ -31,7 +31,7 @@ namespace RentACar.Models
         public int KlijentID { get; set; }
         public ApplicationUser Klijent { get; set; }
 
-        public int UposlenikID { get; set; }
+        public int? UposlenikID { get; set; }
         public ApplicationUser Uposlenik { get; set; }
 
         public List<OstecenjeInfo> ostecenjaVozila { get; set; }

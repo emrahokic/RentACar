@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RentACar.Data;
 using RentACar.Models;
 
 namespace RentACar.Areas.Identity.Pages.Account
@@ -14,10 +15,12 @@ namespace RentACar.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private ApplicationDbContext _db;
 
-        public ConfirmEmailModel(UserManager<ApplicationUser> userManager)
+        public ConfirmEmailModel(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
         {
             _userManager = userManager;
+            _db = db;
         }
 
         public async Task<IActionResult> OnGetAsync(string userId, string code)
@@ -39,7 +42,15 @@ namespace RentACar.Areas.Identity.Pages.Account
                 throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
             }
 
-            return Page();
+            IdentityUserRole<int> newUserRole = new IdentityUserRole<int>
+            {
+                RoleId = 1,
+                UserId = int.Parse(userId),
+
+            };
+            _db.UserRoles.Add(newUserRole);
+            await _db.SaveChangesAsync();
+            return Redirect("/Profil/Index");
         }
     }
 }

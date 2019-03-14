@@ -4,80 +4,112 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<div class="row">
-    <div class="col-md-4">
+    @*<div class="col-lg-4 col-md-6 ml-auto mr-auto"  style="margin-top:20px">
         <br />
         <section class="LoginDesign radiousStyle input-stil">
-
-            <form method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control radiousStyle" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control radiousStyle" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn radiousStyle btn-block btn-default">Log in</button>
-                </div>
-                <p class="text-center">- or -</p>
-                <div class="form-group text-center">
-                    <p>
-                        <a class="btn btn-warning radiousStyle btn-block" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" class="btn btn-info radiousStyle btn-block" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-
-    <br />  
-    <div class="col-md-8 col-md-offset-2">
-        <section class="radiousStyle LoginDesign text-info-new">
-            <h4 class="text-center">Welcome!</h4>
-            <br />  
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div class="text-center">
-                        <p>
-                           Thank you for using our site for Rent a Car rezervation. Log in to use full site features and have acces tou your profile.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-lg-9 col-md-9 ml-auto mr-auto">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control radiousStyle" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control radiousStyle" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                       
+                        <div class="form-group">
+                            <button type="submit" class="btn radiousStyle btn-block btn-default">Log in</button>
+                        </div>
+                        <p class="text-center">- or -</p>
+                        <div class="form-group text-center">
                             <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                            </p>
+                            @Html.AntiForgeryToken()
+                            <p>
                             </p>
                         </div>
                     </form>
-                }
-            }
+                </div>
+            </div>
+           
         </section>
+    </div>*@
+<div class="section section-signup page-header" style="background-image: url('https://demos.creative-tim.com/material-kit/assets/img/city.jpg');">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                <div class="card card-login">
+                    <form class="form" method="post">
+                        <div class="card-header card-header-primary text-center">
+                            <h4 class="card-title">Login</h4>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">mail</i>
+                                        </span>
+
+                                    </div>
+                                    <input placeholder="Email" asp-for="Input.Email" class="form-control radiousStyle" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    </div>
+                                    <input placeholder="Password" asp-for="Input.Password" class="form-control radiousStyle" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-check" style="margin-left:20px">
+                                <label class="form-check-label" asp-for="Input.RememberMe">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" /> @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-primary btn-block btn-lg"> Log in</button>
+
+                            <p class="text-center">- or -</p>
+                            <div class="form-group text-center">
+
+                                <button class="btn btn-primary btn-block btn-lg" asp-page="./ForgotPassword">Forgot your password?</button>
+                                <button asp-page="./Register" class="btn btn-primary btn-block btn-lg " asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</button>
+                            </div>
+
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

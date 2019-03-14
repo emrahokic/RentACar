@@ -4,37 +4,70 @@
     ViewData["Title"] = "Register";
 }
 
+<div class="section section-signup page-header" style="background-image: url('https://demos.creative-tim.com/material-kit/assets/img/city.jpg');">
 
-<h2>@ViewData["Title"]</h2>
-<hr />
-<div class="row">
-    <div class="col-md-8 radiousStyle input-stil " style="padding-top: 20px;">
-        
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account</h4>
-            <hr />
-            <br />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+    <!-- End Navbar -->
+    <!--main content-->
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-5 col-md-7 ml-auto mr-auto" style="margin-top:50px">
+                    <div class="card card-login">
+                        <form class="form" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">Register</h4>
+
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">mail</i>
+                                            </span>
+
+                                        </div>
+                                        <input placeholder="Email" asp-for="Input.Email" class="form-control radiousStyle" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group" style=" margin-top:20px">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input placeholder="Password" asp-for="Input.Password" class="form-control radiousStyle" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group" style=" margin-top:20px">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input placeholder="Confirm password" asp-for="Input.ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-primary btn-block btn-lg"> Register</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <br />
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+        </div>
     </div>
-</div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

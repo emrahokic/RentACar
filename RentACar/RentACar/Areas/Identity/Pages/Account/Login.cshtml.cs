@@ -49,6 +49,7 @@ namespace RentACar.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        [ValidateAntiForgeryToken]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -56,7 +57,7 @@ namespace RentACar.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/Home/Index");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -69,7 +70,6 @@ namespace RentACar.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -77,8 +77,26 @@ namespace RentACar.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+
+                    var x =  _signInManager.UserManager.FindByEmailAsync(Input.Email);
+
+                    if (await _signInManager.UserManager.IsInRoleAsync(x.Result, "Klijent"))
+                    {
+                        return RedirectToAction("Index","Profil",new { area = "Klijent"});
+
+                    }else if(await _signInManager.UserManager.IsInRoleAsync(x.Result, "Uposlenik"))
+                    {
+                        return RedirectToAction("Index", "Profil", new { area = "Uposlenik" });
+
+                    }
+                    else if(await _signInManager.UserManager.IsInRoleAsync(x.Result, "Administrator"))
+                    {
+                        return RedirectToAction("Index", "Profil", new { area = "Administrator" });
+
+                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+
                 }
                 if (result.RequiresTwoFactor)
                 {

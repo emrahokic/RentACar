@@ -4,6 +4,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="~/images/apple-icon.png">
@@ -20,13 +21,16 @@
     <link href="~/css/material-dashboard.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
+  
 </head>
 
 <body class="">
+
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="wrapper ">
-            <div class="sidebar" data-color="orange" data-background-color="black" data-image="/images/sidebar-4.jpg">
+
+            <div class="sidebar" data-color="orange" data-background-color="black" data-image="/images/sidebar-4-min.jpg">
                 <!--
                     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -38,65 +42,39 @@
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
-                    <ul class="nav">
-                        <li class="nav-item" id="dashboard">
-                            <a class="nav-link" href="/Home/Index">
-                                <i class="material-icons">dashboard</i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="rezervacije">
-                            <a class="nav-link " href="./user.html">
-                                <i class="material-icons">insert_invitation</i>
-                                <p>Rezervacije</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="vozila">
-                            <a class="nav-link" href="/Vozilo/Index">
-                                <i class="material-icons">directions_car</i>
-                                <p>Vozila</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="usluge">
-                            <a class="nav-link" href="/Usluge/Index">
-                                <i class="material-icons">library_books</i>
-                                <p>Usluge</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="prikolice">
-                            <a class="nav-link" href="/Prikolica/Index">
-                                <i class="material-icons">link</i>
-                                <p>Prikolice</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./map.html">
-                                <i class="material-icons">credit_card</i>
-                                <p>Uplate</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./notifications.html">
-                                <i class="material-icons">build</i>
-                                <p>Podesavanja</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./rtl.html">
-                                <i class="material-icons">info</i>
-                                <p>Informacije</p>
-                            </a>
-                        </li>
-                    </ul>
+                    @{ 
+                        ApplicationUser u = await UserManager.GetUserAsync(User);
+                    @if (UserManager.IsInRoleAsync(u, "Klijent").Result)
+                    {
+
+
+                        <ul class="nav">
+
+                            <li class="nav-item" id="rezervacije">
+                                <a class="nav-link " asp-area="Klijent" asp-controller="Rezervacija" asp-action="Index">
+                                    <i class="material-icons">insert_invitation</i>
+                                    <p>Rezervacije</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="./map.html">
+                                    <i class="material-icons">credit_card</i>
+                                    <p>Uplate</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                        }
+                    }
                 </div>
             </div>
-            <div class="main-panel">
+            <div class="main-panel ps-container ps-theme-default">
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " style="border-bottom: 1px solid #d3d3d3; ">
                     <div class="container-fluid">
                         <div class="navbar-wrapper">
-                            @*<a class="navbar-brand" href="#pablo">Nova rezervacija</a>*@
-                            <div>UPOSLENIK: @UserManager.GetUserName(User)</div>
+                                <div>Klijent: @UserManager.GetUserName(User) </div>
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="sr-only">Toggle navigation</span>
@@ -145,11 +123,12 @@
                                         </p>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                        <a class="dropdown-item" href="#">Profil</a>
+                                        <a class="dropdown-item" asp-area="Klijent" asp-controller="Profil" asp-action="Index">Profil</a>
                                         <a class="dropdown-item" href="#">Podesavanja</a>
                                         <div class="dropdown-divider"></div>
+
                                         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-                                            <button type="submit" class="btn btn-link navbar-btn navbar-link">ODJAVA</button>
+                                            <button type="submit" class="btn btn-link navbar-btn navbar-link">LOG OUT</button>
                                         </form>
                                     </div>
                                 </li>
@@ -157,10 +136,12 @@
                         </div>
                     </div>
                 </nav>
+                <partial name="_CookieConsentPartial" />
 
                 <!-- End Navbar -->
                 <!--main content-->
                 <div class="content">
+
                     <div class="container-fluid">
                         <div class="row">
                             @RenderBody()
@@ -173,7 +154,9 @@
 
                 <!-- footer -->
                 <footer class="footer">
+
                     <div class="container-fluid">
+
                         <nav class="float-left">
                             <ul>
                                 <li>
@@ -203,23 +186,28 @@
                 </footer>
 
             </div>
+
         </div>
+
+
 
         @RenderSection("scripts", required: false)
     }
     else
     {
         <div class="content con-rentcar">
-            <div class="container-fluid main-rentcar" >
+            <div class="container-fluid main-rentcar">
                 <div class="text-center">
                     <h2>SUNNY CARS</h2>
                 </div>
             </div>
             <div class="container ">
-                    @RenderBody()
+                @RenderBody()
             </div>
         </div>
         @RenderSection("scripts", required: false)
+
+
     }
     <!--   Core JS Files   -->
     <script src="/js/core/jquery.min.js"></script>

@@ -189,6 +189,8 @@ namespace RentACar.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("Slika");
+
                     b.Property<string>("Spol");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -523,7 +525,7 @@ namespace RentACar.Migrations
 
                     b.Property<int>("PoslovnicaID");
 
-                    b.Property<int>("UposlenikID");
+                    b.Property<int?>("UposlenikID");
 
                     b.Property<int>("VoziloID");
 
@@ -600,7 +602,7 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DatumIzlaza");
+                    b.Property<DateTime?>("DatumIzlaza");
 
                     b.Property<DateTime>("DatumUlaza");
 
@@ -896,8 +898,7 @@ namespace RentACar.Migrations
 
                     b.HasOne("RentACar.Models.ApplicationUser", "Uposlenik")
                         .WithMany()
-                        .HasForeignKey("UposlenikID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UposlenikID");
 
                     b.HasOne("RentACar.Models.Vozilo", "Vozilo")
                         .WithMany("rezervisano")
