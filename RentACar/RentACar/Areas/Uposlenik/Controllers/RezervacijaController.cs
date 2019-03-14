@@ -34,7 +34,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             int PoslovnicaID = db.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == ID).PoslovnicaID;
             RezervacijaIndexVM model = new RezervacijaIndexVM()
             {
-                Rows = db.Rezervacija.Where(z => z.PoslovnicaID == PoslovnicaID && (z.UposlenikID == id || z.UposlenikID == null)).Select(x => new RezervacijaIndexVM.Row()
+                Rows = db.Rezervacija.Where(z => z.PoslovnicaID == PoslovnicaID && (z.UposlenikID == ID || z.UposlenikID == null)).Select(x => new RezervacijaIndexVM.Row()
                 {
                     RezervacijaID = x.RezervacijaID,
                     Vozilo = x.Vozilo.Naziv,

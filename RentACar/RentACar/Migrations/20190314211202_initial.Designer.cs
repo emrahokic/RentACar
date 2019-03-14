@@ -596,6 +596,7 @@ namespace RentACar.Migrations
                     b.Property<DateTime>("DatumUlaza");
 
                     b.Property<int>("PoslovnicaID");
+                    b.Property<bool>("VoziloRezervisano");
 
                     b.Property<int>("VoziloID");
 

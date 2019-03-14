@@ -261,9 +261,9 @@ namespace RentACar.Data
             var audia6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Audi A6");
             var audia4 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Audi A4");
             var bmwx6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW X6");
-            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now, Poslovnica = aeodrom, Vozilo = audia4});
-            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now, Poslovnica = aeodrom, Vozilo = audia6 });
-            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, Poslovnica = aeodrom, Vozilo = bmwx6 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now,VoziloRezervisano = true, Poslovnica = aeodrom, Vozilo = audia4});
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now,VoziloRezervisano = true, Poslovnica = aeodrom, Vozilo = audia6 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = bmwx6 });
             context.AddRange(trenutnePoslovnice);
             context.SaveChanges();
 
@@ -341,6 +341,8 @@ namespace RentACar.Data
             slike.Add(new Slika { Name = "BMW X6", Pozicija = 2, URL = "/images/Vozila/BMWX6/BMWX6_bijela_2.jpg", Vozilo = bmwx6 });
             slike.Add(new Slika { Name = "BMW X6", Pozicija = 3, URL = "/images/Vozila/BMWX6/BMWX6_bijela_3.jpg", Vozilo = bmwx6 });
             slike.Add(new Slika { Name = "BMW X6", Pozicija = 4, URL = "/images/Vozila/BMWX6/BMWX6_bijela_4.jpg", Vozilo = bmwx6 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 1, URL = "https://inchcapecdn.azureedge.net/cdn-images/stock/d/de68nwc-1-xl.jpg", Vozilo = audia6 });
+            slike.Add(new Slika { Name = "Audi A4", Pozicija = 1, URL = "https://inventory-cf.assets-cdk.com/5/7/4/18589025475x640.jpg", Vozilo = audia4 });
             context.AddRange(slike);
             context.SaveChanges();
 

@@ -305,6 +305,7 @@ namespace RentACar.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DatumUlaza = table.Column<DateTime>(nullable: false),
                     DatumIzlaza = table.Column<DateTime>(nullable: true),
+                    VoziloRezervisano = table.Column<bool>(nullable: false),
                     VoziloID = table.Column<int>(nullable: false),
                     PoslovnicaID = table.Column<int>(nullable: false)
                 },
