@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto">
                 <div class="brand">
-                    <h1>Sunny Cars</h1>
-                    <h3>Pick one you will not regret!</h3>
-                    <form  autocomplete="on"  asp-action="Index2" asp-controller="Vozilo" method="get">
+                    <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Sunny Cars</h1>
+                    <h3 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Pick one you will not regret!</h3>
+                    <form autocomplete="on" asp-action="Index2" asp-controller="Vozilo" method="get">
                         <div class=" form-group bmd-form-group is-filled">
-                            <input  autocomplete="on" placeholder="Which City..." type="text" name="grad" style="color:white;text-align:center;font-size:25px;" class="form-control" />
+                            <input autocomplete="on" placeholder="Which City..." type="text" name="grad" style="color:white;text-align:center;font-size:25px;" class="form-control" />
                         </div>
                     </form>
                 </div>
@@ -20,82 +20,96 @@
 <div class="main main-raised">
     <div class="profile-content">
         <div class="container">
-            @foreach (var item in Model.rows)
+            @if (Model.rows.Count > 0)
             {
-                <div class="row">
-                    <div class="col-md-12 card">
-                        <div class="row">
-                            <div class="col-md-4 card" style="margin:10px;padding:10px; cursor:pointer">
-                                <img style="width:100%" src="@item.Slika.URL"/>
-                            </div>
-                            <div class="col-md-7">
-                                <h2 style="text-align:center"> @item.Brend - @item.Naziv </h2>
-                                <br />
+                @foreach (var item in Model.rows)
+                {
+                    <div class="row">
+                        <div class="col-md-12 card">
+                            <div class="row">
+                                <div class="col-md-4 card" style="margin:10px;padding:10px; cursor:pointer">
+                                    <img style="width:100%" src="@item.Slika.URL" />
+                                </div>
+                                <div class="col-md-7">
+                                    <h2 style="text-align:center;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"> @item.Brend - @item.Naziv </h2>
+                                    <br />
 
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-3">
-                                                @if (item.Transmisija ==(int) Transmisija.Manuelni)
-                                                {
-                                                    <img src="~/images/manual.png" style="width:50px"; cursor:pointer" alt="Manuelni" rel="tooltip" title="Manuelni" />
-                                                }
-                                                @if (item.Transmisija == (int)Transmisija.Automatik)
-                                                {
-                                                    <img src="~/images/automatic.png" style="width:50px"; cursor:pointer" alt="Automatik" rel="tooltip" title="Automatik" />
-                                                }
-                                            </div>
-                                            <div class="col-md-3 col-sm-3">
-                                                @if (item.Gorivo == (int) Gorivo.Dizel)
-                                                {
-                                                    <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Dizel" title="Dizel" rel="tooltip" />
-                                                }
-                                                @if (item.Gorivo == (int)Gorivo.Benzin)
-                                                {
-                                                    <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Benzin" rel="tooltip" title="Benzin" />
-                                                }
-                                                @if (item.Gorivo == (int) Gorivo.Struja)
-                                                {
-                                                    <img src="~/images/tunder.png" style="width:50px; cursor:pointer" alt="Struja" rel="tooltip" title="Struja" />
-                                                }
-                                            </div>
-                                            <div class="col-md-3 col-sm-3">
-                                                @if (item.TipVozila == (int) TipVozila.Normal)
-                                                {
-                                                    <img src="~/images/car.png" style="width:50px; cursor:pointer" alt="Normal" title="Normal" rel="tooltip" />
-                                                }
-                                                @if (item.TipVozila == (int)TipVozila.Hibrid)
-                                                {
-                                                    <img src="~/images/GvH.jpg" style="width:50px; cursor:pointer" alt="Hibrid" rel="tooltip" title="Hibrid" />
-                                                }
-                                                @if (item.TipVozila == (int)TipVozila.Elektricno)
-                                                {
-                                                    <img src="~/images/electric.png" style="width:50px; cursor:pointer" alt="Elektricno" rel="tooltip" title="Elektricno" />
-                                                }
-                                            </div> 
-                                            <div class="col-md-3 col-sm-3" >
-                                                <button class="btn btn-rose btn-raised btn-round ">Rezervisi</button>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-3">
+                                                    @if (item.Transmisija == (int)Transmisija.Manuelni)
+                                                    {
+                                                        <img src="~/images/manual.png" style="width:50px; cursor:pointer" alt="Manuelni" rel="tooltip" title="Manuelni" />
+                                                    }
+                                                    @if (item.Transmisija == (int)Transmisija.Automatik)
+                                                    {
+                                                        <img src="~/images/automatic.png" style="width:50px; cursor:pointer" alt="Automatik" rel="tooltip" title="Automatik" />
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    @if (item.Gorivo == (int)Gorivo.Dizel)
+                                                    {
+                                                        <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Dizel" title="Dizel" rel="tooltip" />
+                                                    }
+                                                    @if (item.Gorivo == (int)Gorivo.Benzin)
+                                                    {
+                                                        <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Benzin" rel="tooltip" title="Benzin" />
+                                                    }
+                                                    @if (item.Gorivo == (int)Gorivo.Struja)
+                                                    {
+                                                        <img src="~/images/tunder.png" style="width:50px; cursor:pointer" alt="Struja" rel="tooltip" title="Struja" />
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    @if (item.TipVozila == (int)TipVozila.Normal)
+                                                    {
+                                                        <img src="~/images/car.png" style="width:50px; cursor:pointer" alt="Normal" title="Normal" rel="tooltip" />
+                                                    }
+                                                    @if (item.TipVozila == (int)TipVozila.Hibrid)
+                                                    {
+                                                        <img src="~/images/GvH.jpg" style="width:50px; cursor:pointer" alt="Hibrid" rel="tooltip" title="Hibrid" />
+                                                    }
+                                                    @if (item.TipVozila == (int)TipVozila.Elektricno)
+                                                    {
+                                                        <img src="~/images/electric.png" style="width:50px; cursor:pointer" alt="Elektricno" rel="tooltip" title="Elektricno" />
+                                                    }
+                                                </div>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <button style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" class="btn btn-rose btn-raised btn-round ">Rezervisi</button>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3 style="text-align:center">@item.PoslovnicaNaziv - @item.PoslovnicaLokacija</h3>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3 style="text-align:center;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">@item.PoslovnicaNaziv - @item.PoslovnicaLokacija</h3>
+
+                                        </div>
 
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                }
             }
-           
+            else
+            {
+                <div class="row">
+                        <div class="col-md-12 " style="text-align:center">
+                            <img src="~/images/bear.gif" style="margin-top:30px;margin-bottom:25px"/>
+                            <h1 style="font-weight:bold;color:lightgray;margin-bottom:50px;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Sorry no cars here right now!</h1>
+                        </div>
+
+                    </div>
+            }
+
+
         </div>
     </div>
 </div>
