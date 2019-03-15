@@ -1,0 +1,60 @@
+﻿@if (Model != null)
+{
+    /**/
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="text-primary" style="text-align:left">
+                <tr>
+                    <th style="text-align:center">
+                        Komentar
+                    </th>
+                    <th>
+                        Ocjena
+                    </th>   <th>
+                        
+                    </th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th style="text-align:center">
+                        @Model.Poruka
+                    </th>
+                    <th style="text-align:left">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Model.OcjenaVrijednost)
+                            {
+                                <span style="width:20px;height:20px" class="fa fa-star checked"></span>
+                            }
+                            else
+                            {
+                                <span style="width:20px;height:20px" class="fa fa-star"></span>
+                            }
+
+                        }
+
+                    </th>
+                    <th style="text-align:right">
+                        @Model.DatumOcjene
+                    </th>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (Model == null)
+{
+    /**/
+    <button class="btn btn-round btn-outline-primary center-block" data-toggle="modal" data-target="#loginModal">
+        <i class="material-icons">add</i>
+
+    </button>
+}

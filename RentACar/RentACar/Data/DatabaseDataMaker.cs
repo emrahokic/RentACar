@@ -305,7 +305,7 @@ namespace RentACar.Data
             {
                 Kolicina = 1,
                 Opis = "Neki opis",
-                UkupnaCijenaUsluge = 26,
+                UkupnaCijenaUsluge = 80,
                 DodatneUsluge = context.DodatneUsluge.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
                 Rezervacija = context.Rezervacija.OrderBy(x => Guid.NewGuid()).FirstOrDefault()
             });

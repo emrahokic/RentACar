@@ -9,6 +9,7 @@ namespace RentACar.ViewModels
     //ovaj ostaje ovdje
     public class VozilaVM
     {
+        public string GradSearch { get; set; }
         public List<Row> rows { get; set; }
         public class Row
         {

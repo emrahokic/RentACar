@@ -1,54 +1,51 @@
-﻿@model RentACar.ViewModels.VoziloVM
-@{
-    ViewData["Title"] = "Index";
-}
-<button class="btn btn-success">Slobodna</button>
-<button class="btn btn-danger">Rezervisana</button>
+﻿
 
-<div class="col-md-12">
-    <div class="card card-plain">
-        <div class="card-header card-header-info">
-            <h4 class="card-title mt-0"> Vozila </h4>
-            <p class="card-category"> lista vozila</p>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="">
-                        <tr>
-                            <th>Brend</th>
-                            <th>Naziv</th>
-                            <th>Model</th>
-                            <th>Broj vrata</th>
-                            <th>Tip vozila</th>
-                            <th>Transmisija</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in Model.rows)
-                        {
-                            <tr>
-                                <th>@x.Brend</th>
-                                <th>@x.Naziv</th>
-                                <th>@x.Model</th>
-                                <th>@x.BrojVrata</th>
-                                <th>@x.TipVozila</th>
-                                <th>@x.Transmisija</th>
-
-                                <th>
-                                    <a class="btn btn-success" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@x.VoziloID">Detalji</a>
-                                    <a class="btn btn-success" href="#">Uredi</a>
-                                </th>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="page-header header-filter purple-filter" data-parallax="true" style="background-image: url('https://www.gannett-cdn.com/-mm-/b81b778fcde932aea0df8f5ee3982564b7632cba/c=0-110-500-391/local/-/media/2018/06/14/USATODAY/usatsports/car-lot-square-e1461855298700.jpg'); transform: translate3d(0px, 100px, 0px);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto">
+                <div class="brand">
+                    <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Sunny Cars</h1>
+                    <h3 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Pick one you will not regret!</h3>
+                   
+                        <div class=" form-group bmd-form-group is-filled">
+                            <input  id="grad"  placeholder="Which City..." type="text" name="grad" style="color:white;text-align:center;font-size:25px;" class="form-control" />
+                        </div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised">
+    <div class="profile-content">
+        <div class="container" id="PartialViewVozila">
+          
+
         </div>
     </div>
 </div>
 
 <script>
-    document.getElementById("vozila").className = "active";
+    $('#grad').on('keyup', function (e) {
+        //if (e.which === 13) {
+
+            var x = $("#grad").val();
+            $.post("/Vozilo/VozilaPartialView?grad=" + x,
+                function (rezultat, status) {
+                    $("#PartialViewVozila").html(rezultat);
+                    $('html, body').animate({
+                        scrollTop: $("#grad").offset().top
+                    }, 500);
+                });
+      //  }
+    });
+  
+    $(document).ready(function () {
+         $.get("/Vozilo/VozilaPartialView",
+            function (rezultat, status) {
+                $("#PartialViewVozila").html(rezultat);
+
+            });
+    });
+    
 </script>

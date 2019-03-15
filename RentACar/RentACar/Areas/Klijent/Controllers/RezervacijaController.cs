@@ -84,22 +84,32 @@ namespace RentACar.Areas.Klijent.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DodajOcjenuKomentar(string Poruka, int Ocjena, int RezervacijaID)
+        public IActionResult DodajOcjenuKomentar(string Poruka, int? Ocjena, int RezervacijaID)
         {
+            if (Ocjena == null && Poruka != null)
+            {
+                Ocjena = 0;
+            }
+            if (Ocjena>=0 && Poruka != null && RezervacijaID>0)
+            {
+
             int KlijentID = int.Parse(_signInManager.GetUserId(User));
             Rezervacija tempR = db.Rezervacija.Find(RezervacijaID);
             ApplicationUser tempK = db.Users.Find(KlijentID);
             OcjenaRezervacija rezervacija = new OcjenaRezervacija()
             {
                 Poruka = Poruka,
-                OcjenaVrijednost = Ocjena,
+                OcjenaVrijednost =(int) Ocjena,
                 Rezervacija = tempR,
+                DatumOcjene = DateTime.Now,
                 Klijent = tempK
             };
             db.OcjenaRezervacija.Add(rezervacija);
             db.SaveChanges();
-            return Redirect("Detalji/"+tempR.RezervacijaID);
+            return PartialView("OcjenaKomentar",rezervacija);
+            }
+            return PartialView("OcjenaKomentar", null);
+
         }
 
         private int dateDiff(DateTime datumPreuzimanja, DateTime datumPovrata)
@@ -108,7 +118,16 @@ namespace RentACar.Areas.Klijent.Controllers
             return t.Days;
         }
 
+        public IActionResult OcjenaKomentar(int id)
+        {
+            OcjenaRezervacija model = db.OcjenaRezervacija.Where(y => y.RezervacijaID == id).Select(c => new OcjenaRezervacija
+            {
+                Poruka = c.Poruka,
+                OcjenaVrijednost = c.OcjenaVrijednost
+            }).FirstOrDefault();
 
+            return PartialView(nameof(OcjenaKomentar), model);
+        }
 
         public IActionResult Detalji(int id)
         {
@@ -131,11 +150,6 @@ namespace RentACar.Areas.Klijent.Controllers
                 Vozilo = x.Vozilo.Naziv,
                 Brend = x.Vozilo.Brend.Naziv,
                 Poslovnica = x.Poslovnica.Naziv,
-                ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
-                {
-                    Poruka = c.Poruka,
-                    OcjenaVrijednost = c.OcjenaVrijednost
-                }).FirstOrDefault(),
                 dodatneUsluge = db.RezervisanaUsluga.Where(u => u.RezervacijaID == x.RezervacijaID).Select(ru => new RezervacijaDetaljnoVM.Row{
                     Naziv = ru.DodatneUsluge.Naziv,
                     RezervisanaUslugaID = ru.RezervisanaUslugaID,
