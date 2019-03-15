@@ -3,12 +3,16 @@
     ViewData["Title"] = "DodajVozilo";
 }
 
-<h3>Dodaj vozilo za prikolicu</h3>
-
-<div class="row">
-    <div class="col-md-4">
+<div class="card card-nav-tabs" style="width: 45rem;">
+    <div class="card-header card-header-success">
+        Dodaj vozilo za prikolicu 
+    </div>
+    <div class="col-md-8">
         <form asp-area="Uposlenik" asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
-            <input type="text" name="PrikolicaID" value="@Model.PrikolicaID"/>
+            <div class="form-group">
+            <input type="hidden" name="PrikolicaID" value="@Model.PrikolicaID" />
+            </div>
+
             <div class="form-group">
                 <label>Tip kuke: </label>
                 <div>
@@ -24,7 +28,7 @@
             </div>
 
             <div class="form-group">
-                <label>Razrednik/Nastavnik: </label>
+                <label>Vozilo: </label>
                 <div>
                     <select type="text" name="VoziloID" class="form-control">
                         @foreach (var x in Model.vozila)

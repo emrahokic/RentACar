@@ -5,11 +5,11 @@
 }
 
 
-<h3>Detalji o prikolici</h3>
-<hr />
-
-<div class="row">
-    <div class="col-md-4">
+<div class="card card-nav-tabs" style="width: 45rem;">
+    <div class="card-header card-header-success">
+        Detalji o prikolici
+    </div>
+    <div class="col-md-12">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <input type="hidden" value="@Model.PrikolicaID" readonly />
@@ -34,56 +34,58 @@
 
         <div class="form-group">
             <label asp-for="TipPrikolice" class="control-label"></label>
-            <input asp-for="TipPrikolice" class="form-control" value="@Model.TipPrikolice" readonly />
+            <input asp-for="TipPrikolice" class="form-control" value="@Enum.GetName(typeof(TipPrikolice), Model.TipPrikolice)" readonly />
             <span asp-validation-for="TipPrikolice" class="text-danger"></span>
         </div>
     </div>
 </div>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>TipKuke</th>
-            <th>Tezina</th>
-            <th>Vozilo</th>
-            <th>Tip vozila</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model.rows)
-        {
-            <tr>
-                <th>@x.TipKuke</th>
-                <th>@x.Tezina</th>
-                <th>@x.Auto</th>
-                <th>@x.tipAuta</th>
-                <th></th>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a class="btn btn-success" id="pozivID" >Dodaj vozilo</a>
-
-<strong id="dodajVozilo">
-  
-</strong>
-
 <br />
-<div>
+
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-info">
+            <h4 class="card-title mt-0"> Vozila </h4>
+            <p class="card-category"> lista vozila</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>TipKuke</th>
+                            <th>Tezina</th>
+                            <th>Vozilo</th>
+                            <th>Tip vozila</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.rows)
+                        {
+                            <tr>
+                                <th>@x.TipKuke</th>
+                                <th>@x.Tezina</th>
+                                <th>@x.Auto</th>
+                                <th>@Enum.GetName(typeof(TipVozila), x.tipAuta)</th>
+                                <th></th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12" id="dodajVozilo">
+    <a ajax-poziv="da" ajax-rezultat="dodajVozilo" href="/uposlenik/Prikolica/DodajVozilo?id=@Model.PrikolicaID" class="btn btn-success">Dodaj vozilo</a>
+</div>
+
+
+
+<div class="col-lg-12">
     <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
 </div>
 
-<script>
-    $("#pozivID").click(function (event) {
-        $.get("/Areas/Uposlenik/Prikolica/DodajVozilo?id=@Model.PrikolicaID",
-            function (rezultat, status) {
-                $("#dodajVozilo").html(rezultat);
-
-            });
-        });
-</script>
 <script>
     document.getElementById("prikolice").className = "active";
 </script>

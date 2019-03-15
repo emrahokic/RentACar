@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RentACar.Data;
 using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
+using RentACar.Helper;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -49,12 +50,23 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public IActionResult Uredi(int id)
         {
-            Prikolica model = new Prikolica();
-            model = _context.Prikolica.Find(id);
+            PrikolicaUrediVM model = new PrikolicaUrediVM();
+            model = _context.Prikolica.Where(p => p.PrikolicaID == id).Select(x => new PrikolicaUrediVM
+            {
+                PrikolicaID = x.PrikolicaID,
+                Duzina = x.Duzina,
+                Sirina = x.Sirina,
+                Zapremina = x.Zapremina,
+            }).SingleOrDefault();
             if (model == null)
             {
                 return Content("Prikolica ne postoji");
             }
+            model.TipPrikolice = Enum.GetValues(typeof(TipPrikolice)).Cast<TipPrikolice>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
 
             return View(nameof(Uredi), model);
         }
@@ -135,14 +147,19 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public IActionResult DodajVozilo(int id)
         {
+            var vozPrikolica = _context.KompatibilnostPrikolica.Where(p => p.PrikolicaID == id).Select(v => v.Vozilo);
+            var voz = _context.Vozilo.Select(x => x);
+            var rez = voz.Where(p1 => vozPrikolica.All(p2 => p2.VoziloID != p1.VoziloID)).Select(p3 => p3);
             var ulazniModel = new DodajVoziloPrikolicaVM();
-            ulazniModel.vozila = _context.Vozilo.Select(x => new SelectListItem
+            ulazniModel.vozila = rez.Select(x => new SelectListItem
             {
                 Value = x.VoziloID.ToString(),
-                Text = x.Brend.Naziv + " " + x.Model + " " + x.TipVozila
+                Text = x.Brend.Naziv + " - " + x.Naziv + " - " + x.TipVozila
             }
             ).ToList();
+
             ulazniModel.PrikolicaID = id;
+
             return PartialView(nameof(DodajVozilo), ulazniModel);
         }
         public IActionResult DodajVoziloSnimi(int PrikolicaID, string tipKuke, double tezina, int VoziloID)
@@ -158,7 +175,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.Add(model);
             _context.SaveChanges();
             _context.Dispose();
-            string route = "/Prikolica/Detalji/" + PrikolicaID.ToString();
+            string route = "/uposlenik/Prikolica/Detalji/" + PrikolicaID.ToString();
             return Redirect(route);//Redirect(nameof(Index));
         }
     }
