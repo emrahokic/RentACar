@@ -56,7 +56,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.SaveChanges();
             _context.Dispose();
 
-            return Redirect("/Usluge/Index");
+            return Redirect(nameof(Index));
         }
 
 
@@ -101,7 +101,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.SaveChanges();
             _context.Dispose();
 
-            return Redirect("/Usluge/Index");
+            return Redirect(nameof(Index));
         }
     }
 }

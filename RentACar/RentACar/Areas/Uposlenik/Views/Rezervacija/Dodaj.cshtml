@@ -1,37 +1,90 @@
-﻿@model RezervacijaDodajVM
+﻿@model VoziloRezervacijaVM
 
 @{
     ViewData["Title"] = "Dodaj";
 }
 
-<h2>Dodaj</h2>
 
-<form asp-action="Dodaj" asp-area="Uposlenik" method="post" >
+<div class="col-lg-12">
+    <a class="btn btn-info">SVE</a>
+    <a class="btn btn-info">PUTNICKA</a>
+    <a class="btn btn-info">EXOTIC</a>
+    <a class="btn btn-info">OLD-TIMER</a>
+</div>
 
-    <div class="form-group">
-        <label>Vozila</label>
-        <select asp-for="VoziloID" asp-items="Model.Vozila" class="form-control"> </select>
+@foreach (var item in Model.vozila)
+{
+    <div class="card mb-3" style="max-width: 1000px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="@item.slike" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">@item.Naziv</h3>
+                    <p class="card-text">Godina: <strong>@item.GodinaProizvodnje</strong> -- Snaga: <strong>@item.SnagaMotora KS</strong></p>
+                    <p class="card-text"><small class="text-muted"><hr /> </small></p>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-4" style="text-align:center; margin-bottom:5px">
+                            @if (item.Transmisija == (int)Transmisija.Manuelni)
+                            {
+                                <img src="~/images/manual.png" style="width:50px; cursor:pointer" alt="Manuelni" rel="tooltip" title="Manuelni" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(Transmisija), item.Transmisija)</p>
+                            }
+                            @if (item.Transmisija == (int)Transmisija.Automatik)
+                            {
+                                <img src="~/images/automatic.png" style="width:50px; cursor:pointer" alt="Automatik" rel="tooltip" title="Automatik" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(Transmisija), item.Transmisija)</p>
+                            }
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-4" style="text-align:center; margin-bottom:5px">
+                            @if (item.Gorivo == (int)Gorivo.Dizel)
+                            {
+                                <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Dizel" title="Dizel" rel="tooltip" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(Gorivo), item.Gorivo)</p>
+                            }
+                            @if (item.Gorivo == (int)Gorivo.Benzin)
+                            {
+                                <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Benzin" rel="tooltip" title="Benzin" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(Gorivo), item.Gorivo)</p>
+                            }
+                            @if (item.Gorivo == (int)Gorivo.Struja)
+                            {
+                                <img src="~/images/tunder.png" style="width:50px; cursor:pointer" alt="Struja" rel="tooltip" title="Struja" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(Gorivo), item.Gorivo)</p>
+                            }
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-4" style="text-align:center; margin-bottom:5px">
+                            @if (item.TipVozila == (int)TipVozila.Normal)
+                            {
+                                <img src="~/images/car.png" style="width:50px; cursor:pointer" alt="Normal" title="Normal" rel="tooltip" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(TipVozila), item.TipVozila)</p>
+                            }
+                            @if (item.TipVozila == (int)TipVozila.Hibrid)
+                            {
+                                <img src="~/images/GvH.jpg" style="width:50px; cursor:pointer" alt="Hibrid" rel="tooltip" title="Hibrid" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(TipVozila), item.TipVozila)</p>
 
-        <label>Datum preuzimanja</label>
-        <input asp-for="DatumPreuzimanja" class="form-control" />
+                            }
+                            @if (item.TipVozila == (int)TipVozila.Elektricno)
+                            {
+                                <img src="~/images/electric.png" style="width:50px; cursor:pointer" alt="Elektricno" rel="tooltip" title="Elektricno" />
+                                <p style="padding-top: 5px;">@Enum.GetName(typeof(TipVozila), item.TipVozila)</p>
 
-        <label>Datum Povratka</label>
-        <input asp-for="DatumPovrata" class="form-control" />
-
-        <label>Nacin Plaćanja</label>
-        <input asp-for="NacinPlacanja" class="form-control" />
-
-           <label>Vrsta rezervacije</label>
-        <input asp-for="VrstaRezervacije" class="form-control" />   
-      
-
-    
-
-
-
-
-
+                            }
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-4" style="text-align:center; margin-bottom:5px">
+                            <a class="btn btn-warning" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Rezervisi" asp-route-id="@item.VoziloID">Rezervisi</a>
+                            <a class="btn btn-info" asp-area="Uposlenik" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@item.VoziloID">Detalji</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <button type="submit" class="btn btn-success">Kreiraj</button>
-</form>
+}
+
+<script>
+    document.getElementById("rezervacije").className = "active";
+</script>
+

@@ -12,6 +12,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public double  Zapremina { get; set; }
         public double Duzina { get; set; }
         public int TipPrikolice { get; set; }
+        public double Cijena { get; set; }
 
         public List<Row> rows { get; set; }
         public class Row

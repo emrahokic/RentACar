@@ -10,6 +10,7 @@ using RentACar.Data;
 using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
 using RentACar.Helper;
+using System.Security.Claims;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -51,76 +52,169 @@ namespace RentACar.Areas.Uposlenik.Controllers
         }
 
        
-        public IActionResult Dodaj()
+        public async Task<IActionResult> Dodaj()
         {
-            List<SelectListItem> listaVozila = new List<SelectListItem>();
-            listaVozila.AddRange(db.Vozilo.Select(x=>new SelectListItem() {
-                     Value = x.VoziloID.ToString(),
-                     Text = x.Naziv
-            }));
-            RezervacijaDodajVM model = new RezervacijaDodajVM();
-
-            model.Vozila = listaVozila;
+            var model = new VoziloRezervacijaVM
+            {
+                vozila = db.Vozilo.Select(v => new VoziloRezervacijaVM.Row
+                {
+                    Boja =v.Boja,
+                    Brend = v.Brend.Naziv,
+                    Naziv = v.Naziv,
+                    BrojMjesta = v.BrojMjesta,
+                    BrojVrata = v.BrojVrata,
+                    Domet = v.Domet,
+                    VoziloID = v.VoziloID,
+                    GodinaProizvodnje = v.GodinaProizvodnje,
+                    Gorivo = v.Gorivo,
+                    GrupniTipVozila = v.GrupniTipVozila,
+                    Klima = v.Klima,
+                    Model = v.Model,
+                    slike =  db.Slika.Where(s => s.Pozicija == 1 && s.VoziloID == v.VoziloID).Select(p => p.URL).FirstOrDefault(),
+                    SnagaMotora = v.SnagaMotora,
+                    TipVozila = v.TipVozila,
+                    Transmisija = v.Transmisija
+                }).ToList()
+            };
             return View(model);
         }
-
-
-
-        //izmjeniti dodavanje
-
-        [HttpPost]
-        public IActionResult Dodaj(RezervacijaDodajVM model)
+        public IActionResult Rezervisi(int id)
         {
-            Rezervacija rezervacija = new Rezervacija() {
-                DatumRezervacije = System.DateTime.Now,
-                DatumPreuzimanja = model.DatumPreuzimanja,
-                DatumPovrata = model.DatumPovrata,
-                NacinPlacanja = model.NacinPlacanja,
-                KlijentID = int.Parse(_signInManager.GetUserId(User)),
-                BrojDanaIznajmljivanja = dateDiff(model.DatumPreuzimanja, model.DatumPovrata),
-                Cijena=1,
-                VoziloID=model.VoziloID,
-                PoslovnicaID=db.TrenutnaPoslovnica.FirstOrDefault(s=>s.VoziloID==model.VoziloID).PoslovnicaID,
-                Zakljucen=(int) InfoRezervacija.U_Obradi
-                
-                
+            var model = new RezervacijaPocetakVM();
+            model.VoziloID = id;
+            model.NazivVozila = db.Vozilo.Where(v => v.VoziloID == id).Select(s => s.Naziv).SingleOrDefault();
 
-            };
-            db.Rezervacija.Add(rezervacija);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
-
-
-        //Ovo je za klijenta mozes obrisati ako ti ne treba
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DodajOcjenuKomentar(string Poruka, int Ocjena, int RezervacijaID)
-        {
-            int KlijentID = int.Parse(_signInManager.GetUserId(User));
-            Rezervacija tempR = db.Rezervacija.Find(RezervacijaID);
-            ApplicationUser tempK = db.Users.Find(KlijentID);
-            OcjenaRezervacija rezervacija = new OcjenaRezervacija()
+            var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            model.UposlenikID = user;
+            
+            model.nacinPlacanja = Enum.GetValues(typeof(NacinPlacanja)).Cast<NacinPlacanja>().Select(v => new SelectListItem
             {
-                Poruka = Poruka,
-                OcjenaVrijednost = Ocjena,
-                Rezervacija = tempR,
-                Klijent = tempK
-            };
-            db.OcjenaRezervacija.Add(rezervacija);
-            db.SaveChanges();
-            return Redirect("Detalji/"+tempR.RezervacijaID);
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+
+            return View(nameof(Rezervisi), model);
         }
 
-        private int dateDiff(DateTime datumPreuzimanja, DateTime datumPovrata)
+        public async Task<IActionResult> RezervisiSnimi(int VoziloID, string Ime, string Prezime, string datumRodjenja,
+            string Adresa, string jmbg, string Spol, int UposlenikID, string DatumPreuzimanja, string DatumPovrata,
+            int NacinPlacanja)
         {
-            TimeSpan t = datumPovrata - datumPreuzimanja;
-            return t.Days;
+            //klijent napravi i pronadji id
+            string username = Ime + "." + Prezime + "@gm." + Prezime;
+            await _signInManager.CreateAsync(new ApplicationUser
+            {
+                UserName = username,
+                Email = username,
+                Ime = Ime,
+                Prezime = Prezime,
+                Adresa = Adresa,
+                Grad = db.Grad.Where(g => g.GradID == 1).SingleOrDefault(),
+                JMBG = jmbg,
+                DatumRodjenja = DateTime.Parse(datumRodjenja),
+                DatumRegistracije = System.DateTime.Now,
+                Spol = Spol,
+                Slika = "nema",
+            });
+
+            var klijent = await _signInManager.FindByEmailAsync(username);
+
+            //get poslovnicaID
+            var poslovnicaID = db.UgovorZaposlenja.Where(u => u.UposlenikID == UposlenikID).Select(s => s.PoslovnicaID).SingleOrDefault();
+
+            //napravi rezervaciju
+            DateTime d1 = DateTime.Parse(DatumPreuzimanja);
+            DateTime d2 = DateTime.Parse(DatumPovrata);
+            int brojDana = Convert.ToInt32((d2 - d1).TotalDays);
+
+            double cijenaAutaDan = db.Vozilo.Where(v => v.VoziloID == VoziloID).Select(s => s.Cijena).SingleOrDefault();
+            string sifra = username + datumRodjenja;
+            Rezervacija nova = new Rezervacija
+            {
+                DatumRezervacije = DateTime.Now,
+                DatumPreuzimanja = DateTime.Parse(DatumPreuzimanja),
+                DatumPovrata = DateTime.Parse(DatumPovrata),
+                NacinPlacanja = NacinPlacanja,
+                SifraRezervacije = username + datumRodjenja,
+                Zakljucen = 3,
+                BrojDanaIznajmljivanja = brojDana,
+                Cijena = brojDana * cijenaAutaDan,
+                UspjesnoSpremljena = true,
+                KlijentID = klijent.Id,
+                VoziloID = VoziloID,
+                PoslovnicaID = poslovnicaID,
+                UposlenikID = UposlenikID
+            };
+            db.Add(nova);
+            db.SaveChanges();
+
+            int rezervacijaID = db.Rezervacija.Where(r => r.SifraRezervacije == sifra).Select(s => s.RezervacijaID).SingleOrDefault();
+            string route = "/Uposlenik/Rezervacija/DodajUslugeRezervaciji?id="+rezervacijaID;
+
+            return Redirect(route);
         }
 
+        public IActionResult DodajUslugeRezervaciji(int id)
+        {
+            RezervacijaSredinaVM model = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => 
+            new RezervacijaSredinaVM
+            {
+                Korisnik = s.Klijent.Ime + " " + s.Klijent.Prezime,
+                Vozilo = s.Vozilo.Naziv,
+                DatumPreuzimanja = s.DatumPreuzimanja.ToShortDateString(),
+                DatumPovrata = s.DatumPovrata.ToShortDateString(),
+                Cijena = s.Cijena,
+                RezervacijaID = id
+            }).SingleOrDefault();
+            model.dodatneUsluge = db.RezervisanaUsluga.Where(r => r.RezervacijaID == id).Select(s => new RezervacijaSredinaVM.Row
+            {
+                Cijena = s.DodatneUsluge.Cijena,
+                Naziv = s.DodatneUsluge.Naziv,
+                Opis = s.DodatneUsluge.Opis,
+                Kolicina = s.Kolicina,
+                Ukupno = s.UkupnaCijenaUsluge
+            }).ToList();
 
+            return View(nameof(DodajUslugeRezervaciji), model);
+        }
 
+        public IActionResult RezervacijaUsluge(int id)
+        {
+            var model = new RezervacijaUslugeVM();
+            model.RezervacijaID = id;
+
+            var rezervisane = db.RezervisanaUsluga.Where(p => p.RezervacijaID == id).Select(v => v.DodatneUsluge);
+            var usluge = db.DodatneUsluge.Select(x => x);
+            var rez = usluge.Where(p1 => rezervisane.All(p2 => p2.DodatneUslugeID != p1.DodatneUslugeID)).Select(p3 => p3);
+
+            model.usluge = rez.Select(s => new SelectListItem
+            {
+                Value = s.DodatneUslugeID.ToString(),
+                Text = s.Naziv + " - " + s.Cijena.ToString()
+            }).ToList();
+
+            return PartialView(nameof(RezervacijaUsluge), model);
+        }
+        public IActionResult RezervacijaUslugeSnimi(int RezervacijaID, int Kolicina, int UslugaID)
+        {
+            double cijena = db.DodatneUsluge.Where(d => d.DodatneUslugeID == UslugaID).Select(s => s.Cijena).SingleOrDefault();
+            double ukupno = Kolicina * cijena;
+            RezervisanaUsluga nova = new RezervisanaUsluga
+            {
+                RezervacijaID = RezervacijaID,
+                DodatneUslugeID = UslugaID,
+                Kolicina = Kolicina,
+                Opis = "Opis",
+                UkupnaCijenaUsluge = ukupno
+            };
+            db.Add(nova);
+            db.SaveChanges();
+            var temp = db.Rezervacija.Where(r => r.RezervacijaID == RezervacijaID).Select(s => s).SingleOrDefault();
+            temp.Cijena += ukupno;
+            db.SaveChanges();
+            string route = "/Uposlenik/Rezervacija/DodajUslugeRezervaciji?id=" + RezervacijaID.ToString();
+            return Redirect(route);
+        }
         public IActionResult Detalji(int id)
         {
             RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM {
@@ -161,5 +255,11 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return View(nameof(Detalji), model);
         }
 
+
+    
+
     }
+
+
+
 }

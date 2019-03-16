@@ -1,47 +1,58 @@
-﻿@model RentACar.Models.Prikolica
+﻿@model PrikolicaDodajVM
 @{
     ViewData["Title"] = "Dodaj";
 }
 
-<h3>Dodaj novu prikolicu</h3>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card card-nav-tabs" style="width: 45rem;">
+    <div class="card-header card-header-success">
+        Dodaj novu prikolicu
+    </div>
+    <div class="col-md-12">
         <form asp-area="Uposlenik" asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
-
             <div class="form-group">
-                <label asp-for="Sirina" class="control-label"></label>
-                <input asp-for="Sirina" class="form-control"  />
-                <span asp-validation-for="Sirina" class="text-danger"></span>
+                
+            </div>
+            <div class="form-group">
+                <label>Sirina: </label>
+                <input type="text" name="Sirina" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label asp-for="Zapremina" class="control-label"></label>
-                <input asp-for="Zapremina" class="form-control" />
-                <span asp-validation-for="Zapremina" class="text-danger"></span>
+                <label>Zapremina: </label>
+                <input type="text" name="Zapremina" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label asp-for="Duzina" class="control-label"></label>
-                <input asp-for="Duzina" class="form-control" />
-                <span asp-validation-for="Duzina" class="text-danger"></span>
+                <label>Duzina: </label>
+                <input type="text" name="Duzina" class="form-control" />
             </div>
 
             <div class="form-group">
-                <label asp-for="TipPrikolice" class="control-label"></label>
-                <input asp-for="TipPrikolice" class="form-control" />
-                <span asp-validation-for="TipPrikolice" class="text-danger"></span>
+                <label>Cijena: </label>
+                <input type="text" name="Cijena" class="form-control" />
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-default">Snimi</button>
+                <label>Tip prikolice: </label>
+                <div>
+                    <select type="text" name="TipPrikolice" class="form-control">
+                        @foreach (var x in Model.tipPrikolice)
+                        {
+                            <option value="@x.Value"> @x.Text </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Snimi</button>
             </div>
 
         </form>
     </div>
 </div>
 
-<div>
+<div class="col-md-12">
     <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
 </div>
 

@@ -102,71 +102,77 @@
     </div>
 </div>
 
-<div class="card card-nav-tabs" style="width: 64rem;">
+<div class="card card-nav-tabs col-lg-12">
     <div class="card-header card-header-info">
-        Detaljne informacije
+        <h3 class="h3">Cijena na dan: @Model.Cijena KM</h3>
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><strong>Pogon:</strong> <input type="text" class="form-control" value="@Model.Pogon" readonly /></li>
-        <li class="list-group-item"><strong>Domet:</strong> <input type="text" class="form-control" value="@Model.Domet" readonly /></li>
-        <li class="list-group-item"><strong>Zpremina prtljaznika:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznika" readonly /></li>
-        @if (Model.ZapreminaPrtljaznikaNaprijed != 0)
-        {
-            <li class="list-group-item"><strong>Zpremina prtljaznika naprijed:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznikaNaprijed" readonly /></li>
-        }
-        <li class="list-group-item"><strong>Datum mijenjanja ulja: </strong> <input type="text" class="form-control" value="@Model.DatumMijenjanjUlja" readonly /></li>
-        <li class="list-group-item"><strong>Kilometraza: </strong> <input type="text" class="form-control" value="@Model.Kilometraza" readonly /></li>
-        <li class="list-group-item"><strong>Registarska oznaka:</strong> <input type="text" class="form-control" value="@Model.RegistarskaOznaka" readonly /></li>
-        <li class="list-group-item"><strong>Broj sasije:</strong><input type="text" class="form-control" value="@Model.BrojSasije" readonly /></li>
-        <li class="list-group-item"><strong>Dodatni opis:</strong> <input type="text" class="form-control" value="@Model.DodatniOpis" readonly /></li>
-    </ul>
-</div>
-<div>
-    <button class="btn btn-success">Rezervisi</button>
-    <button class="btn btn-success">Uredi</button>
-</div>
-<br />
+    </div>
 
-<div class="col-md-12">
-    <div class="card card-plain">
+    <div class="card card-nav-tabs" style="width: 64rem;">
         <div class="card-header card-header-info">
-            <h4 class="card-title mt-0"> Prikolice </h4>
-            <p class="card-category"> lista prikolica za vozilo</p>
+            Detaljne informacije
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="">
-                        <tr>
-                            <th>Sirina</th>
-                            <th>Zapremina</th>
-                            <th>Duzina</th>
-                            <th>Tip prikolice</th>
-                            <th>Tip kuke</th>
-                            <th>Tezina</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in Model.prikolice)
-                        {
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Pogon:</strong> <input type="text" class="form-control" value="@Model.Pogon" readonly /></li>
+            <li class="list-group-item"><strong>Domet:</strong> <input type="text" class="form-control" value="@Model.Domet" readonly /></li>
+            <li class="list-group-item"><strong>Zpremina prtljaznika:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznika" readonly /></li>
+            @if (Model.ZapreminaPrtljaznikaNaprijed != 0)
+            {
+                <li class="list-group-item"><strong>Zpremina prtljaznika naprijed:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznikaNaprijed" readonly /></li>
+            }
+            <li class="list-group-item"><strong>Datum mijenjanja ulja: </strong> <input type="text" class="form-control" value="@Model.DatumMijenjanjUlja" readonly /></li>
+            <li class="list-group-item"><strong>Kilometraza: </strong> <input type="text" class="form-control" value="@Model.Kilometraza" readonly /></li>
+            <li class="list-group-item"><strong>Registarska oznaka:</strong> <input type="text" class="form-control" value="@Model.RegistarskaOznaka" readonly /></li>
+            <li class="list-group-item"><strong>Broj sasije:</strong><input type="text" class="form-control" value="@Model.BrojSasije" readonly /></li>
+            <li class="list-group-item"><strong>Dodatni opis:</strong> <input type="text" class="form-control" value="@Model.DodatniOpis" readonly /></li>
+        </ul>
+    </div>
+    <div>
+        <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Rezervisi" asp-route-id="@Model.VoziloID">Rezervisi</a>
+        <button class="btn btn-success">Uredi</button>
+    </div>
+    <br />
+
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="card-header card-header-info">
+                <h4 class="card-title mt-0"> Prikolice </h4>
+                <p class="card-category"> lista prikolica za vozilo</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="">
                             <tr>
-                                <th>@x.Sirina</th>
-                                <th>@x.Zapremina</th>
-                                <th>@x.Duzina</th>
-                                <th>@x.TipPrikolice</th>
-                                <th>@x.TipKuke</th>
-                                <th>@x.Tezina</th>
+                                <th>Sirina</th>
+                                <th>Zapremina</th>
+                                <th>Duzina</th>
+                                <th>Tip prikolice</th>
+                                <th>Tip kuke</th>
+                                <th>Tezina</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model.prikolice)
+                            {
+                                <tr>
+                                    <th>@x.Sirina</th>
+                                    <th>@x.Zapremina</th>
+                                    <th>@x.Duzina</th>
+                                    <th>@x.TipPrikolice</th>
+                                    <th>@x.TipKuke</th>
+                                    <th>@x.Tezina</th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.getElementById("vozila").className = "active";
-</script>
+    <script>
+        document.getElementById("vozila").className = "active";
+    </script>
 
-<script src="~/js/slideshow.js"></script>
+    <script src="~/js/slideshow.js"></script>

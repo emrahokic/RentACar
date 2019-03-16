@@ -12,16 +12,6 @@ using RentACar.Helper;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
-    /****************************************
-     *
-     * 
-     * 
-     *       Trebas dodati koje su role za Authorize
-     *      [Authorize(Roles = "Administrator,Uposlenik")]
-     *       
-     * 
-     * 
-     ***************************************/
     [Authorize(Roles = "Administrator,Uposlenik")]
     [Area("Uposlenik")]
     public class PrikolicaController : Controller
@@ -57,7 +47,14 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Duzina = x.Duzina,
                 Sirina = x.Sirina,
                 Zapremina = x.Zapremina,
+                Cijena = x.Cijna,
+                TipPrikolice = Enum.GetValues(typeof(TipPrikolice)).Cast<TipPrikolice>().Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    Value = ((int)v).ToString()
+                }).ToList()
             }).SingleOrDefault();
+
             if (model == null)
             {
                 return Content("Prikolica ne postoji");
@@ -71,7 +68,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return View(nameof(Uredi), model);
         }
         
-        public IActionResult UrediSnimi(int PrikolicaID, double Sirina, double Zapremina, double Duzina, int TipPrikolice)
+        public IActionResult UrediSnimi(int PrikolicaID, double Sirina, double Zapremina, double Duzina, double Cijena, int TipPrikolice)
         {
             Prikolica x = _context.Prikolica.Find(PrikolicaID);
 
@@ -79,6 +76,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             x.Sirina = Sirina;
             x.Zapremina = Zapremina;
             x.Duzina = Duzina;
+            x.Cijna = Cijena;
             x.TipPrikolice = TipPrikolice;
 
             _context.SaveChanges();
@@ -105,16 +103,23 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public IActionResult Dodaj()
         {
-            return View(nameof(Dodaj));
+            PrikolicaDodajVM model = new PrikolicaDodajVM();
+            model.tipPrikolice = Enum.GetValues(typeof(TipPrikolice)).Cast<TipPrikolice>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+            return View(nameof(Dodaj), model);
         }
 
-        public IActionResult DodajSnimi(double Sirina, double Zapremina, double Duzina, int TipPrikolice)
+        public IActionResult DodajSnimi(double Sirina, double Zapremina, double Duzina, double Cijena, int TipPrikolice)
         {
             Prikolica nova = new Prikolica()
             {
                 Sirina = Sirina,
                 Zapremina = Zapremina,
                 Duzina = Duzina,
+                Cijna = Cijena,
                 TipPrikolice = TipPrikolice
             };
             _context.Add(nova);
@@ -133,6 +138,8 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Sirina = temp.Sirina,
                 Zapremina = temp.Zapremina,
                 TipPrikolice = temp.TipPrikolice,
+                Cijena = temp.Cijna,
+                Duzina = temp.Duzina,
                 rows = _context.KompatibilnostPrikolica.Where(x=> x.Prikolica.PrikolicaID == id).Select(p=> new PrikolicaDetaljiVM.Row
                 {
                     TipKuke = p.TipKuke,

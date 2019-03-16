@@ -1,0 +1,72 @@
+﻿@model RezervacijaSredinaVM
+@{
+    ViewData["Title"] = "DodajUslugeRezervaciji";
+}
+<div class="col-md-12">
+    <div class="card card-nav-tabs" style="width: 45rem;">
+        <div class="card-header card-header-info">
+            Rezervacija
+        </div>
+
+        <div class="card">
+        <div class="card-body">
+            Vozilo: @Model.Vozilo
+            </div>
+        </div>
+
+        <div>Klijent: @Model.Korisnik</div>
+        <div>Datum preuzimanja: @Model.DatumPreuzimanja</div>
+        <div>Datum povrata: @Model.DatumPovrata</div>
+        <div>Cijena: @Model.Cijena</div>
+    </div>
+</div>
+@if (Model.dodatneUsluge != null)
+{
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title mt-0"> Usluge </h4>
+            <p class="card-category"> Rezervisane dodatne usluge</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Naziv</th>
+                            <th>Opis</th>
+                            <th>Cijena</th>
+                            <th>Kolicina</th>
+                            <th>Ukupno</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach (var x in Model.dodatneUsluge)
+                      {
+                        <tr>
+                            <th>@x.Naziv</th>
+                            <th>@x.Opis</th>
+                            <th>@x.Cijena KM</th>
+                            <th>@x.Kolicina </th>
+                            <th>@x.Ukupno KM</th>
+                        </tr>
+                      }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div class="col-md-12">
+    <a href="/uposlenik/Rezervacija/RezervacijaUsluge?=@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="uslugeAdd" class="btn btn-warning">Dodaj usluge</a>
+    <a class="btn btn-success">Zavrsi rezervaciju</a>
+    <a class="btn btn-danger">Ponisti rezervaciju</a>
+</div>
+
+<div class="col-md-12" id="uslugeAdd"></div>
+
+
+<script>
+    document.getElementById("rezervacije").className = "active";
+</script>

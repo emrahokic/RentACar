@@ -1,0 +1,29 @@
+﻿@model RezervacijaUslugeVM
+@{
+    ViewData["Title"] = "RezervacijaUsluge";
+}
+
+<form asp-action="RezervacijaUslugeSnimi">
+    <div class="form-group">
+        <input type="hidden" name="RezervacijaID" class="form-control" value="@Model.RezervacijaID" />
+    </div>
+
+    <div class="form-group">
+        <label>Kolicina: </label>
+        <input type="text" name="Kolicina" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Dodatne usluge: </label>
+        <div>
+            <select type="text" name="UslugaID" class="form-control">
+                @foreach (var x in Model.usluge)
+                {
+                    <option value="@x.Value"> @x.Text </option>
+                }
+            </select>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-success" value="Dodaj"/>
+</form>
+

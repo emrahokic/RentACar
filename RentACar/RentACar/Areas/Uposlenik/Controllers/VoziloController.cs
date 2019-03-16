@@ -75,6 +75,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 GrupniTipVozila = x.GrupniTipVozila,
                 Slike = x.slike.Where(y => y.VoziloID == id).Select(u => u.URL).ToList(),
                 Kilometraza = x.Kilometraza,
+                Cijena = x.Cijena,
                 prikolice = _context.KompatibilnostPrikolica.Where(s => s.VoziloID == id).Select(p => new VoziloDetaljnoVM.Row
                 {
                     PrikolicaID = p.PrikolicaID,
