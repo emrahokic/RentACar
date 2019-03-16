@@ -10,7 +10,7 @@ using RentACar.Data;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190314211202_initial")]
+    [Migration("20190316122619_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -466,6 +466,8 @@ namespace RentACar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Cijna");
+
                     b.Property<double>("Duzina");
 
                     b.Property<double>("Sirina");
@@ -518,9 +520,13 @@ namespace RentACar.Migrations
 
                     b.Property<int>("PoslovnicaID");
 
+                    b.Property<int?>("PrikolicaID");
+
                     b.Property<string>("SifraRezervacije");
 
                     b.Property<int?>("UposlenikID");
+
+                    b.Property<bool?>("UspjesnoSpremljena");
 
                     b.Property<int>("VoziloID");
 
@@ -531,6 +537,8 @@ namespace RentACar.Migrations
                     b.HasIndex("KlijentID");
 
                     b.HasIndex("PoslovnicaID");
+
+                    b.HasIndex("PrikolicaID");
 
                     b.HasIndex("UposlenikID");
 
@@ -596,9 +604,10 @@ namespace RentACar.Migrations
                     b.Property<DateTime>("DatumUlaza");
 
                     b.Property<int>("PoslovnicaID");
-                    b.Property<bool>("VoziloRezervisano");
 
                     b.Property<int>("VoziloID");
+
+                    b.Property<bool>("VoziloRezervisano");
 
                     b.HasKey("TrenutnaPoslovnicaID");
 
@@ -667,6 +676,8 @@ namespace RentACar.Migrations
 
                     b.Property<int>("BrojVrata");
 
+                    b.Property<double>("Cijena");
+
                     b.Property<DateTime>("DatumMijenjanjUlja");
 
                     b.Property<string>("DodatniOpis");
@@ -682,6 +693,8 @@ namespace RentACar.Migrations
                     b.Property<int>("Kilometraza");
 
                     b.Property<bool>("Klima");
+
+                    b.Property<bool>("Kuka");
 
                     b.Property<string>("Model");
 
@@ -873,6 +886,10 @@ namespace RentACar.Migrations
                         .WithMany()
                         .HasForeignKey("PoslovnicaID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RentACar.Models.Prikolica", "Prikolica")
+                        .WithMany()
+                        .HasForeignKey("PrikolicaID");
 
                     b.HasOne("RentACar.Models.ApplicationUser", "Uposlenik")
                         .WithMany()

@@ -59,7 +59,8 @@ namespace RentACar.Migrations
                     Sirina = table.Column<double>(nullable: false),
                     Zapremina = table.Column<double>(nullable: false),
                     Duzina = table.Column<double>(nullable: false),
-                    TipPrikolice = table.Column<int>(nullable: false)
+                    TipPrikolice = table.Column<int>(nullable: false),
+                    Cijna = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,7 +102,9 @@ namespace RentACar.Migrations
                     ZapreminaPrtljaznikaNaprijed = table.Column<double>(nullable: false),
                     Naziv = table.Column<string>(nullable: true),
                     Kilometraza = table.Column<int>(nullable: false),
+                    Kuka = table.Column<bool>(nullable: false),
                     BrendID = table.Column<int>(nullable: false),
+                    Cijena = table.Column<double>(nullable: false),
                     Klima = table.Column<bool>(nullable: false),
                     TipVozila = table.Column<int>(nullable: false),
                     DodatniOpis = table.Column<string>(nullable: true),
@@ -368,9 +371,11 @@ namespace RentACar.Migrations
                     BrojDanaIznajmljivanja = table.Column<int>(nullable: false),
                     Zakljucen = table.Column<int>(nullable: false),
                     SifraRezervacije = table.Column<string>(nullable: true),
+                    UspjesnoSpremljena = table.Column<bool>(nullable: true),
                     VoziloID = table.Column<int>(nullable: false),
                     PoslovnicaID = table.Column<int>(nullable: false),
                     KlijentID = table.Column<int>(nullable: false),
+                    PrikolicaID = table.Column<int>(nullable: true),
                     UposlenikID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -388,6 +393,12 @@ namespace RentACar.Migrations
                         principalTable: "Poslovnica",
                         principalColumn: "PoslovnicaID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Rezervacija_Prikolica_PrikolicaID",
+                        column: x => x.PrikolicaID,
+                        principalTable: "Prikolica",
+                        principalColumn: "PrikolicaID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Rezervacija_User_UposlenikID",
                         column: x => x.UposlenikID,
@@ -778,6 +789,11 @@ namespace RentACar.Migrations
                 column: "PoslovnicaID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rezervacija_PrikolicaID",
+                table: "Rezervacija",
+                column: "PrikolicaID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rezervacija_UposlenikID",
                 table: "Rezervacija",
                 column: "UposlenikID");
@@ -930,9 +946,6 @@ namespace RentACar.Migrations
                 name: "UserToken");
 
             migrationBuilder.DropTable(
-                name: "Prikolica");
-
-            migrationBuilder.DropTable(
                 name: "DodatneUsluge");
 
             migrationBuilder.DropTable(
@@ -946,6 +959,9 @@ namespace RentACar.Migrations
 
             migrationBuilder.DropTable(
                 name: "Poslovnica");
+
+            migrationBuilder.DropTable(
+                name: "Prikolica");
 
             migrationBuilder.DropTable(
                 name: "Vozilo");

@@ -11,14 +11,18 @@ namespace RentACar.ViewModels
     {
         public string GradSearch { get; set; }
         public List<Row> rows { get; set; }
+
+
         public class Row
         {
+            public double Cijena { get; set; }
             public int VoziloID { get; set; }
             public string Brend { get; set; }
             public string Naziv { get; set; }
             public int TipVozila { get; set; }
             public int Transmisija { get; set; }
             public int Gorivo { get; set; }
+            public bool Kuka { get; set; }
             public Slika Slika { get; set; }
             public int PoslovnicaID { get; set; }
             public string PoslovnicaNaziv { get; set; }

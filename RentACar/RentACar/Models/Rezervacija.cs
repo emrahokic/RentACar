@@ -18,6 +18,10 @@ namespace RentACar.Models
         public int BrojDanaIznajmljivanja { get; set; }
         public int Zakljucen { get; set; }
         public string SifraRezervacije { get; set; }
+
+        public bool? UspjesnoSpremljena { get; set; }
+       
+
         public int VoziloID { get; set; }
         public Vozilo Vozilo { get; set; }
 
@@ -26,6 +30,10 @@ namespace RentACar.Models
 
         public int KlijentID { get; set; }
         public ApplicationUser Klijent { get; set; }
+
+        public int? PrikolicaID { get; set; }
+        public Prikolica Prikolica { get; set; }
+
 
         public int? UposlenikID { get; set; }
         public ApplicationUser Uposlenik { get; set; }

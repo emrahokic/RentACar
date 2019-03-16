@@ -24,10 +24,10 @@ namespace RentACar.Models
         public double ZapreminaPrtljaznikaNaprijed { get; set; }
         public string Naziv { get; set; }
         public int Kilometraza {get;set;}
-
+        public bool Kuka { get; set; }
         public int BrendID { get; set; }
         public Brend Brend { get; set; }
-
+        public double Cijena { get; set; }
         public bool Klima { get; set; }
         public int TipVozila { get; set; }
         public string DodatniOpis { get; set; }

@@ -110,11 +110,11 @@ namespace RentACar.Data
             context.AddRange(poslovnice);
             context.SaveChanges();
             //dodavanje prikolica 
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 180, TipPrikolice = (int) TipPrikolice.Velika , Zapremina = 200 });
-            prikolice.Add(new Prikolica { Duzina = 220, Sirina = 175, TipPrikolice = (int ) TipPrikolice.Srednja , Zapremina = 170 });
-            prikolice.Add(new Prikolica { Duzina = 200, Sirina = 180, TipPrikolice = (int) TipPrikolice.Mala, Zapremina = 150 });
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 185, TipPrikolice = (int) TipPrikolice.Srednja, Zapremina = 200 });
-            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 195, TipPrikolice = (int ) TipPrikolice.Zatvorena_Velika, Zapremina = 220 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 180, TipPrikolice = (int) TipPrikolice.Velika ,Cijna = 75, Zapremina = 200 });
+            prikolice.Add(new Prikolica { Duzina = 220, Sirina = 175, TipPrikolice = (int ) TipPrikolice.Srednja, Cijna =70, Zapremina = 170 });
+            prikolice.Add(new Prikolica { Duzina = 200, Sirina = 180, TipPrikolice = (int) TipPrikolice.Mala, Cijna = 50, Zapremina = 150 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 185, TipPrikolice = (int) TipPrikolice.Srednja, Cijna = 70, Zapremina = 200 });
+            prikolice.Add(new Prikolica { Duzina = 250, Sirina = 195, TipPrikolice = (int ) TipPrikolice.Zatvorena_Velika, Cijna = 80, Zapremina = 220 });
             context.AddRange(prikolice);
             context.SaveChanges();
 
@@ -175,10 +175,13 @@ namespace RentACar.Data
                 Domet = 600,
                 BrojMjesta = 5,
                 BrojVrata = 4,
+                Cijena = 60,
+                Kilometraza = 140546,
                 ZapreminaPrtljaznika = 60,
                 ZapreminaPrtljaznikaNaprijed = 0,
                 Naziv = "Audi A6",
                 Brend = audi,
+                Kuka = true,
                 Klima = true,
                 TipVozila = (int) TipVozila.Normal,
                 DodatniOpis = "Bez dodatnog opisa",
@@ -192,13 +195,16 @@ namespace RentACar.Data
                 BrojSasije = 615654,
                 RegistarskaOznaka = "455-A-644",
                 Boja = "Crna",
+                Kuka = true,
                 Model = "A4",
                 GodinaProizvodnje = 2015,
                 SnagaMotora = 150,
+                Kilometraza = 122302,
                 DatumMijenjanjUlja = DateTime.Now,
                 Domet = 450,
                 BrojMjesta = 5,
                 BrojVrata = 4,
+                Cijena =50,
                 ZapreminaPrtljaznika = 70,
                 ZapreminaPrtljaznikaNaprijed = 0,
                 Naziv = "Audi A4",
@@ -217,11 +223,14 @@ namespace RentACar.Data
                 BrojSasije = 654984,
                 RegistarskaOznaka = "599-S-698",
                 Boja = "Bijela",
+                Kilometraza =92354,
+                Kuka = true,
                 Model = "X6",
                 GodinaProizvodnje = 2018,
                 SnagaMotora = 340,
                 DatumMijenjanjUlja = DateTime.Now,
                 Domet = 550,
+                Cijena = 70,
                 BrojMjesta = 5,
                 BrojVrata = 4,
                 ZapreminaPrtljaznika = 120,
@@ -275,6 +284,7 @@ namespace RentACar.Data
                 Cijena = 400,
                 DatumPreuzimanja = DateTime.Now,
                 DatumPovrata = DateTime.Now,
+                UspjesnoSpremljena = true,
                 BrojDanaIznajmljivanja = 4,
                 Zakljucen = (int) InfoRezervacija.U_Obradi, 
                 Vozilo = audia6,
@@ -289,6 +299,7 @@ namespace RentACar.Data
                 Cijena = 400,
                 DatumPreuzimanja = DateTime.Now,
                 DatumPovrata = DateTime.Now,
+                UspjesnoSpremljena = true,
                 BrojDanaIznajmljivanja = 4,
                 Zakljucen = (int)InfoRezervacija.Odobrena,
                 Vozilo = audia4,

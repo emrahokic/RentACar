@@ -17,12 +17,14 @@
     <Folder Include="Areas\Uposlenik\Data\" />
     <Folder Include="Areas\Uposlenik\Models\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="wwwroot\images\Profilne\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Klijent\Views\Rezervacija\DodatneUslugePV.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Klijent\Views\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

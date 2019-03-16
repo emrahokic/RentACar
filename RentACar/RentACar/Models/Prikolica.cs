@@ -13,6 +13,7 @@ namespace RentACar.Models
         public double Zapremina { get; set; }
         public double Duzina { get; set; }
         public int TipPrikolice { get; set; }
+        public double Cijna { get; set; }
 
       
 
