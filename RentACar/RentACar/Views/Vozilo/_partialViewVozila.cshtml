@@ -56,12 +56,12 @@
                                     </div>
                                     <div class="col-md-3 col-sm-12 col-12" style="text-align:center">
                                            
-                                        <form asp-area="Klijent" asp-controller="Rezervacija" asp-action="Dodaj" method="post">
+                                        @*<form asp-area="Klijent" asp-controller="Rezervacija" asp-action="Dodaj"  method="post">
 
                                         <input value="@item.VoziloID" name="vozilo" style="visibility:hidden"/>
                                         <button type="submit" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" class="btn btn-rose btn-raised  btn-round ">Rezervisi</button>
-                                        </form>
-
+                                        </form>*@
+                                        <a href="/Klijent/Rezervacija/Dodaj?vozilo=@item.VoziloID" class="btn btn-rose btn-raised btn-round">Rezervisi</a>
                                     </div>
                                 </div>
                             </div>

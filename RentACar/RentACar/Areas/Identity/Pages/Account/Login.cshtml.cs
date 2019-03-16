@@ -79,7 +79,10 @@ namespace RentACar.Areas.Identity.Pages.Account
                 {
 
                     var x =  _signInManager.UserManager.FindByEmailAsync(Input.Email);
-
+                    if (returnUrl != Url.Content("~/"))
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
                     if (await _signInManager.UserManager.IsInRoleAsync(x.Result, "Klijent"))
                     {
                         return RedirectToAction("Index","Profil",new { area = "Klijent"});

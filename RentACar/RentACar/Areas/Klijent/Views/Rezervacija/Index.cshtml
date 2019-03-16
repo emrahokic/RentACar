@@ -19,7 +19,7 @@
                             <th>Vozilo</th>
                             <th>Datum Preuzimanja</th>
                             <th>Datum Povratka</th>
-                            <th>Zakuljucen</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -31,19 +31,11 @@
                             <th>@Item.Vozilo</th>
                             <th>@Item.DatumPreuzimanja</th>
                             <th>@Item.DatumPovrata</th>
+
+                            <th>
+                                @Enum.GetName(typeof(InfoRezervacija), Item.Zakljucen)
+                            </th>
                             
-                            @if (Item.Zakljucen ==(int) InfoRezervacija.Zavrsena)
-                            {
-                                <th>
-                                    Završeno
-                                </th>
-                            }
-                            else
-                            {
-                                <th>
-                                    U toku
-                                </th>
-                            }
                             <th>
                                 <a class="btn btn-success" asp-controller="Rezervacija" asp-action="Detalji" asp-area="Klijent" asp-route-id="@Item.RezervacijaID">Detalji</a>
                                 <a class="btn btn-success" href="#">Uredi</a>

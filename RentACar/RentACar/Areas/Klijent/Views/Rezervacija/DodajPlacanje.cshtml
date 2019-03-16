@@ -1,0 +1,75 @@
+﻿@model DodajPlacanjeSpremiPV
+
+@{
+    Layout = "_LayoutSite";
+
+}
+<div class="" style="margin-top:100px">
+    <div class="profile-content">
+        <div class="container" id="PartialView">
+            <div class="row">
+                <div class="col-md-12 card">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-info">
+                            <h3 class="card-title mt-0">Placanje</h3>
+                            <button id="C">Click</button>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <form asp-action="DodajPlacanjeSpremi" asp-controller="Rezervacija" asp-area="Klijent">
+                            <input asp-for="RezervacijaID" hidden/>
+                            <input id="selecting" asp-for="NacinPlacanja" hidden/>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    
+                                    <label class="form-check-label">
+                                        Gotovina
+                                        <input class="form-check-input" type="radio" name="nacinPlacanja" id="nacinPlacanja1" value="2">
+                                        <span class="circle">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    Kartično
+                                        <input class="form-check-input" type="radio" name="nacinPlacanja" id="nacinPlacanja1" value="1">
+                                        <span class="circle">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                    PayPal
+                                        <input class="form-check-input" type="radio" name="nacinPlacanja" id="nacinPlacanja1" value="3">
+                                        <span class="circle">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primry">Next</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('input[type=radio][name=nacinPlacanja]').change(function () {
+
+        x = this.value;
+        $("#selecting").val(x);
+    });
+</script>

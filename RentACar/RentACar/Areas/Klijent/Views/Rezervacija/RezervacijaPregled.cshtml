@@ -1,6 +1,7 @@
 ﻿@model RezervacijaDetaljnoVM
 @{
     ViewData["Title"] = "Detalji";
+    Layout = "_LayoutSite";
 }
 
 <style>
@@ -9,7 +10,7 @@
     }
 </style>
 
-<div class="col-md-12">
+<div class="col-md-12" style="margin-top:150px">
     <div class="card card-plain">
         <div class="card-header card-header-info">
             <h3 class="card-title mt-0"> Rezervacija</h3>
@@ -121,9 +122,9 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Status</th>
-                                                            <td >
-                                                                @Enum.GetName(typeof(InfoRezervacija),Model.Zakljucen)
-                                                            </td>
+                                                            <th>
+                                                                @Enum.GetName(typeof(InfoRezervacija), Model.Zakljucen)
+                                                            </th>
                                                         </tr>
 
                                                     </tbody>
@@ -156,7 +157,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="stats">
-                                                <i class="material-icons">attach_money</i> Način plaćanja: @Enum.GetName(typeof(NacinPlacanja),Model.NacinPlacanja)
+                                                <i class="material-icons">attach_money</i> Način plaćanja: @Enum.GetName(typeof(NacinPlacanja),Model.NacinPlacanja) 
                                             </div>
                                         </div>
                                     </div>
@@ -232,74 +233,21 @@
 
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card card-stats">
-                                        <div class="card-header card-header-primary card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">star</i>
-                                            </div>
-                                            <h3 class="card-title" style="text-align:center">Ocjena i komentar</h3>
+                                    <div class="row">
+                                        <div class=" col-md-6"style="text-align:center">
+                                            <button class="btn btn-danger">Ponisti</button>
                                         </div>
-                                        <div id="OcjenaKomentar" class="card-body" style="text-align:center">
-                                           
-                                        </div>
-                                        <div class="card-body" style="text-align:center">
-                                           
-
-                                            <div class="modal fade" id="loginModal" tabindex="-1">
-                                                <div class="modal-dialog modal-login" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-body">
-                                                            <div class="card">
-                                                                <div class="card-header card-header-primary">
-                                                                    <h4 class="card-title">Ocjena i komentar</h4>
-                                                                </div>
-
-                                                                <div class="card-body">
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-12" style="text-align:center">
-                                                                            <button id="btn1" class="btn btn-round">1<div class="ripple-container"></div></button>
-                                                                            <button id="btn2" class="btn btn-round">2<div class="ripple-container"></div></button>
-                                                                            <button id="btn3" class="btn btn-round">3<div class="ripple-container"></div></button>
-                                                                            <button id="btn4" class="btn btn-round">4<div class="ripple-container"></div></button>
-                                                                            <button id="btn5" class="btn btn-round">5<div class="ripple-container"></div></button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <br />
-                                                                    <input id="Ocjena" style="visibility:hidden" name="Ocjena" type="number" />
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="form-group bmd-form-group is-filled">
-                                                                                <label class="">Komentar</label>
-                                                                                <input id="Poruka" name="Poruka" class="form-control" type="text" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    @Html.AntiForgeryToken()
-                                                                    <button id="DodajOcjenuBtn" class="btn btn-primary">Add<div class="ripple-container"></div></button>
-                                                                    <div class="clearfix"></div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="stats">
-                                            </div>
+                                        <div class="col-md-6" style="text-align:center">
+                                           <a class="btn btn-success" href="/Klijent/Rezervacija/ZavrsiRezervaciju?id=@Model.RezervacijaID">Zavrsi</a>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -314,73 +262,6 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $.get("/Klijent/Rezervacija/OcjenaKomentar?id=@Model.RezervacijaID",
-            function (rezultat, status) {
-                $("#OcjenaKomentar").html(rezultat);
-
-            });
-    });
-    $("#DodajOcjenuBtn").click(function () {
-        var x1 = $("#Ocjena").val();
-        var x2 = $("#Poruka").val();
-        var x3 = $(this).find("input[name='__RequestVerificationToken']").val();
-        $.post("/Klijent/Rezervacija/DodajOcjenuKomentar?RezervacijaID=@Model.RezervacijaID&&Ocjena=" + x1 + "&&Poruka=" + x2,
-            function (rezultat, status) {
-                $("#OcjenaKomentar").html(rezultat);
-                $('#loginModal').modal('toggle');
-            });
     
-
-    });
-    $("#btn1").click(function (e) {
-        e.preventDefault();
-        $("#btn1").addClass("btn-primary");
-        $("#btn2").removeClass("btn-primary");
-        $("#btn3").removeClass("btn-primary");
-        $("#btn4").removeClass("btn-primary");
-        $("#btn5").removeClass("btn-primary");
-        changeOcjena(1)
-
-    }); $("#btn2").click(function (e) {
-        e.preventDefault();
-        changeOcjena(2)
-        $("#btn2").addClass("btn-primary");
-        $("#btn1").removeClass("btn-primary");
-        $("#btn3").removeClass("btn-primary");
-        $("#btn4").removeClass("btn-primary");
-        $("#btn5").removeClass("btn-primary");
-
-    }); $("#btn3").click(function (e) {
-        e.preventDefault();
-        changeOcjena(3)
-        $("#btn3").addClass("btn-primary");
-        $("#btn2").removeClass("btn-primary");
-        $("#btn1").removeClass("btn-primary");
-        $("#btn4").removeClass("btn-primary");
-        $("#btn5").removeClass("btn-primary");
-
-    }); $("#btn4").click(function (e) {
-        e.preventDefault();
-        changeOcjena(4)
-        $("#btn4").addClass("btn-primary");
-        $("#btn2").removeClass("btn-primary");
-        $("#btn3").removeClass("btn-primary");
-        $("#btn1").removeClass("btn-primary");
-        $("#btn5").removeClass("btn-primary");
-
-    }); $("#btn5").click(function (e) {
-        e.preventDefault();
-        changeOcjena(5)
-        $("#btn5").addClass("btn-primary");
-        $("#btn2").removeClass("btn-primary");
-        $("#btn3").removeClass("btn-primary");
-        $("#btn4").removeClass("btn-primary");
-        $("#btn1").removeClass("btn-primary");
-    });
-
-    function changeOcjena(i) {
-        console.log(i);
-        $("#Ocjena").val(i);
-    }
 </script>
+

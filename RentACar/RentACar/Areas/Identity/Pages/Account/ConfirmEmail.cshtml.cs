@@ -44,13 +44,13 @@ namespace RentACar.Areas.Identity.Pages.Account
 
             IdentityUserRole<int> newUserRole = new IdentityUserRole<int>
             {
-                RoleId = 1,
+                RoleId = 2,
                 UserId = int.Parse(userId),
 
             };
             _db.UserRoles.Add(newUserRole);
             await _db.SaveChangesAsync();
-            return Redirect("/Profil/Index");
+            return Redirect("/Klijent/Profil/Index");
         }
     }
 }

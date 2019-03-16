@@ -9,7 +9,7 @@ namespace RentACar.Helper
         public enum Transmisija { Manuelni=1,Automatik}
         public enum TipVozila { Normal=1,Hibrid,Elektricno}
         public enum InfoRezervacija { U_Obradi=1,Zavrsena,Odobrena,Odbijena}
-        public enum NacinPlacanja { Karticno=1,Gotovina,PayPal}
+        public enum NacinPlacanja { Karticno=1,Gotovina,PayPal,NijeDefinisano}
         public enum TipPrijevoza { Specijal=1}
         public enum TipPrikolice { Mala=1,Srednja,Velika,Zatvorena_Velika,Zatvorena_Srednja,Zatvorena_Mala}
         public enum GrupniTipVozila {Putnicko=1,Transportno,Old_Timer,Exotic}

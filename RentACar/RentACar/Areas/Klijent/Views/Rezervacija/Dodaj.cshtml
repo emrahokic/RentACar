@@ -3,7 +3,7 @@
     Layout = "_LayoutSite";
 }
 
-<div class="main main-raised" style="margin-top:100px">
+<div class="" style="margin-top:100px">
     <div class="profile-content">
         <div class="container" id="PartialView">
             <div class="row">
@@ -38,14 +38,15 @@
                         <div class="col-md-12">
                             <div class="col-md-8">
                                 <form asp-action="DodatneUslugePV" asp-area="Klijent" asp-controller="Rezervacija" method="post">
-                                <input asp-for="DatumPreuzimanja" name="Od" class="form-control" />
-                                <input asp-for="DatumPovrata" type="date" name="Do" class="form-control" />
+                                <input asp-for="Vozilo.VoziloID" hidden/>
+                                <input asp-for="DatumPreuzimanja" class="form-control" />
+                                <input asp-for="DatumPovrata" class="form-control" />
                                     <button type="submit">Next</button>
                                 </form>
                             </div>
                             <div class="col-md-4">
                                @*@Html.ActionLink("DodatneUslugePV", "DodatneUslugePV", "Rezervacija", new { area = "Klijent" , id = Model.Vozilo.VoziloID})*@
-                                   @*<button id="Next"> Next</button>*@
+                               @*<button id="Next"> Next</button>*@
                             
                             </div>
                         </div>
