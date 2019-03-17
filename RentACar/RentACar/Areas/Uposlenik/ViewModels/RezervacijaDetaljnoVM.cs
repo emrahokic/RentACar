@@ -21,6 +21,14 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public string Vozilo { get; set; }
         public string Brend { get; set; }
         public string Poslovnica { get; set; }
+        //Klijent info
+        public string  Ime { get; set; }
+        public string  Prezime { get; set; }
+        public string DatumRodjenja { get; set; }
+        public string Adresa { get; set; }
+        public string Spol { get; set; }
+        public string jmbg { get; set; }
+
         public OcjenaRezervacija ocjenaRezervacija { get; set; }
         public List<Row> dodatneUsluge { get; set; }
 

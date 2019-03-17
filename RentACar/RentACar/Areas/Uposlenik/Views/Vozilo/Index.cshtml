@@ -2,14 +2,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-<button class="btn btn-success">Slobodna</button>
-<button class="btn btn-danger">Rezervisana</button>
-
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header card-header-info">
             <h4 class="card-title mt-0"> Vozila </h4>
-            <p class="card-category"> lista vozila</p>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -29,17 +25,17 @@
                         @foreach (var x in Model.rows)
                         {
                             <tr>
-                                <th>@x.Brend</th>
-                                <th>@x.Naziv</th>
-                                <th>@x.Model</th>
-                                <th>@x.BrojVrata</th>
-                                <th>@x.TipVozila</th>
-                                <th>@x.Transmisija</th>
+                                <td>@x.Brend</td>
+                                <td>@x.Naziv</td>
+                                <td>@x.Model</td>
+                                <td>@x.BrojVrata</td>
+                                <td>@Enum.GetName(typeof(TipVozila), x.TipVozila)</td>
+                                <td>@Enum.GetName(typeof(Transmisija), x.Transmisija)</td>
 
-                                <th>
-                                    <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@x.VoziloID">Detalji</a>
-                                    <a class="btn btn-success" href="#">Uredi</a>
-                                </th>
+                                <td>
+                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-controller="Vozilo" asp-action="Detalji" asp-route-id="@x.VoziloID"><i class="material-icons" >details</i><span style="padding-left: 3px;">DETALJI</span></a>
+                                    <a class="btn btn-white text-dark" href="#"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
+                                </td>
                             </tr>
                         }
                     </tbody>

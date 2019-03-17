@@ -35,78 +35,64 @@
 <div class="container col-lg-6">
     <!--Prvi red-->
     <div class="card card-nav-tabs" style="width: 30rem;">
-        <div class="card-header card-header-success">
+        <div class="card-header card-header-info">
             Osnovne informacije
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Brend: <p class="text-center osnovne-style-info"><strong>@Model.Brend</strong></p></li>
-            <li class="list-group-item">Model: <p class="text-center osnovne-style-info"><strong>@Model.Model</strong></p></li>
-            <li class="list-group-item">Godina proizvodnje: <p class="text-center osnovne-style-info"><strong>@Model.GodinaProizvodnje</strong></p> </li>
-            <li class="list-group-item">Tip vozila: <p class="text-center osnovne-style-info"><strong>@Enum.GetName(typeof(GrupniTipVozila), Model.GrupniTipVozila)</strong></p> </li>
-            <li class="list-group-item">Snaga motora: <p class="text-center osnovne-style-info"><strong>@Model.SnagaMotora</strong></p> </li>
-            <li class="list-group-item">
-                <span class="desno">
-                    Klima:
+        <div class="card-body">
+            <div class="row text-left">
+                <div class="col-md-5">
+                    <h4><strong>Brend:</strong></h4>
+                    <h4><strong>Model:</strong></h4>
+                    <h4><strong>Godina proizvodnje:</strong></h4>
+                    <h4><strong>Snaga:</strong></h4>
+                    <h4><strong>Klima:</strong></h4>
+                    <h4><strong>Broj mjesta:</strong></h4>
+                    <h4><strong>Broj vrata:</strong></h4>
+                    <h4><strong>Boja:</strong></h4>
+                    <h4><strong>Transmisija:</strong></h4>
+                    <h4><strong>Gorivo:</strong></h4>
+                    <h4><strong>Tip vozila:</strong></h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>@Model.Brend</h4>
+                    <h4>@Model.Model</h4>
+                    <h4>@Model.GodinaProizvodnje</h4>
+                    <h4>@Model.SnagaMotora</h4>
                     @if (Model.Klima == true)
-                    {<strong>DA</strong> }
+                    {
+                        <h4>DA</h4>
+                    }
                     else
-                    { <strong>NE</strong>}
-                </span>
-                <span class="desno">Broj mjesta: <strong>@Model.BrojMjesta</strong></span><span class="desno">Broj vrata: <strong>@Model.BrojVrata</strong></span>Boja: <strong>@Model.Boja</strong>
-            </li>
+                    {
+                        <h4>NE</h4>
+                    }
+                    <h4>@Model.BrojMjesta</h4>
+                    <h4>@Model.BrojVrata</h4>
+                    <h4>@Model.Boja</h4>
+                    <h4>@Enum.GetName(typeof(Transmisija), Model.Transmisija)</h4>
+                    <h4>@Enum.GetName(typeof(Gorivo), Model.Gorivo)</h4>
+                    <h4>@Enum.GetName(typeof(TipVozila), Model.TipVozila)</h4>
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-success pull-right" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Rezervisi" asp-route-id="@Model.VoziloID"><i class="material-icons">send</i><span style="padding-left: 3px;">REZERVISI</span></a>
 
-
-
-
-            <li class="list-group-item">
-                <span style="margin-right: 15px;">
-                    @if (Model.Transmisija == (int)Transmisija.Manuelni)
-                    {
-                        <img src="~/images/manual.png" style="width:50px" ; cursor:pointer" alt="Manuelni" rel="tooltip" title="Manuelni" />
-                    }
-                    @if (Model.Transmisija == (int)Transmisija.Automatik)
-                    {
-                        <img src="~/images/automatic.png" style="width:50px" ; cursor:pointer" alt="Automatik" rel="tooltip" title="Automatik" />
-                    }
-                </span>
-                <span style="margin-right: 20px;">
-                    @if (Model.Gorivo == (int)Gorivo.Dizel)
-                    {
-                        <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Dizel" title="Dizel" rel="tooltip" />
-                    }
-                    @if (Model.Gorivo == (int)Gorivo.Benzin)
-                    {
-                        <img src="~/images/fuel.jpg" style="width:50px; cursor:pointer" alt="Benzin" rel="tooltip" title="Benzin" />
-                    }
-                    @if (Model.Gorivo == (int)Gorivo.Struja)
-                    {
-                        <img src="~/images/tunder.png" style="width:50px; cursor:pointer" alt="Struja" rel="tooltip" title="Struja" />
-                    }
-                </span>
-                <span style="margin-right: 15px;">
-                    @if (Model.TipVozila == (int)TipVozila.Normal)
-                    {
-                        <img src="~/images/car.png" style="width:50px; cursor:pointer" alt="Normal" title="Normal" rel="tooltip" />
-                    }
-                    @if (Model.TipVozila == (int)TipVozila.Hibrid)
-                    {
-                        <img src="~/images/GvH.jpg" style="width:50px; cursor:pointer" alt="Hibrid" rel="tooltip" title="Hibrid" />
-                    }
-                    @if (Model.TipVozila == (int)TipVozila.Elektricno)
-                    {
-                        <img src="~/images/electric.png" style="width:50px; cursor:pointer" alt="Elektricno" rel="tooltip" title="Elektricno" />
-                    }
-                </span>
-            </li>
-        </ul>
+                </div>
+            </div>
+        </div>  
     </div>
 </div>
 
 <div class="card card-nav-tabs col-lg-12">
-    <div class="card-header card-header-info">
-        <h3 class="h3">Cijena na dan: @Model.Cijena KM</h3>
+    <div class="card-header card-header-success">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="h3">Cijena na dan: @Model.Cijena KM</h3>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
     </div>
-    </div>
+</div>
 
     <div class="card card-nav-tabs" style="width: 64rem;">
         <div class="card-header card-header-info">
@@ -127,10 +113,7 @@
             <li class="list-group-item"><strong>Dodatni opis:</strong> <input type="text" class="form-control" value="@Model.DodatniOpis" readonly /></li>
         </ul>
     </div>
-    <div>
-        <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Rezervisi" asp-route-id="@Model.VoziloID">Rezervisi</a>
-        <button class="btn btn-success">Uredi</button>
-    </div>
+ 
     <br />
 
     <div class="col-md-12">

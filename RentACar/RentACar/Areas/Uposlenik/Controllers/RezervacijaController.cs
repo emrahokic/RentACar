@@ -237,6 +237,12 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Vozilo = x.Vozilo.Naziv,
                 Brend = x.Vozilo.Brend.Naziv,
                 Poslovnica = x.Poslovnica.Naziv,
+                Ime = x.Klijent.Ime,
+                Prezime = x.Klijent.Prezime,
+                DatumRodjenja = x.Klijent.DatumRodjenja.ToShortDateString(),
+                Adresa = x.Klijent.Adresa,
+                Spol = x.Klijent.Spol,
+                jmbg = x.Klijent.JMBG,
                 ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
                 {
                     Poruka = c.Poruka,

@@ -137,17 +137,17 @@ namespace RentACar.Data
             await KreirajKorisnika(userManager, "johny@sunnycars.admin.com", "Johny", "Bravo", "Dzemala Bijedica bb", Sarajevo, "0133546579", new DateTime(1996, 5, 6), "M", "nema", "P@sword123", admin);
 
             //uposlenici
-            await KreirajKorisnika(userManager, "sonny@sunnycars.uposlenik.com", "Sonny", "Lona", "Dzemala Bijedica bb", Sarajevo, "651951651", new DateTime(1995, 5, 6), "M", "nema", "P@sword123", uposlenik);
-            await KreirajKorisnika(userManager, "dona@sunnycars.uposlenik.com", "Dona", "Gomez", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "Z", "nema", "P@sword123", uposlenik);
-            await KreirajKorisnika(userManager, "jack@sunnycars.mehanicar.com", "Jack", "Olivero", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "Z", "nema", "P@sword123", mehanicar);
-            await KreirajKorisnika(userManager, "mile@sunnycars.vozac.com", "Mile", "Dinastija", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "Z", "nema", "P@sword123", vozac);
+            await KreirajKorisnika(userManager, "sonny@sunnycars.uposlenik.com", "Sonny", "Lona", "Dzemala Bijedica bb", Sarajevo, "651951651", new DateTime(1995, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "dona@sunnycars.uposlenik.com", "Dona", "Gomez", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "jack@sunnycars.mehanicar.com", "Jack", "Olivero", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", mehanicar);
+            await KreirajKorisnika(userManager, "mile@sunnycars.vozac.com", "Mile", "Dinastija", "Dzemala Bijedica bb", Sarajevo, "56132184", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
 
 
             //klijenti
-            await KreirajKorisnika(userManager, "adil@gmail.com", "Adil", "Joldic", "Dzemala Bijedica bb", Sarajevo, "654984651", new DateTime(1989, 5, 6), "M", "nema", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "nina@gmail.com", "Nina", "Bijedic", "Dzemala Bijedica bb", Sarajevo, "9498185", new DateTime(1975, 5, 6), "Z", "nema", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "denis@gmail.com", "Denis", "Music", "Dzemala Bijedica bb", Sarajevo, "6519549", new DateTime(1985, 5, 6), "M", "nema", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "emina@gmail.com", "Emina", "Junuz", "Dzemala Bijedica bb", Sarajevo, "959498", new DateTime(1987, 5, 6), "Z", "nema", "P@sword123", klijent);
+            await KreirajKorisnika(userManager, "adil@gmail.com", "Adil", "Joldic", "Dzemala Bijedica bb", Sarajevo, "654984651", new DateTime(1989, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
+            await KreirajKorisnika(userManager, "nina@gmail.com", "Nina", "Bijedic", "Dzemala Bijedica bb", Sarajevo, "9498185", new DateTime(1975, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
+            await KreirajKorisnika(userManager, "denis@gmail.com", "Denis", "Music", "Dzemala Bijedica bb", Sarajevo, "6519549", new DateTime(1985, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
+            await KreirajKorisnika(userManager, "emina@gmail.com", "Emina", "Junuz", "Dzemala Bijedica bb", Sarajevo, "959498", new DateTime(1987, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
 
             //dodavanje uposlenika poslovnicama
             var aeodrom = context.Poslovnica.Select(s => s).SingleOrDefault(x => x.Naziv == "Poslovnica Aeodrom");

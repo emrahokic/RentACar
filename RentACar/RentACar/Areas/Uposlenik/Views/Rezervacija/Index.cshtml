@@ -2,13 +2,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-<a asp-action="Dodaj" asp-area="Uposlenik" class="btn btn-primary">Nova rezervacija</a>
 
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header card-header-danger">
-            <h4 class="card-title mt-0"> Rezervacije </h4>
-            <p class="card-category"> lista rezervacija</p>
+            <h4 class="card-title mt-0"> Rezervacije na cekanju </h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,22 +30,10 @@
                             <th>@Item.Vozilo</th>
                             <th>@Item.DatumPreuzimanja</th>
                             <th>@Item.DatumPovrata</th>
-                            @if (Item.Zakljucen == (int)InfoRezervacija.Zavrsena)
-                            {
+                            <th>@Enum.GetName(typeof(InfoRezervacija), Item.Zakljucen)</th>
                             <th>
-                                Završeno
-                            </th>
-                            }
-                            else
-                            {
-                            <th>
-                                U toku
-                            </th>
-                            }
-                            <th>
-                                <a class="btn btn-info" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="Detalji" asp-route-id="@Item.RezervacijaID">Detalji</a>
-                                <a class="btn btn-success" href="#">Prihvati rezervaciju</a>
-                                <a class="btn btn-danger" href="#">Odbij rezervaciju</a>
+                                <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="Detalji" asp-route-id="@Item.RezervacijaID"><i class="material-icons">details</i><span style="padding-left: 3px;">DETALJI</span></a>
+                                <a class="btn btn-white text-dark" href="#"><i class="material-icons">check_circle</i><span style="padding-left: 3px;">PRIHVATI</span></a>
                             </th>
 
                         </tr>}
@@ -60,7 +46,7 @@
 </div>
 <div class="col-md-12">
     <div class="card card-plain">
-        <div class="card-header card-header-info">
+        <div class="card-header card-header-success">
             <h4 class="card-title mt-0"> Rezervacije </h4>
             <p class="card-category"> lista rezervacija</p>
         </div>
@@ -89,8 +75,8 @@
                             <th>@Item.DatumPovrata</th>
                             <th>@Enum.GetName(typeof(InfoRezervacija), Item.Zakljucen)</th>
                             <th>
-                                <a class="btn btn-success" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="Detalji" asp-route-id="@Item.RezervacijaID">Detalji</a>
-                                <a class="btn btn-success" href="#">Uredi</a>
+                                <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="Detalji" asp-route-id="@Item.RezervacijaID"><i class="material-icons">details</i><span style="padding-left: 3px;">DETALJI</span></a>
+                                <a class="btn btn-white text-dark" href="#"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
                             </th>
 
                         </tr>

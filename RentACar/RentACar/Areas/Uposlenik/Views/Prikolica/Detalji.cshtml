@@ -83,13 +83,12 @@
     </div>
 </div>
 <div class="col-lg-12" id="dodajVozilo">
-    <a ajax-poziv="da" ajax-rezultat="dodajVozilo" href="/uposlenik/Prikolica/DodajVozilo?id=@Model.PrikolicaID" class="btn btn-success">Dodaj vozilo</a>
+    <a ajax-poziv="da" ajax-rezultat="dodajVozilo" href="/uposlenik/Prikolica/DodajVozilo?id=@Model.PrikolicaID" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ VOZILO</span></a>
 </div>
 
 
-
-<div class="col-lg-12">
-    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica">Back to List</a>
+<div class="col-lg-12" style="margin-top: 10px;">
+    <a asp-area="Uposlenik" asp-action="Index" asp-controller="Prikolica"><i class="material-icons">chevron_left</i><span style="padding-left: 3px;">Nazad na listu</span></a>
 </div>
 
 <script>

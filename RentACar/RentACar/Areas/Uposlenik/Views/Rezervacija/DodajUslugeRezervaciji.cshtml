@@ -7,17 +7,26 @@
         <div class="card-header card-header-info">
             Rezervacija
         </div>
-
-        <div class="card">
-        <div class="card-body">
-            Vozilo: @Model.Vozilo
+      
+            <div class="card-body">
+                <div class="row text-left">
+                    <div class="col-md-4">
+                        <h4><strong>Klijent:</strong></h4>
+                        <h4><strong>Datum preuzimanja:</strong></h4>
+                        <h4><strong>Datum povrata:</strong></h4>
+                        <h4><strong>Cijena:</strong></h4>
+                        <h4><strong>Vozilo:</strong></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>@Model.Korisnik</h4>
+                        <h4>@Model.DatumPreuzimanja</h4>
+                        <h4>@Model.DatumPovrata</h4>
+                        <h4>@Model.Cijena</h4>
+                        <h4>@Model.Vozilo</h4>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div>Klijent: @Model.Korisnik</div>
-        <div>Datum preuzimanja: @Model.DatumPreuzimanja</div>
-        <div>Datum povrata: @Model.DatumPovrata</div>
-        <div>Cijena: @Model.Cijena</div>
+      
     </div>
 </div>
 @if (Model.dodatneUsluge != null)
@@ -25,8 +34,7 @@
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header card-header-primary">
-            <h4 class="card-title mt-0"> Usluge </h4>
-            <p class="card-category"> Rezervisane dodatne usluge</p>
+            <h4 class="card-title mt-0"> Rezervisane dodatne usluge </h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -59,9 +67,9 @@
 </div>
 }
 <div class="col-md-12">
-    <a href="/uposlenik/Rezervacija/RezervacijaUsluge?=@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="uslugeAdd" class="btn btn-warning">Dodaj usluge</a>
-    <a class="btn btn-success">Zavrsi rezervaciju</a>
-    <a class="btn btn-danger">Ponisti rezervaciju</a>
+    <a href="/uposlenik/Rezervacija/RezervacijaUsluge?=@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="uslugeAdd" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ USLUGE</span></a>
+    <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Detalji" asp-route-id="@Model.RezervacijaID"><i class="material-icons">send</i><span style="padding-left: 3px;">ZAVRSI</span></a>
+    <a class="btn btn-danger"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">PONISTI</span></a>
 </div>
 
 <div class="col-md-12" id="uslugeAdd"></div>

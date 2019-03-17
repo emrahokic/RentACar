@@ -35,6 +35,44 @@
                         <div class="container-fluid">
 
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-primary card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">account_circle</i>
+                                            </div>
+                                            <h3 class="card-title" style="text-align:center">Klijent</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row text-left">
+                                                <div class="col-md-3">
+                                                    <h4><strong>Ime:</strong></h4>
+                                                    <h4><strong>Prezime:</strong></h4>
+                                                    <h4><strong>Datum rodjenja:</strong></h4>
+                                                    <h4><strong>Adresa:</strong></h4>
+                                                    <h4><strong>Spol:</strong></h4>
+                                                    <h4><strong>JMBG:</strong></h4>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h4>@Model.Ime</h4>
+                                                    <h4>@Model.Prezime</h4>
+                                                    <h4>@Model.DatumRodjenja</h4>
+                                                    <h4>@Model.Adresa</h4>
+                                                    <h4>@Model.Spol</h4>
+                                                    <h4>@Model.jmbg</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="card card-stats">
                                         <div class="card-header card-header-info card-header-icon">
@@ -87,7 +125,7 @@
                                                             </td>
 
                                                         </tr>
-                                                        
+
                                                         <tr>
                                                             <th>
                                                                 Datum preuzimanja vozila
@@ -117,7 +155,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Zakuljucen</th>
-                                                            @if (Model.Zakljucen == (int) InfoRezervacija.Zavrsena)
+                                                            @if (Model.Zakljucen == (int)InfoRezervacija.Zavrsena)
                                                             {
                                                                 <td>
                                                                     Završeno
@@ -248,41 +286,41 @@
                                         </div>
                                         <div class="card-body" style="text-align:center">
                                             @if (Model.ocjenaRezervacija != null)
-	{
-		 /**/
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead class="text-primary" style="text-align:left">
-                                                        <tr>
-                                                            <th>
-                                                                Komentar
-                                                            </th>
-                                                            <th>
-                                                                Ocjena
-                                                            </th>
-                                                      
-                                                        </tr>
-
-                                                    </thead>
-                                                    <tbody style="text-align:left">
-                                                      
+                                            {
+                                                /**/
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class="text-primary" style="text-align:left">
                                                             <tr>
                                                                 <th>
-                                                                  @Model.ocjenaRezervacija.Poruka
-                                                                </th> 
+                                                                    Komentar
+                                                                </th>
                                                                 <th>
-                                                                   @Model.ocjenaRezervacija.OcjenaVrijednost
+                                                                    Ocjena
+                                                                </th>
+
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody style="text-align:left">
+
+                                                            <tr>
+                                                                <th>
+                                                                    @Model.ocjenaRezervacija.Poruka
+                                                                </th>
+                                                                <th>
+                                                                    @Model.ocjenaRezervacija.OcjenaVrijednost
                                                                 </th>
 
                                                             </tr>
 
 
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
-	}
-                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            }
+
                                         </div>
                                         <div class="card-body" style="text-align:center">
                                             @if (Model.ocjenaRezervacija == null)

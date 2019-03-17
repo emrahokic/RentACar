@@ -3,35 +3,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Usluge</h3>
-<hr />
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-info">
+            <h4 class="card-title mt-0"> Usluge </h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Naziv</th>
+                            <th>Opis</th>
+                            <th>Cijena</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.rows)
+                        {
+                            <tr>
+                                <td>@x.Naziv</td>
+                                <td>@x.Opis</td>
+                                <td>@x.Cijena KM</td>
+                                <td>
+                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="UrediForm" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
+                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="Obrisi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID"><i class="material-icons">delete</i><span style="padding-left: 3px;">OBRISI</span></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Naziv</th>
-            <th>Opis</th>
-            <th>Cijena</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model.rows)
-        {
-        <tr>
-            <th>@x.Naziv</th>
-            <th>@x.Opis</th>
-            <th>@x.Cijena</th>
-            <th>
-                <a class="btn btn-danger" asp-area="Uposlenik" asp-action="Obrisi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID" >Obrisi</a>
-                <a class="btn btn-success" asp-area="Uposlenik" asp-action="UrediForm" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID">Uredi</a>
-            </th>
-        </tr>
-        }
-    </tbody>
-</table>
-
-<a class="btn btn-success" asp-area="Uposlenik" asp-action="DodajForm" asp-controller="Usluge">Dodaj</a>
+<a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="DodajForm" asp-controller="Usluge"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ</span></a>
 <script>
     document.getElementById("usluge").className = "active";
 </script>
