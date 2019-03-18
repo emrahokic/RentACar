@@ -2,13 +2,18 @@
 @{
     ViewData["Title"] = "Dodaj";
 }
-
+<style>
+    .errorsValidate {
+        color: red !important;
+        border-color: red !important;
+    }
+</style>
 <div class="card card-nav-tabs" style="width: 45rem;">
     <div class="card-header card-header-success">
         Dodaj novu prikolicu
     </div>
     <div class="col-md-12">
-        <form asp-area="Uposlenik" asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
+        <form id="formPrikolica" asp-area="Uposlenik" asp-action="DodajSnimi" asp-controller="Prikolica" method="post">
             <div class="form-group">
                 
             </div>
@@ -36,6 +41,7 @@
                 <label>Tip prikolice: </label>
                 <div>
                     <select type="text" name="TipPrikolice" class="form-control">
+                        <option value="0">Odaberite</option>
                         @foreach (var x in Model.tipPrikolice)
                         {
                             <option value="@x.Value"> @x.Text </option>

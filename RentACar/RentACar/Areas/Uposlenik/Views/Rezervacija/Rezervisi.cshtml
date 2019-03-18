@@ -1,4 +1,5 @@
 ﻿@model RezervacijaPocetakVM
+
 @{
     ViewData["Title"] = "Rezervisi";
 }
@@ -22,7 +23,7 @@
                 <div class="form-group">
                     <label>Ime: </label>
                     <div>
-                        <input type="text" name="Ime" class="form-control" />
+                        <input type="text" name="Ime" class="form-control" minlength="2" data-msg-required="Polje ime je obavezno" data-rule-required="true" />
                     </div>
                 </div>
 
@@ -105,7 +106,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-success">Dalje</button>
+            <input type="submit" value="DALJE" class="btn btn-success"/>
         </div>
     </form>
     <script>
