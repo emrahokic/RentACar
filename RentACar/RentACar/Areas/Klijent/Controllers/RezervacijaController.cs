@@ -135,15 +135,53 @@ namespace RentACar.Areas.Klijent.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult NapraviRezervaciju(RezervacijaDodajVM model)
         {
+            string SifraRezervacije = null;
+            try
+            {
+                SifraRezervacije = Request.Cookies["Sesion"];
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             if (!ModelState.IsValid)
             {
+                Vozilo _Vozilo = null;
+                if (SifraRezervacije != null)
+                {
+                    string[] stringVozilo = new string[2];
+                    Rezervacija r = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).FirstOrDefault();
+                    int idV = r.VoziloID;
+                    _Vozilo = db.Vozilo.Where(x => x.VoziloID == idV).FirstOrDefault();
+
+                    stringVozilo[0] = db.Vozilo.Where(x => x.VoziloID == idV).Select(y => y.Brend.Naziv).FirstOrDefault();
+                    stringVozilo[1] = _Vozilo.Naziv;
+                    model.Vozilo = stringVozilo[0] + "-" + stringVozilo[1];
+
+                    VozilaVM.Row VR = new VozilaVM.Row
+                    {
+                        Brend = db.Brend.FirstOrDefault(z => z.BrendID == _Vozilo.BrendID).Naziv,
+                        Naziv = _Vozilo.Naziv,
+                        Cijena = _Vozilo.Cijena,
+                        PoslovnicaNaziv = db.Poslovnica.FirstOrDefault(x => x.PoslovnicaID == r.PoslovnicaID).Naziv,
+                        PoslovnicaLokacija = db.Poslovnica.Where(x => x.PoslovnicaID == r.PoslovnicaID).Select(y => y.Grad.Naziv).FirstOrDefault(),
+                        Slika = db.Slika.FirstOrDefault(y => y.VoziloID == _Vozilo.VoziloID && y.Pozicija == 1)
+                    };
+                    model.VoziloVM = VR;
+                    model.DatumPreuzimanja = r.DatumPreuzimanja;
+                    model.DatumPovrata = r.DatumPovrata;
+                    return View(nameof(Rezervacija), model);
+                }
+
                 if (model.Vozilo == null || model.Vozilo == "")
                 {
                     return Redirect("~/Vozilo");
                 }
                 string[] StringVozilo = model.Vozilo.Split('-');
 
-                Vozilo _Vozilo = db.Vozilo.Where(x => x.Naziv == StringVozilo[1] && x.Brend.Naziv == StringVozilo[0]).FirstOrDefault();
+                _Vozilo = db.Vozilo.Where(x => x.Naziv == StringVozilo[1] && x.Brend.Naziv == StringVozilo[0]).FirstOrDefault();
 
                 var idP = db.TrenutnaPoslovnica.FirstOrDefault(t => t.VoziloID == _Vozilo.VoziloID).PoslovnicaID;
                 VozilaVM.Row vr = new VozilaVM.Row
@@ -159,16 +197,7 @@ namespace RentACar.Areas.Klijent.Controllers
                 return View(nameof(Rezervacija), model);
             }
 
-            string SifraRezervacije = null;
-            try
-            {
-                SifraRezervacije = Request.Cookies["Sesion"];
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+           
 
 
             if (SifraRezervacije == null)
@@ -183,7 +212,7 @@ namespace RentACar.Areas.Klijent.Controllers
                 double c = db.Vozilo.Where(vo => vo.VoziloID == voziloID).FirstOrDefault().Cijena;
 
 
-
+                int brDanaIznajmljivanja = (model.DatumPovrata - model.DatumPreuzimanja).Days == 0 ? 1 : (model.DatumPovrata - model.DatumPreuzimanja).Days;
                 Rezervacija r = new Rezervacija
                 {
                     VoziloID = voziloID,
@@ -192,9 +221,9 @@ namespace RentACar.Areas.Klijent.Controllers
                     DatumPovrata = model.DatumPovrata,
                     DatumPreuzimanja =  model.DatumPreuzimanja,
                     Zakljucen = (int)InfoRezervacija.U_Obradi,
-                    Cijena = c * (model.DatumPovrata - model.DatumPreuzimanja).Days,
+                    Cijena = c * brDanaIznajmljivanja,
                     KlijentID = KlijentID,
-                    BrojDanaIznajmljivanja = (model.DatumPovrata - model.DatumPreuzimanja).Days,
+                    BrojDanaIznajmljivanja = brDanaIznajmljivanja,
                     NacinPlacanja = (int)NacinPlacanja.NijeDefinisano,
                     UspjesnoSpremljena = false
                 };
@@ -211,7 +240,19 @@ namespace RentACar.Areas.Klijent.Controllers
 
                 db.Add(r);
                 db.SaveChanges();
+                return Redirect(nameof(DodatneUsluge));
+
             }
+
+            Rezervacija rez = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).FirstOrDefault();
+            double cijenVozilaPoDanu = db.Vozilo.Where(vo => vo.VoziloID == rez.VoziloID).FirstOrDefault().Cijena;
+
+            rez.DatumPreuzimanja = model.DatumPreuzimanja;
+            rez.DatumPovrata = model.DatumPovrata;
+            int brDana = (model.DatumPovrata - model.DatumPreuzimanja).Days == 0 ? 1 : (model.DatumPovrata - model.DatumPreuzimanja).Days;
+            rez.BrojDanaIznajmljivanja = brDana;
+            rez.Cijena = cijenVozilaPoDanu * brDana;
+            db.SaveChanges();
 
             return Redirect(nameof(DodatneUsluge));
             //return View(nameof(DodatneUslugePV));
@@ -515,6 +556,77 @@ namespace RentACar.Areas.Klijent.Controllers
             return Redirect(nameof(RezervacijaDetaljno));
         }
 
+        public IActionResult PonistiRezervaciju(int? id) {
+            string SifraRezervacije = null;
+
+            try
+            {
+                SifraRezervacije = Request.Cookies["Sesion"];
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            if (SifraRezervacije == null && id == null)
+            {
+                return RedirectPermanent("/Klijent/Rezervacija");
+            }
+            if (SifraRezervacije == null)
+            {
+                //redirect na pocetnu str ili ispisati nesto
+                Rezervacija r1 = db.Rezervacija.Where(x => x.RezervacijaID == id).FirstOrDefault();
+                List<RezervisanaUsluga> ru1 = db.RezervisanaUsluga.Where(x => x.RezervacijaID == r1.RezervacijaID).ToList();
+                OcjenaRezervacija ocjena1 = db.OcjenaRezervacija.Where(x => x.RezervacijaID == r1.RezervacijaID).FirstOrDefault();
+                TrenutnaPoslovnica tp1 = db.TrenutnaPoslovnica.Where(x => x.VoziloID == r1.VoziloID && x.PoslovnicaID == r1.PoslovnicaID && x.VoziloRezervisano == true).FirstOrDefault();
+                if (tp1 != null)
+                {
+                    tp1.VoziloRezervisano = false;
+                }
+                if (ocjena1 != null)
+                {
+                    db.Remove(ocjena1);
+                }
+                if (ru1 != null)
+                {
+                    db.RemoveRange(ru1);
+                }
+                if (r1 != null)
+                {
+
+                    db.Remove(r1);
+                }
+                db.SaveChanges();
+
+                return RedirectPermanent("/Klijent/Rezervacija");
+            }
+            Rezervacija r = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).FirstOrDefault();
+            List<RezervisanaUsluga> ru = db.RezervisanaUsluga.Where(x => x.RezervacijaID == r.RezervacijaID).ToList();
+            OcjenaRezervacija ocjena = db.OcjenaRezervacija.Where(x => x.RezervacijaID == r.RezervacijaID).FirstOrDefault();
+            TrenutnaPoslovnica tp = db.TrenutnaPoslovnica.Where(x => x.VoziloID == r.VoziloID && x.PoslovnicaID == r.PoslovnicaID && x.VoziloRezervisano == true).FirstOrDefault();
+            if (tp != null)
+            {
+            tp.VoziloRezervisano = false;
+            }
+            if (ocjena!=null)
+            {
+            db.Remove(ocjena);
+            }
+            if (ru!=null)
+            {
+            db.RemoveRange(ru);
+            }
+            if (r != null)
+            {
+
+            db.Remove(r);
+            }
+            Response.Cookies.Delete("Sesion");
+            db.SaveChanges();
+
+            return RedirectPermanent("/Vozilo");
+        }
+
         public IActionResult ZavrsiRezervaciju()
         {
             string SifraRezervacije = null;
@@ -578,6 +690,7 @@ namespace RentACar.Areas.Klijent.Controllers
                     }).FirstOrDefault(),
                     DatumPreuzimanja = x.DatumPreuzimanja,
                     DatumPovrata = x.DatumPovrata,
+                    DatumRezervacije = x.DatumRezervacije,
                     Zakljucen = x.Zakljucen,
                     Cijena = x.Cijena,
                     BrojDanaIznajmljivanja = x.BrojDanaIznajmljivanja,

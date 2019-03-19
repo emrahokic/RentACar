@@ -21,24 +21,34 @@
                             <th>Datum Povratka</th>
                             <th>Status</th>
                             <th></th>
+                            <th></th>
+                            <th width="10%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var Item in Model.Rows)
                         {
                         <tr>
-                            <th>@Item.Poslovnica</th>
-                            <th>@Item.Vozilo</th>
-                            <th>@Item.DatumPreuzimanja</th>
-                            <th>@Item.DatumPovrata</th>
+                            <th width="15%">@Item.Poslovnica</th>
+                            <th width="15%">@Item.Vozilo</th>
+                            <th width="15%">@Item.DatumPreuzimanja</th>
+                            <th width="15%" >@Item.DatumPovrata</th>
 
-                            <th>
+                            <th width="10%">
                                 @Enum.GetName(typeof(InfoRezervacija), Item.Zakljucen)
                             </th>
                             
-                            <th>
-                                <a class="btn btn-success" asp-controller="Rezervacija" asp-action="Detalji" asp-area="Klijent" asp-route-id="@Item.RezervacijaID">Detalji</a>
-                                <a class="btn btn-success" href="#">Uredi</a>
+                            <th width="5%">
+                                <a class="btn btn-info btn-round btn-just-icon btn-raised" asp-controller="Rezervacija" asp-action="Detalji" asp-area="Klijent" asp-route-id="@Item.RezervacijaID"><i class="material-icons">info</i></a>
+                               
+                            </th> 
+                            <th width="5%">
+                                <a class="btn btn-default btn-round btn-just-icon btn-raised" href="#"><i class="material-icons">edit</i></a>
+                               
+                            </th> 
+                            <th width="5%">
+                                <a  asp-action="PonistiRezervaciju" asp-area="Klijent"  class="btn btn-rose btn-round btn-just-icon btn-raised" asp-route-id="@Item.RezervacijaID" asp-controller="Rezervacija"><i class="material-icons">delete</i></a>
+                               
                             </th>
 
                         </tr>

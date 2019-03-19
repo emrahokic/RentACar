@@ -12,11 +12,23 @@
 
 <div class="col-md-12" style="margin-top:150px">
     <div class="card card-plain">
-        <div class="card-header card-header-info">
-            <h3 class="card-title mt-0"> Rezervacija</h3>
-            <h5 class="card-title mt-0">Datum: @Model.DatumRezervacije</h5>
+        <div class="card-header card-header-default">
+            <h3 class="card-title mt-0" style="color:grey"> Rezervacija</h3>
 
+            <form asp-action="ZavrsiRezervaciju" asp-area="Klijent" asp-controller="Rezervacija" method="post">
 
+                <button type="submit" style="margin-right:10px" class="btn btn-just-icon btn-round pull-right btn-success btn-raised"><i class="material-icons">save</i> </button>
+            </form>
+            <form asp-action="Rezervacija" asp-area="Klijent" asp-controller="Rezervacija" method="post">
+
+                <button style="margin-right:10px"  class="btn btn-info pull-right btn-round btn-raised btn-just-icon"><i class="material-icons">edit</i> </button>
+            </form>
+            <form asp-action="PonistiRezervaciju" asp-area="Klijent" asp-controller="Rezervacija" method="post">
+
+                <button style="margin-right:10px"  class="btn pull-right btn-rose btn-round btn-just-icon btn-raised"><i class="material-icons">delete</i></button>
+            </form>
+
+            <h5 class="card-title mt-0 "  style="color:grey">Datum: @Model.DatumRezervacije</h5>
         </div>
 
     </div>
@@ -28,11 +40,11 @@
 
         <div class="col-md-12">
             <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
+                <div class="card-header card-header-default card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">store</i>
+                        <i style="color:grey" class="material-icons">store</i>
                     </div>
-                    <h3 class="card-title" style="text-align:center">@Model.Poslovnica</h3>
+                    <h3 class="card-title" style="text-align:center;color:grey">@Model.Poslovnica</h3>
                     <p class="card-category"></p>
                 </div>
                 <div class="card-body">
@@ -42,11 +54,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="card card-stats">
-                                        <div class="card-header card-header-info card-header-icon">
+                                        <div class="card-header card-header-default card-header-icon">
                                             <div class="card-icon">
-                                                <i class="material-icons">directions_car</i>
+                                                <i style="color:grey" class="material-icons">directions_car</i>
                                             </div>
-                                            <h3 class="card-title" style="text-align:center">@Model.Vozilo</h3>
+                                            <h3 class="card-title" style="text-align:center;color:grey">@Model.Vozilo</h3>
                                         </div>
                                         <div class="card-body" style="text-align:left">
                                             <img src="@Model.SlikaVozila.URL" width="100%" title="@Model.SlikaVozila.Name" alt="@Model.SlikaVozila.Name" />
@@ -63,11 +75,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card card-stats">
-                                        <div class="card-header card-header-info card-header-icon">
+                                        <div class="card-header card-header-default card-header-icon">
                                             <div class="card-icon">
-                                                <i class="material-icons">info</i>
+                                                <i style="color:grey" class="material-icons">info</i>
                                             </div>
-                                            <h3 class="card-title" style="text-align:center">Detalji rezervacije</h3>
+                                            <h3 class="card-title" style="text-align:center;color:grey">Detalji rezervacije</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -141,11 +153,11 @@
 
                                 <div class="col-md-4">
                                     <div class="card card-stats">
-                                        <div class="card-header card-header-warning card-header-icon">
+                                        <div class="card-header card-header-default card-header-icon">
                                             <div class="card-icon">
-                                                <i class="material-icons">attach_money</i>
+                                                <i style="color:grey" class="material-icons">attach_money</i>
                                             </div>
-                                            <h3 class="card-title" style="text-align:center">@Model.Ukupno KM</h3>
+                                            <h3 class="card-title" style="text-align:center;color:grey">@Model.Ukupno KM</h3>
                                         </div>
                                         <div class="card-body" style="text-align:left">
                                             <p>
@@ -157,7 +169,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="stats">
-                                                <i class="material-icons">attach_money</i> Način plaćanja: @Enum.GetName(typeof(NacinPlacanja),Model.NacinPlacanja) 
+                                                <i class="material-icons">attach_money</i> Način plaćanja: @Enum.GetName(typeof(NacinPlacanja), Model.NacinPlacanja)
                                             </div>
                                         </div>
                                     </div>
@@ -167,11 +179,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-stats">
-                                        <div class="card-header card-header-primary card-header-icon">
+                                        <div class="card-header card-header-default card-header-icon">
                                             <div class="card-icon">
-                                                <i class="material-icons">add_shopping_cart</i>
+                                                <i style="color:grey" class="material-icons">add_shopping_cart</i>
                                             </div>
-                                            <h3 class="card-title" style="text-align:center">Dodatne Usluge</h3>
+                                            <h3 class="card-title" style="text-align:center;color:gray">Dodatne Usluge</h3>
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -233,19 +245,12 @@
 
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class=" col-md-6"style="text-align:center">
-                                            <button class="btn btn-danger">Ponisti</button>
-                                        </div>
-                                        <div class="col-md-6" style="text-align:center">
-                                            <form asp-action="ZavrsiRezervaciju" asp-area="Klijent" asp-controller="Rezervacija" method="post">
-
-                                                <button type="submit" class="btn btn-success" >Zavrsi</button>
-                                            </form>
-                                        </div>
+                                       
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -265,6 +270,6 @@
     </div>
 </div>
 <script>
-    
+
 </script>
 

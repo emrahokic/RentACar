@@ -11,14 +11,14 @@
             <b class="caret"></b>
             <div class="ripple-container"></div>
         </a>
-        <div id="CartBody" class="dropdown-menu dropdown-menu-right">
-            <h6 class="dropdown-header">Pending reservation</h6>
+        <div id="CartBody" style="width:300px" class="dropdown-menu dropdown-menu-right">
+            <h6 class="dropdown-header">Pending reservation: <span style="font-weight:bold">@Model.VoziloBrand-@Model.VoziloName</span> </h6>
             <div class="dropdown-divider"></div>
-            <a href="/Klijent/Rezervacija/Rezervacija" class="nav-item">
-                <img src="@Model.URL_Slike" alt="Circle Image" class="img-fluid">
+            <a href="/Klijent/Rezervacija/RezervacijaDetaljno" >
+                <img src="@Model.URL_Slike" alt="Circle Image"  class="img-raised rounded img-fluid">
                 
             </a>
-            <div class="dropdown-divider"></div>
+            <h6 style="text-align:center" class="dropdown-header"><span class="text-rose" style="font-size:11px">Reservation expiring in @Model.VrijemeIstekaH h @Model.VrijemeIstekaM min</span> </h6>
         </div>
     </li>
 

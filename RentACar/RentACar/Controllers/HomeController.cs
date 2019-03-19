@@ -31,7 +31,7 @@ namespace RentACar.Controllers
             return View();
         }
 
-        public IActionResult GetCartItems()
+        public async Task<IActionResult>  GetCartItems()
         {
             string SifraRezervacije = null;
 
@@ -44,13 +44,24 @@ namespace RentACar.Controllers
 
                 throw;
             }
+            string[] array = SifraRezervacije.Split("-");
+            long ticks =long.Parse(array[0]);
+            DateTime vrijemeRezervacije = new DateTime(ticks);
+            DateTime vrijemeIsteka = new DateTime(ticks).AddHours(24);
+            int satiDoIsteka = (vrijemeIsteka - DateTime.Now).Hours;
+            int minutaDoIsteka = (vrijemeIsteka - DateTime.Now).Minutes;
+            
             NotifikacijaKorpa notifikacijaKorpa = null;
+           
             if (SifraRezervacije != null)
             {
                 notifikacijaKorpa = new NotifikacijaKorpa();
                 Rezervacija r = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).FirstOrDefault();
                 notifikacijaKorpa.URL_Slike = db.Slika.Where(y => y.VoziloID == r.VoziloID).Select(s => s.URL).FirstOrDefault();
-
+                notifikacijaKorpa.VoziloName = db.Vozilo.Where(y => y.VoziloID == r.VoziloID).Select(n => n.Naziv).FirstOrDefault();
+                notifikacijaKorpa.VoziloBrand = db.Vozilo.Where(y => y.VoziloID == r.VoziloID).Select(n => n.Brend.Naziv).FirstOrDefault();
+                notifikacijaKorpa.VrijemeIstekaH = satiDoIsteka+"";
+                notifikacijaKorpa.VrijemeIstekaM = minutaDoIsteka + "";
                 return PartialView("Cart",notifikacijaKorpa);
             }
             return PartialView("Cart",notifikacijaKorpa);
