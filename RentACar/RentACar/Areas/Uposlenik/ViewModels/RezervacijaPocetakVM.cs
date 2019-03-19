@@ -13,5 +13,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public string  NazivVozila { get; set; }
         public string UposlenikID { get; set; }
         public List<SelectListItem> nacinPlacanja { get; set; }
+        public bool Prikolica { get; set; }
+        public List<SelectListItem> prikolice { get; set; }
     }
 }

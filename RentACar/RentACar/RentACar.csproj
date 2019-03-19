@@ -70,7 +70,7 @@
     <Content Update="Views\Shared\_LayoutKlijent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Uposlenik\Views\Usluge\UrediForm.cshtml">
+    <Content Update="Areas\Uposlenik\Views\Usluge\Uredi.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

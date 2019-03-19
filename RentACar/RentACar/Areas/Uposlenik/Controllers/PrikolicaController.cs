@@ -32,7 +32,8 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     Sirina = k.Sirina,
                     Zapremina = k.Zapremina,
                     Duzina = k.Duzina,
-                    TipPrikolice = k.TipPrikolice
+                    TipPrikolice = k.TipPrikolice,
+                    Cijena = k.Cijna
                 }).ToList()
             };
             return View(nameof(Index), model);
@@ -48,6 +49,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Sirina = x.Sirina,
                 Zapremina = x.Zapremina,
                 Cijena = x.Cijna,
+                TrenutnoTipPrikolice = x.TipPrikolice,
                 TipPrikolice = Enum.GetValues(typeof(TipPrikolice)).Cast<TipPrikolice>().Select(v => new SelectListItem
                 {
                     Text = v.ToString(),
@@ -59,11 +61,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
             {
                 return Content("Prikolica ne postoji");
             }
-            model.TipPrikolice = Enum.GetValues(typeof(TipPrikolice)).Cast<TipPrikolice>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList();
 
             return View(nameof(Uredi), model);
         }
@@ -183,7 +180,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.SaveChanges();
             _context.Dispose();
             string route = "/uposlenik/Prikolica/Detalji/" + PrikolicaID.ToString();
-            return Redirect(route);//Redirect(nameof(Index));
+            return Redirect(route);
         }
     }
 }

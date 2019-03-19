@@ -28,6 +28,9 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public string Adresa { get; set; }
         public string Spol { get; set; }
         public string jmbg { get; set; }
+        //prikolica
+        public double CijenaPrikolice { get; set; }
+        public bool Prikolica { get; set; }
 
         public OcjenaRezervacija ocjenaRezervacija { get; set; }
         public List<Row> dodatneUsluge { get; set; }
@@ -45,7 +48,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public double Ukupno {
             get {
 
-                return Cijena + UkupnaCijenaUsluga;
+                return Cijena + UkupnaCijenaUsluga + CijenaPrikolice;
             }
         }
 

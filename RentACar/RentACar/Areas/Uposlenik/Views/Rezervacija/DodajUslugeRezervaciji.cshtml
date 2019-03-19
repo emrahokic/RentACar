@@ -3,68 +3,68 @@
     ViewData["Title"] = "DodajUslugeRezervaciji";
 }
 <div class="col-md-12">
-    <div class="card card-nav-tabs" style="width: 45rem;">
-        <div class="card-header card-header-info">
+    <div class="card card-nav-tabs" style="width: 45rem; background-color: #f9f9f9;">
+        <div class="card-header card-header-primary">
             Rezervacija
         </div>
-      
-            <div class="card-body">
-                <div class="row text-left">
-                    <div class="col-md-4">
-                        <h4><strong>Klijent:</strong></h4>
-                        <h4><strong>Datum preuzimanja:</strong></h4>
-                        <h4><strong>Datum povrata:</strong></h4>
-                        <h4><strong>Cijena:</strong></h4>
-                        <h4><strong>Vozilo:</strong></h4>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>@Model.Korisnik</h4>
-                        <h4>@Model.DatumPreuzimanja</h4>
-                        <h4>@Model.DatumPovrata</h4>
-                        <h4>@Model.Cijena</h4>
-                        <h4>@Model.Vozilo</h4>
-                    </div>
+
+        <div class="card-body">
+            <div class="row text-left">
+                <div class="col-md-4">
+                    <h4><strong>Klijent:</strong></h4>
+                    <h4><strong>Datum preuzimanja:</strong></h4>
+                    <h4><strong>Datum povrata:</strong></h4>
+                    <h4><strong>Cijena:</strong></h4>
+                    <h4><strong>Vozilo:</strong></h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>@Model.Korisnik</h4>
+                    <h4>@Model.DatumPreuzimanja</h4>
+                    <h4>@Model.DatumPovrata</h4>
+                    <h4>@Model.Cijena</h4>
+                    <h4>@Model.Vozilo</h4>
                 </div>
             </div>
-      
+        </div>
+
     </div>
 </div>
 @if (Model.dodatneUsluge != null)
 {
-<div class="col-md-12">
-    <div class="card card-plain">
-        <div class="card-header card-header-primary">
-            <h4 class="card-title mt-0"> Rezervisane dodatne usluge </h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="">
-                        <tr>
-                            <th>Naziv</th>
-                            <th>Opis</th>
-                            <th>Cijena</th>
-                            <th>Kolicina</th>
-                            <th>Ukupno</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      @foreach (var x in Model.dodatneUsluge)
-                      {
-                        <tr>
-                            <th>@x.Naziv</th>
-                            <th>@x.Opis</th>
-                            <th>@x.Cijena KM</th>
-                            <th>@x.Kolicina </th>
-                            <th>@x.Ukupno KM</th>
-                        </tr>
-                      }
-                    </tbody>
-                </table>
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="card-header card-header-success">
+                <h4 class="card-title mt-0"> Rezervisane dodatne usluge </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="">
+                            <tr>
+                                <th>Naziv</th>
+                                <th>Opis</th>
+                                <th>Cijena</th>
+                                <th>Kolicina</th>
+                                <th>Ukupno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model.dodatneUsluge)
+                            {
+                                <tr>
+                                    <th>@x.Naziv</th>
+                                    <th>@x.Opis</th>
+                                    <th>@x.Cijena KM</th>
+                                    <th>@x.Kolicina </th>
+                                    <th>@x.Ukupno KM</th>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 <div class="col-md-12">
     <a href="/uposlenik/Rezervacija/RezervacijaUsluge?=@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="uslugeAdd" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ USLUGE</span></a>
@@ -72,7 +72,8 @@
     <a class="btn btn-danger"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">PONISTI</span></a>
 </div>
 
-<div class="col-md-12" id="uslugeAdd"></div>
+<div class="col-md-6" id="uslugeAdd"></div>
+
 
 
 <script>
