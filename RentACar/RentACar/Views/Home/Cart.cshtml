@@ -1,0 +1,48 @@
+﻿@model NotifikacijaKorpa
+
+@if (Model != null)
+{
+
+
+    <li class="dropdown nav-item">
+        <a href="#pablo" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+
+            <span class="badge badge-pill badge-rose"> <i class="material-icons">shopping_cart</i> 1</span>
+            <b class="caret"></b>
+            <div class="ripple-container"></div>
+        </a>
+        <div id="CartBody" class="dropdown-menu dropdown-menu-right">
+            <h6 class="dropdown-header">Pending reservation</h6>
+            <div class="dropdown-divider"></div>
+            <a href="/Klijent/Rezervacija/Rezervacija" class="nav-item">
+                <img src="@Model.URL_Slike" alt="Circle Image" class="img-fluid">
+                
+            </a>
+            <div class="dropdown-divider"></div>
+        </div>
+    </li>
+
+
+
+
+}
+else
+{
+
+    <li class="dropdown nav-item">
+        <a href="#pablo" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+
+             <i class="material-icons">shopping_cart</i>
+            <b class="caret"></b>
+            <div class="ripple-container"></div>
+        </a>
+        <div id="CartBody" class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">No items</h6>
+
+        </div>
+    </li>
+
+
+
+}

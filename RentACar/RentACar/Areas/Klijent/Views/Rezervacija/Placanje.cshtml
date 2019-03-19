@@ -1,0 +1,87 @@
+﻿@model DodajPlacanjeSpremiPV
+
+@{
+    Layout = "_LayoutSite";
+
+}
+<div class="" style="margin-top:100px">
+    <div class="profile-content">
+        <div class="container" id="PartialView">
+            <div class="row">
+                <div class="col-md-12 card">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-info">
+                            <h3 class="card-title mt-0">Placanje</h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form" asp-action="DodajPlacanjeSpremi" asp-controller="Rezervacija" asp-area="Klijent">
+                                <input id="selecting" asp-for="NacinPlacanja" hidden />
+                                <div class="row" style="margin-bottom:40px">
+
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-3" style="text-align:center">
+
+                                        <button rel="tooltip" name="NacinPlacanja" id="Gotovina" data-placement="bottom" value="2" data-original-title="Gotovina" style="margin:40px 10px 25px 0px" class="btn  btn-primary  btn-round btn-raised " type="button"> <i class="fa fa-dollar" style="margin:5px"></i></button>
+
+                                    </div>
+                                    <div class="col-md-2" style="text-align:center">
+                                        <button id="Kartica"  name="NacinPlacanja" rel="tooltip" data-placement="bottom"  value="1" data-original-title="Credit card" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-cc-visa" style="margin:5px"></i></button>
+
+                                    </div>
+                                    <div class="col-md-3" style="text-align:center">
+                                        <button id="Paypal" rel="tooltip"  name="NacinPlacanja" data-placement="bottom" data-original-title="PayPal"  value="3" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-paypal" style="margin:5px"></i></button>
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align:center">
+
+                                    <button  rel="tooltip" data-placement="bottom" data-original-title="Next" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="submit"> <i class="material-icons">navigate_next</i> </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+   
+    $("#Gotovina").click(function () {
+        $("#selecting").val("2");
+        $("#Gotovina").addClass("btn-primary");
+        $("#Gotovina").removeClass("btn-default");
+
+        $("#Kartica").removeClass("btn-primary");
+        $("#Paypal").removeClass("btn-primary");
+    });
+    $("#Kartica").click(function () {
+        $("#selecting").val("1");
+        $("#Kartica").addClass("btn-primary");
+        $("#Kartica").removeClass("btn-default");
+
+        $("#Gotovina").removeClass("btn-primary");
+        $("#Paypal").removeClass("btn-primary");
+    });
+    $("#Paypal").click(function () {
+        $("#selecting").val("3");
+        $("#Paypal").addClass("btn-primary");
+        $("#Paypal").removeClass("btn-default");
+
+        $("#Gotovina").removeClass("btn-primary");
+        $("#Kartica").removeClass("btn-primary");
+    });
+</script>

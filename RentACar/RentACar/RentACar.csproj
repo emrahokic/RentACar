@@ -22,13 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Klijent\Views\Rezervacija\DodajPlacanje.cshtml">
+    <Content Update="Areas\Klijent\Views\Rezervacija\Placanje.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Klijent\Views\Rezervacija\PrikoliceDodajPV.cshtml">
+    <Content Update="Areas\Klijent\Views\Rezervacija\Prikolice.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Klijent\Views\Rezervacija\DodatneUslugePV.cshtml">
+    <Content Update="Areas\Klijent\Views\Rezervacija\DodatneUsluge.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Klijent\Views\_ViewImports.cshtml">

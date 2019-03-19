@@ -1,0 +1,111 @@
+﻿@model DodatneUslugeDodajVM
+
+@{
+    Layout = "_LayoutSite";
+
+}
+@Json.Serialize(Model)
+<div class="" style="margin-top:100px">
+    <div class="profile-content">
+        <div class="container" id="PartialView">
+            <div class="row">
+                <div class="col-md-12 card">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-info">
+                            <h3 class="card-title mt-0"> Dodatne Usluge</h3>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+
+                            <form asp-action="DodatneUslugeDodaj" asp-controller="Rezervacija" asp-area="Klijent" class="form">
+                                <div class="col-md-12">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="">
+                                                <tr>
+                                                    <th>Dodatna usluga</th>
+                                                    <th>Opis</th>
+                                                    <th>Količina</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.Kuka)
+                                                {
+
+                                                    <tr>
+
+                                                        <th width="35%">
+                                                            Prikolica
+                                                        </th>
+                                                        <th width="55%">
+                                                            Vozilo posjeduje kuku te je moguce rezervisati prikolicu
+                                                        </th>
+                                                        <th width="0%"></th>
+                                                        <th width="10%">
+
+                                                            <div class="form-check" style="float:right">
+                                                                <label class="form-check-label" asp-for="DodajPrikolicu">
+                                                                    <input class="form-check-input" asp-for="DodajPrikolicu" />
+                                                                    <span style="margin-top:-20px" class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+                                                }
+                                                @for (int i = 0; i < Model.rows.Count; i++)
+                                                {
+                                                    <input asp-for="rows[i].Naziv" hidden />
+                                                    <tr>
+                                                        <th width="35%">@Model.rows[i].Naziv</th>
+                                                        <th width="45%">@Model.rows[i].Opis</th>
+                                                        <th width="10%"><input style="text-align:center" min="1" value="1" max="5" class="form-control" asp-for="rows[i].Kolicina" /></th>
+
+                                                        <th width="10%">
+                                                            <div style="float:right" class="form-check">
+                                                                <label class="form-check-label" asp-for="rows[i].Selected">
+                                                                    <input class="form-check-input" asp-for="rows[i].Selected" />
+                                                                    <span style="margin-top:-20px" class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </th>
+
+
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="col-md-12" style="text-align:center">
+
+                                        <button rel="tooltip" data-placement="bottom" data-original-title="Next" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="submit"> <i class="material-icons">navigate_next</i> </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

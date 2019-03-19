@@ -241,7 +241,10 @@
                                             <button class="btn btn-danger">Ponisti</button>
                                         </div>
                                         <div class="col-md-6" style="text-align:center">
-                                           <a class="btn btn-success" href="/Klijent/Rezervacija/ZavrsiRezervaciju?id=@Model.RezervacijaID">Zavrsi</a>
+                                            <form asp-action="ZavrsiRezervaciju" asp-area="Klijent" asp-controller="Rezervacija" method="post">
+
+                                                <button type="submit" class="btn btn-success" >Zavrsi</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
