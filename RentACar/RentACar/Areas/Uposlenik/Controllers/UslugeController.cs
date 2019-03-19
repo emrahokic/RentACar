@@ -33,18 +33,21 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     Cijena = k.Cijena
                 }).ToList()
             };
-
-            //_context.Dispose();        
-            return View("Index", model1);
+  
+            return View(nameof(Index), model1);
         }
 
-        public IActionResult DodajForm()
+        public IActionResult Dodaj()
         {
-            return View("DodajForm");
+            return View(nameof(Dodaj));
         }
 
-        public IActionResult Dodaj(string Naziv, string Opis, double Cijena)
+        public IActionResult DodajSnimi(string Naziv, string Opis, double Cijena)
         {
+            if(Opis == null)
+            {
+                Opis = "Nema opisa";
+            }
             DodatneUsluge nova = new DodatneUsluge
             {
                 Naziv = Naziv,
@@ -62,7 +65,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public IActionResult Obrisi(int id)
         {
-
             DodatneUsluge temp = new DodatneUsluge();
             temp = _context.DodatneUsluge.Find(id);
             if (temp == null)
@@ -74,19 +76,25 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.SaveChanges();
             _context.Dispose();
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult UrediForm(int id)
+        public IActionResult Uredi(int id)
         {
-            DodatneUsluge temp = new DodatneUsluge();
-            temp = _context.DodatneUsluge.Find(id);
-            if (temp == null)
+            DodatneUslugeVM model = _context.DodatneUsluge.Where(d => d.DodatneUslugeID == id).Select(s =>
+            new DodatneUslugeVM
+            {
+                DodatnaUslugaID = s.DodatneUslugeID,
+                Naziv = s.Naziv,
+                Opis = s.Opis,
+                Cijena = s.Cijena
+            }).SingleOrDefault();
+            if (model == null)
             {
                 return Content("Usluga ne postoji");
             }
 
-            return View("UrediForm", temp);
+            return View(nameof(Uredi), model);
         }
 
         public IActionResult UrediSnimi(int DodatneUslugeID, string Naziv, string Opis, double Cijena)

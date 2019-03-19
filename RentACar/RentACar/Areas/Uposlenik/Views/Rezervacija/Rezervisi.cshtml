@@ -1,113 +1,130 @@
 ﻿@model RezervacijaPocetakVM
+
 @{
     ViewData["Title"] = "Rezervisi";
 }
 <div class="col-lg-12">
     <div class="card card-nav-tabs">
-        <div class="card-header card-header-info">
+        <div class="card-header card-header-primary">
             <h4>REZERVACIJA -- VOZILO:  @Model.NazivVozila</h4>
         </div>
+        <form id="formRezervacijaPocetak" asp-area="Uposlenik" asp-action="RezervisiSnimi" asp-controller="Rezervacija" method="post">
+            <div class="card card-nav-tabs col-md-11" style="margin-top: 45px; margin-left: 10px; background-color: #fcfcfc;">
+                <div class="card-header card-header-success">
+                    Informacije o klijentu
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.VoziloID" name="VoziloID" />
+                    </div>
+                    <div class="form-group">
+                        <label>Ime: </label>
+                        <div>
+                            <input type="text" name="Ime" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Prezime: </label>
+                        <div>
+                            <input type="text" name="Prezime" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum rodjenja: </label>
+                        <div>
+                            <input type="date" name="datumRodjenja" max="2200-12-31" min="1900-01-01" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adresa: </label>
+                        <div>
+                            <input type="text" name="Adresa" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>JMBG: </label>
+                        <div>
+                            <input type="text" name="jmbg" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Spol: </label>
+                        <div class=" radio radio-inline">
+                            <input type="radio" name="Spol" value="M"> M
+                            <input type="radio" name="Spol" value="Z"> F
+                            <input type="radio" name="Spol" value="other"> Other
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; background-color: #fcfcfc;">
+                <div class="card-header card-header-success">
+                    Informacije o rezervaciji
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.UposlenikID" name="UposlenikID" />
+                    </div>
+                    <div class="form-group">
+                        <label>Datum preuzimanja: </label>
+                        <div>
+                            <input type="date" name="DatumPreuzimanja" max="2200-12-31" min="1900-01-01" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum povrata: </label>
+                        <div>
+                            <input type="date" name="DatumPovrata" max="2200-12-31" min="1900-01-01" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nacin placanja: </label>
+                        <div>
+                            <select type="text" name="NacinPlacanja" class="form-control">
+                                <option value="0">Odaberi</option>
+                                @foreach (var x in Model.nacinPlacanja)
+                                {
+                                    <option value="@x.Value"> @x.Text </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    @if (Model.Prikolica == true)
+                    {
+                        <div class="form-group">
+                            <label>Prikolice: </label>
+                            <div>
+                                <select type="text" name="Prikolica" class="form-control">
+                                    <option value="0">Odaberi</option>
+                                    @foreach (var x in Model.prikolice)
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 10px;">
+                <input type="submit" value="DALJE" class="btn btn-success" />
+            </div>
+        </form>
     </div>
 </div>
-<br />
-    <form asp-area="Uposlenik" asp-action="RezervisiSnimi" asp-controller="Rezervacija" method="post">
-        <div class="card card-nav-tabs" style="width: 40rem;">
-            <div class="card-header card-header-success">
-                Informacije o klijentu
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <input type="hidden" value="@Model.VoziloID" name="VoziloID"/>
-                </div>
-                <div class="form-group">
-                    <label>Ime: </label>
-                    <div>
-                        <input type="text" name="Ime" class="form-control" />
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Prezime: </label>
-                    <div>
-                        <input type="text" name="Prezime" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Datum rodjenja: </label>
-                    <div>
-                        <input type="date" name="datumRodjenja" max="2200-12-31" min="1900-01-01" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Adresa: </label>
-                    <div>
-                        <input type="text" name="Adresa" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>JMBG: </label>
-                    <div>
-                        <input type="text" name="jmbg" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Spol: </label>
-                    <div class=" radio radio-inline">
-                        <input type="radio" name="Spol" value="M"> M
-                        <input type="radio" name="Spol" value="Z"> F
-                        <input type="radio" name="Spol" value="other"> Other
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <br />
-        <br />
-        <div class="card card-nav-tabs" style="width: 40rem;">
-            <div class="card-header card-header-success">
-                Informacije o rezervaciji
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <input type="hidden" value="@Model.UposlenikID" name="UposlenikID"/>
-                </div>
-                <div class="form-group">
-                    <label>Datum preuzimanja: </label>
-                    <div>
-                        <input type="date" name="DatumPreuzimanja" max="2200-12-31" min="1900-01-01" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Datum povrata: </label>
-                    <div>
-                        <input type="date" name="DatumPovrata" max="2200-12-31" min="1900-01-01" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Nacin placanja: </label>
-                    <div>
-                        <select type="text" name="NacinPlacanja" class="form-control">
-                            @foreach (var x in Model.nacinPlacanja)
-                            {
-                                <option value="@x.Value"> @x.Text </option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Dalje</button>
-        </div>
-    </form>
-    <script>
+<script>
     document.getElementById("rezervacije").className = "active";
-    </script>
+</script>

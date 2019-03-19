@@ -8,7 +8,7 @@
         Dodaj vozilo za prikolicu 
     </div>
     <div class="col-md-8">
-        <form asp-area="Uposlenik" asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
+        <form id="formPrikolicaVozilo" asp-area="Uposlenik" asp-action="DodajVoziloSnimi" asp-controller="Prikolica" method="post">
             <div class="form-group">
             <input type="hidden" name="PrikolicaID" value="@Model.PrikolicaID" />
             </div>
@@ -31,6 +31,7 @@
                 <label>Vozilo: </label>
                 <div>
                     <select type="text" name="VoziloID" class="form-control">
+                        <option value="0">Odaberi</option>
                         @foreach (var x in Model.vozila)
                         {
                             <option value="@x.Value"> @x.Text </option>

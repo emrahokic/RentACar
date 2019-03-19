@@ -27,7 +27,7 @@
                                 <td>@x.Opis</td>
                                 <td>@x.Cijena KM</td>
                                 <td>
-                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="UrediForm" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
+                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="Uredi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
                                     <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="Obrisi" asp-controller="Usluge" asp-route-id="@x.DodatneUslugeID"><i class="material-icons">delete</i><span style="padding-left: 3px;">OBRISI</span></a>
                                 </td>
                             </tr>
@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="DodajForm" asp-controller="Usluge"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ</span></a>
+<a class="btn btn-white text-dark" asp-area="Uposlenik" asp-action="Dodaj" asp-controller="Usluge"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ</span></a>
 <script>
     document.getElementById("usluge").className = "active";
 </script>

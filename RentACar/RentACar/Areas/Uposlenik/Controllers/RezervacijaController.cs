@@ -84,6 +84,24 @@ namespace RentACar.Areas.Uposlenik.Controllers
             model.VoziloID = id;
             model.NazivVozila = db.Vozilo.Where(v => v.VoziloID == id).Select(s => s.Naziv).SingleOrDefault();
 
+            //provjeri ima li prikolicu
+            var temp = db.KompatibilnostPrikolica.Where(p => p.VoziloID == id).Select(s => s).ToList();
+            if(temp == null)
+            {
+                model.Prikolica = false;
+            }
+            else
+            {
+                model.Prikolica = true;
+                model.prikolice = new List<SelectListItem>();
+                model.prikolice = temp.Select(s=> new SelectListItem
+                {
+                    Value = s.PrikolicaID.ToString(),
+                    Text = "Tip kuke: " + s.TipKuke + " - " + db.Prikolica.Where(pri => pri.PrikolicaID == s.PrikolicaID).Select(x => "Cijena: "+ x.Cijna.ToString() + " KM - Duzina: " + x.Duzina.ToString() + " - Sirina: " + x.Sirina.ToString() ).SingleOrDefault().ToString()
+                }).ToList();
+            }
+
+            //dobavi id uposlenika
             var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             model.UposlenikID = user;
             
@@ -98,7 +116,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public async Task<IActionResult> RezervisiSnimi(int VoziloID, string Ime, string Prezime, string datumRodjenja,
             string Adresa, string jmbg, string Spol, int UposlenikID, string DatumPreuzimanja, string DatumPovrata,
-            int NacinPlacanja)
+            int NacinPlacanja, int Prikolica)
         {
             //klijent napravi i pronadji id
             string username = Ime + "." + Prezime + "@gm." + Prezime;
@@ -129,6 +147,14 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
             double cijenaAutaDan = db.Vozilo.Where(v => v.VoziloID == VoziloID).Select(s => s.Cijena).SingleOrDefault();
             string sifra = username + datumRodjenja;
+
+            //cijena prikolice
+            double cijenaPrikolice = 0;
+            if(Prikolica != 0)
+            {
+                cijenaPrikolice = db.Prikolica.Where(p => p.PrikolicaID == Prikolica).Select(s => s.Cijna).SingleOrDefault();
+            }
+
             Rezervacija nova = new Rezervacija
             {
                 DatumRezervacije = DateTime.Now,
@@ -138,13 +164,17 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 SifraRezervacije = username + datumRodjenja,
                 Zakljucen = 3,
                 BrojDanaIznajmljivanja = brojDana,
-                Cijena = brojDana * cijenaAutaDan,
+                Cijena = brojDana * cijenaAutaDan + cijenaPrikolice,
                 UspjesnoSpremljena = true,
                 KlijentID = klijent.Id,
                 VoziloID = VoziloID,
                 PoslovnicaID = poslovnicaID,
                 UposlenikID = UposlenikID
             };
+            if(Prikolica != 0)
+            {
+                nova.PrikolicaID = Prikolica;
+            }
             db.Add(nova);
             db.SaveChanges();
 
@@ -258,6 +288,17 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 }).ToList()
             }).FirstOrDefault();
 
+            var temp = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => s.Prikolica).SingleOrDefault();
+            if (temp != null)
+            {
+                model.Prikolica = true;
+                model.CijenaPrikolice = temp.Cijna;
+            }
+            else
+            {
+                model.Prikolica = false;
+                model.CijenaPrikolice = 0;
+            }
             return View(nameof(Detalji), model);
         }
 

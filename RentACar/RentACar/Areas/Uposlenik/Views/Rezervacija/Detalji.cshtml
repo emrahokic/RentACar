@@ -154,19 +154,8 @@
 
                                                         </tr>
                                                         <tr>
-                                                            <th>Zakuljucen</th>
-                                                            @if (Model.Zakljucen == (int)InfoRezervacija.Zavrsena)
-                                                            {
-                                                                <td>
-                                                                    Završeno
-                                                                </td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td>
-                                                                    U toku
-                                                                </td>
-                                                            }
+                                                            <th>Zakuljcen</th>
+                                                            <td>@Enum.GetName(typeof(InfoRezervacija), Model.Zakljucen)</td>
                                                         </tr>
 
                                                     </tbody>
@@ -196,6 +185,12 @@
                                             <p>
                                                 Dodatne usluge: @Model.UkupnaCijenaUsluga KM
                                             </p>
+                                            @if (Model.Prikolica == true)
+                                            {
+                                                <p>
+                                                    Prikolica: @Model.CijenaPrikolice KM
+                                                </p>
+                                            }
                                         </div>
                                         <div class="card-footer">
                                             <div class="stats">

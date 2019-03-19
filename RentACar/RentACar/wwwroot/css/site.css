@@ -60,6 +60,11 @@ body {
 .input-stil {
     box-shadow: 3px 3px 10px grey;
 }
+
+/*klasa error za error poruku na validaciji */
+.errorsValidate {
+    color: red !important;
+}
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

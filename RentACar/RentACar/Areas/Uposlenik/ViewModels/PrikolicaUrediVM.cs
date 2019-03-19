@@ -12,6 +12,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public double Sirina { get; set; }
         public double Zapremina { get; set; }
         public double Duzina { get; set; }
+        public int TrenutnoTipPrikolice { get; set; }
         public List<SelectListItem> TipPrikolice { get; set; }
         public double Cijena { get; set; }
     }
