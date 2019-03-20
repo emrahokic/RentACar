@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentACar.Migrations
 {
-    public partial class initial : Migration
+    public partial class initital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -552,7 +552,7 @@ namespace RentACar.Migrations
                         column: x => x.PrijevozID,
                         principalTable: "Prijevoz",
                         principalColumn: "PrijevozID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -606,7 +606,43 @@ namespace RentACar.Migrations
                         column: x => x.UposlenikID,
                         principalTable: "User",
                         principalColumn: "UserID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifikacija",
+                columns: table => new
+                {
+                    NotifikacijaID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Vrijeme = table.Column<DateTime>(nullable: false),
+                    Otvorena = table.Column<bool>(nullable: false),
+                    Poruka = table.Column<string>(nullable: true),
+                    PoslovnicaID = table.Column<int>(nullable: true),
+                    RezervacijaID = table.Column<int>(nullable: true),
+                    UserID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifikacija", x => x.NotifikacijaID);
+                    table.ForeignKey(
+                        name: "FK_Notifikacija_Poslovnica_PoslovnicaID",
+                        column: x => x.PoslovnicaID,
+                        principalTable: "Poslovnica",
+                        principalColumn: "PoslovnicaID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Notifikacija_Rezervacija_RezervacijaID",
+                        column: x => x.RezervacijaID,
+                        principalTable: "Rezervacija",
+                        principalColumn: "RezervacijaID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Notifikacija_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -635,7 +671,7 @@ namespace RentACar.Migrations
                         column: x => x.RezervacijaID,
                         principalTable: "Rezervacija",
                         principalColumn: "RezervacijaID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -665,7 +701,7 @@ namespace RentACar.Migrations
                         column: x => x.RezervacijaID,
                         principalTable: "Rezervacija",
                         principalColumn: "RezervacijaID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OstecenjeInfo_Vozilo_VoziloID",
                         column: x => x.VoziloID,
@@ -717,6 +753,21 @@ namespace RentACar.Migrations
                 name: "IX_KompatibilnostPrikolica_VoziloID",
                 table: "KompatibilnostPrikolica",
                 column: "VoziloID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifikacija_PoslovnicaID",
+                table: "Notifikacija",
+                column: "PoslovnicaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifikacija_RezervacijaID",
+                table: "Notifikacija",
+                column: "RezervacijaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifikacija_UserID",
+                table: "Notifikacija",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OcjenaPrijevoz_KlijentID",
@@ -902,6 +953,9 @@ namespace RentACar.Migrations
         {
             migrationBuilder.DropTable(
                 name: "KompatibilnostPrikolica");
+
+            migrationBuilder.DropTable(
+                name: "Notifikacija");
 
             migrationBuilder.DropTable(
                 name: "OcjenaPrijevoz");

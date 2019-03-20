@@ -42,14 +42,7 @@ namespace RentACar.Areas.Identity.Pages.Account
                 throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
             }
 
-            IdentityUserRole<int> newUserRole = new IdentityUserRole<int>
-            {
-                RoleId = 2,
-                UserId = int.Parse(userId),
-
-            };
-            _db.UserRoles.Add(newUserRole);
-            await _db.SaveChangesAsync();
+          
             return Redirect("/Klijent/Profil/Index");
         }
     }

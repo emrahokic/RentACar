@@ -64,10 +64,14 @@
                                                 @for (int i = 0; i < Model.rows.Count; i++)
                                                 {
                                                     <input asp-for="rows[i].Naziv" hidden />
+
                                                     <tr>
                                                         <th width="35%">@Model.rows[i].Naziv</th>
                                                         <th width="45%">@Model.rows[i].Opis</th>
-                                                        <th width="10%"><input style="text-align:center" min="1" value="1" max="5" class="form-control" asp-for="rows[i].Kolicina" /></th>
+                                                        <th width="10%">
+                                                            <input style="text-align:center" min="1" value="1" max="5" class="form-control" asp-for="rows[i].Kolicina" />
+
+                                                        </th>
 
                                                         <th width="10%">
                                                             <div style="float:right" class="form-check">
@@ -83,6 +87,11 @@
 
 
                                                     </tr>
+                                                    <tr>
+
+                                                        <span asp-validation-for="rows[i].Kolicina" class="text-danger"></span>
+                                                    </tr>
+
                                                 }
 
                                             </tbody>

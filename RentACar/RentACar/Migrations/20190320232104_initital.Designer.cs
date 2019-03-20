@@ -10,8 +10,8 @@ using RentACar.Data;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190316122619_initial")]
-    partial class initial
+    [Migration("20190320232104_initital")]
+    partial class initital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -300,6 +300,35 @@ namespace RentACar.Migrations
                     b.HasIndex("VoziloID");
 
                     b.ToTable("KompatibilnostPrikolica");
+                });
+
+            modelBuilder.Entity("RentACar.Models.Notifikacija", b =>
+                {
+                    b.Property<int>("NotifikacijaID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Otvorena");
+
+                    b.Property<string>("Poruka");
+
+                    b.Property<int?>("PoslovnicaID");
+
+                    b.Property<int?>("RezervacijaID");
+
+                    b.Property<int?>("UserID");
+
+                    b.Property<DateTime>("Vrijeme");
+
+                    b.HasKey("NotifikacijaID");
+
+                    b.HasIndex("PoslovnicaID");
+
+                    b.HasIndex("RezervacijaID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Notifikacija");
                 });
 
             modelBuilder.Entity("RentACar.Models.OcjenaPrijevoz", b =>
@@ -792,6 +821,21 @@ namespace RentACar.Migrations
                         .WithMany()
                         .HasForeignKey("VoziloID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RentACar.Models.Notifikacija", b =>
+                {
+                    b.HasOne("RentACar.Models.Poslovnica", "Poslovnica")
+                        .WithMany()
+                        .HasForeignKey("PoslovnicaID");
+
+                    b.HasOne("RentACar.Models.Rezervacija", "Rezervacija")
+                        .WithMany()
+                        .HasForeignKey("RezervacijaID");
+
+                    b.HasOne("RentACar.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("RentACar.Models.OcjenaPrijevoz", b =>

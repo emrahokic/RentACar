@@ -10,7 +10,6 @@ namespace RentACar.Areas.Klijent.ViewModels
 {
     public class PrikoliceDodajVM
     {
-        public int RezervacijaID { get; set; }
         public List<PrikoliceVm> rows { get; set; }
         public string Selected { get; set; } 
         public class PrikoliceVm

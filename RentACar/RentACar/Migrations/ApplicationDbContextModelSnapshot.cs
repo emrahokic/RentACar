@@ -300,6 +300,35 @@ namespace RentACar.Migrations
                     b.ToTable("KompatibilnostPrikolica");
                 });
 
+            modelBuilder.Entity("RentACar.Models.Notifikacija", b =>
+                {
+                    b.Property<int>("NotifikacijaID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Otvorena");
+
+                    b.Property<string>("Poruka");
+
+                    b.Property<int?>("PoslovnicaID");
+
+                    b.Property<int?>("RezervacijaID");
+
+                    b.Property<int?>("UserID");
+
+                    b.Property<DateTime>("Vrijeme");
+
+                    b.HasKey("NotifikacijaID");
+
+                    b.HasIndex("PoslovnicaID");
+
+                    b.HasIndex("RezervacijaID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Notifikacija");
+                });
+
             modelBuilder.Entity("RentACar.Models.OcjenaPrijevoz", b =>
                 {
                     b.Property<int>("OcjenaPrijevozID")
@@ -790,6 +819,21 @@ namespace RentACar.Migrations
                         .WithMany()
                         .HasForeignKey("VoziloID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RentACar.Models.Notifikacija", b =>
+                {
+                    b.HasOne("RentACar.Models.Poslovnica", "Poslovnica")
+                        .WithMany()
+                        .HasForeignKey("PoslovnicaID");
+
+                    b.HasOne("RentACar.Models.Rezervacija", "Rezervacija")
+                        .WithMany()
+                        .HasForeignKey("RezervacijaID");
+
+                    b.HasOne("RentACar.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("RentACar.Models.OcjenaPrijevoz", b =>

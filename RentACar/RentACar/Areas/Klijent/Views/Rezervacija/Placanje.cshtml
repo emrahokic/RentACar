@@ -20,6 +20,8 @@
 
                             <form class="form" asp-action="DodajPlacanjeSpremi" asp-controller="Rezervacija" asp-area="Klijent">
                                 <input id="selecting" asp-for="NacinPlacanja" hidden />
+                                <span asp-validation-for="NacinPlacanja" class="text-danger"></span>
+
                                 <div class="row" style="margin-bottom:40px">
 
                                     <div class="col-md-2">
@@ -31,11 +33,11 @@
 
                                     </div>
                                     <div class="col-md-2" style="text-align:center">
-                                        <button id="Kartica"  name="NacinPlacanja" rel="tooltip" data-placement="bottom"  value="1" data-original-title="Credit card" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-cc-visa" style="margin:5px"></i></button>
+                                        <button id="Kartica" name="NacinPlacanja" rel="tooltip" data-placement="bottom" value="1" data-original-title="Credit card" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-cc-visa" style="margin:5px"></i></button>
 
                                     </div>
                                     <div class="col-md-3" style="text-align:center">
-                                        <button id="Paypal" rel="tooltip"  name="NacinPlacanja" data-placement="bottom" data-original-title="PayPal"  value="3" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-paypal" style="margin:5px"></i></button>
+                                        <button id="Paypal" rel="tooltip" name="NacinPlacanja" data-placement="bottom" data-original-title="PayPal" value="3" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="button"> <i class="fa fa-paypal" style="margin:5px"></i></button>
 
                                     </div>
                                     <div class="col-md-2">
@@ -44,7 +46,7 @@
                                 </div>
                                 <div class="col-md-12" style="text-align:center">
 
-                                    <button  rel="tooltip" data-placement="bottom" data-original-title="Next" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="submit"> <i class="material-icons">navigate_next</i> </button>
+                                    <button rel="tooltip" data-placement="bottom" data-original-title="Next" style="margin:40px 10px 25px 0px" class="btn btn-default  btn-round btn-raised " type="submit"> <i class="material-icons">navigate_next</i> </button>
                                 </div>
                             </form>
                         </div>

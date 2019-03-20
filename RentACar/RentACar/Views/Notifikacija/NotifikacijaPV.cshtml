@@ -1,0 +1,33 @@
+﻿@model NotifikacijaProfilVM
+
+<li class="nav-item dropdown">
+    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="material-icons">notifications</i>
+        <span class="notification">@Model.BrojNeprocitanih</span>
+        <p class="d-lg-none d-md-block">
+            Some Actions
+        </p>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+        @foreach (var item in Model.notifikacije)
+        {
+            <a href="#" class="dropdown-item">
+                <div style="width:100%">
+
+                    @if (item.Otvorena == false)
+                    {
+                        <p style="float:right;font-size:11px"> new</p>
+                        <br />
+                    }
+                    <p>
+                        @item.Poruka
+
+                    </p>
+                    <p style="text-align:center;font-size:11px"> @item.Vrijeme</p>
+                </div>
+            </a>
+
+        }
+    </div>
+</li>
+

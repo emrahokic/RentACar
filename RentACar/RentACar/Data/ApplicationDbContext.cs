@@ -40,6 +40,7 @@ namespace RentACar.Data
         public DbSet<OcjenaPrijevoz> OcjenaPrijevoz { get; set; }
         public DbSet<OcjenaRezervacija> OcjenaRezervacija { get; set; }
         public DbSet<Brend> Brend { get; set; }
+        public DbSet<Notifikacija> Notifikacija { get; set; }
 
 
 

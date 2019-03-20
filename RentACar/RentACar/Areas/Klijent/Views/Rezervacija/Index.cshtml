@@ -47,7 +47,10 @@
                                
                             </th> 
                             <th width="5%">
-                                <a  asp-action="PonistiRezervaciju" asp-area="Klijent"  class="btn btn-rose btn-round btn-just-icon btn-raised" asp-route-id="@Item.RezervacijaID" asp-controller="Rezervacija"><i class="material-icons">delete</i></a>
+                                <form asp-action="PonistiRezervaciju" asp-area="Klijent" asp-route-id="@Item.RezervacijaID" asp-controller="Rezervacija" method="post">
+
+                                <button type="submit"   class="btn btn-rose btn-round btn-just-icon btn-raised" ><i class="material-icons">delete</i></button>
+                                </form>
                                
                             </th>
 

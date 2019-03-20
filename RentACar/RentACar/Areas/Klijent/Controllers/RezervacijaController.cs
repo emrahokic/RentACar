@@ -328,14 +328,19 @@ namespace RentACar.Areas.Klijent.Controllers
             if (SifraRezervacije == null)
             {
                 //redirect na pocetnu str ili ispisati nesto
+
             }
-            
+
 
             int RezervacijaID = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).Select(y => y.RezervacijaID).FirstOrDefault();
 
             List<RezervisanaUsluga> rezervisanaUslugaFromDB = db.RezervisanaUsluga.Where(x => x.RezervacijaID == RezervacijaID).ToList();
 
+            if (!ModelState.IsValid)
+            {
+                return Redirect(nameof(DodatneUsluge));
 
+            }
 
             List<RezervisanaUsluga> rezervisanaUslugaZaDodati = new List<RezervisanaUsluga>();
             List<RezervisanaUsluga> rezervisanaUslugaZaObrisati = new List<RezervisanaUsluga>();
@@ -360,6 +365,12 @@ namespace RentACar.Areas.Klijent.Controllers
                         {
                             RezervisanaUsluga rv = db.RezervisanaUsluga.Where(c => c.DodatneUslugeID == r.DodatneUslugeID && c.RezervacijaID == r.RezervacijaID).FirstOrDefault();
                             rezervisanaUslugaZaObrisati.Add(rv);
+                        }else if (rezervisanaUslugaFromDB.Any(p => p.DodatneUslugeID == r.DodatneUslugeID) && model.rows[i].Selected == true)
+                        {
+                        RezervisanaUsluga RUforUpdate = db.RezervisanaUsluga.Where(x => x.DodatneUslugeID == r.DodatneUslugeID && x.RezervacijaID == r.RezervacijaID).FirstOrDefault();
+                        RUforUpdate.Kolicina = r.Kolicina;
+                        RUforUpdate.UkupnaCijenaUsluge = r.UkupnaCijenaUsluge;
+                        db.SaveChanges();
                         }
                        
                     }
@@ -545,6 +556,11 @@ namespace RentACar.Areas.Klijent.Controllers
             {
                 //redirect na pocetnu str ili ispisati nesto
             }
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(Placanje));
+
+            }
             Rezervacija r = db.Rezervacija.Where(x => x.SifraRezervacije == SifraRezervacije).FirstOrDefault();
             if (model.NacinPlacanja != null && model.NacinPlacanja != "")
             {
@@ -572,7 +588,7 @@ namespace RentACar.Areas.Klijent.Controllers
             {
                 return RedirectPermanent("/Klijent/Rezervacija");
             }
-            if (SifraRezervacije == null)
+            if (id != null)
             {
                 //redirect na pocetnu str ili ispisati nesto
                 Rezervacija r1 = db.Rezervacija.Where(x => x.RezervacijaID == id).FirstOrDefault();
@@ -653,6 +669,31 @@ namespace RentACar.Areas.Klijent.Controllers
             TrenutnaPoslovnica tp = db.TrenutnaPoslovnica.Where(TP => TP.VoziloID == r.VoziloID).FirstOrDefault();
             tp.VoziloRezervisano = true;
             db.SaveChanges();
+
+            Notifikacija notifikacijaZaKlijenta = new Notifikacija
+            {
+                Vrijeme = DateTime.Now,
+                Otvorena = false,
+                Poruka = "Vasa rezervacija je zaprimljena u poslovnicu i trenutno je na obradi!",
+                PoslovnicaID = null,
+                UserID = r.KlijentID,
+                RezervacijaID = r.RezervacijaID 
+            };
+            Notifikacija notifikacijaZaUposlenika = new Notifikacija
+            {
+                Vrijeme = DateTime.Now,
+                Otvorena = false,
+                Poruka = "Nova rezervacija od " + User.Identity.Name,
+                PoslovnicaID = r.PoslovnicaID,
+                UserID = null,
+                RezervacijaID = r.RezervacijaID
+            };
+            List<Notifikacija> n = new List<Notifikacija>();
+            n.Add(notifikacijaZaKlijenta);
+            n.Add(notifikacijaZaUposlenika);
+            db.AddRange(n);
+            db.SaveChanges();
+
             return RedirectPermanent("/Klijent/Rezervacija/Index");
         }
 

@@ -130,20 +130,18 @@
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">notifications</i>
-                                        <span class="notification">3</span>
-                                        <p class="d-lg-none d-md-block">
-                                            Some Actions
-                                        </p>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#">1 nova rezervacija ima posebne potrebe</a>
-                                        <a class="dropdown-item" href="#">Imate 5 novih rezervacija</a>
-                                        <a class="dropdown-item" href="#">Otkazana rezervacija: 1</a>
-                                    </div>
-                                </li>
+                                <shadow id="notifikacije">
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="material-icons">notifications</i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">No new notifications</a>
+
+                                        </div>
+                                    </li>
+                                </shadow>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">person</i>
@@ -237,6 +235,17 @@
 
 
     }
+
+    <script>
+
+         $(document).ready(function () {
+        $.get("/Notifikacija/GetNotifications",
+            function (rezultat, status) {
+                $("#notifikacije").html(rezultat);
+
+            });
+    });
+    </script>
     <!--   Core JS Files   -->
     <script src="/js/core/jquery.min.js"></script>
     <script src="/js/core/popper.min.js"></script>
