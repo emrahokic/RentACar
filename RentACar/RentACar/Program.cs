@@ -35,10 +35,8 @@ namespace RentACar
                 }
                 catch (Exception ex)
                 {
-
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occured while seeding the database.");
-
                 }
             }
                 host.Run();

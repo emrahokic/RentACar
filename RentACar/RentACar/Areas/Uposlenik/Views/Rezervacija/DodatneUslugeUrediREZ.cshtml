@@ -1,0 +1,52 @@
+﻿@model RezervacijaUslugeUrediVM
+@{
+    ViewData["Title"] = "DodatneUslugeUrediREZ";
+}
+
+
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Naziv</th>
+                            <th>Opis</th>
+                            <th>Cijena</th>
+                            <th>Kolicina</th>
+                            <th>Ukupno cijena</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.rows)
+                        {
+                        <tr>
+                            <td>@x.Naziv</td>
+                            <td>@x.Opis</td>
+                            <td>@x.Cijena KM</td>
+                            <td>@x.Kolicina</td>
+                            <td>@x.Ukupno KM</td>
+                            <td>
+                                <form asp-action="DodatneUslugeUrediREZobrisi" ajax-poziv="da" ajax-rezultat="uslugeREZ" method="post">
+                                    <input value="@x.UslugaID" hidden name="uslugaID" />
+                                    <input value="@x.RezervacijaID" hidden name="rezervacijaID" />
+
+                                    <button type="submit" class="btn btn-white text-dark">
+                                        <i class="material-icons">delete_forever</i>
+                                        <span style="padding-left: 3px;">UKLONI</span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

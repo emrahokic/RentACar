@@ -10,6 +10,7 @@
         <div class="card-header card-header-info">
             <h3 class="card-title mt-0"> Rezervacija</h3>
             <h5 class="card-title mt-0">Datum: @Model.DatumRezervacije</h5>
+            <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="RezervacijaUredi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
 
 
         </div>
@@ -180,7 +181,7 @@
                                         </div>
                                         <div class="card-body" style="text-align:left">
                                             <p>
-                                                Rezervisana usluga: @Model.Cijena KM
+                                                Rezervacija vozila ukupno: @Model.Cijena KM
                                             </p>
                                             <p>
                                                 Dodatne usluge: @Model.UkupnaCijenaUsluga KM

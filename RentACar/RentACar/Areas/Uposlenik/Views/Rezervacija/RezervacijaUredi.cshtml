@@ -1,0 +1,189 @@
+﻿@model RezervacijaUrediVM
+@{
+    ViewData["Title"] = "RezervacijaUredi";
+}
+
+<div class="col-lg-12">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-primary">
+            <h4>Uredi rezervaciju</h4>
+        </div>
+        <form asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="RezervacijaUrediSnimi" method="post">
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Vozilo
+                </div>
+                <div class="col-md-8">
+                    <div class="row" style="margin-top:20px; margin-bottom: 20px;">
+                        <div class="col-md-5">
+                            <img src="@Model.SlikaVozila" class="card-img" />
+                        </div>
+                        <div class="col-md-5">
+                            <div>Vozilo: <strong>@Model.Vozilo</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Rezervacija ---- Datum rezervisanja: @Model.DatumRezervacije ----
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.RezervacijaID" name="RezervacijaID" />
+                    </div>
+                    <div class="form-group">
+                        <label>Datum preuzimanja: </label>
+                        <input type="date" asp-for="@Model.DatumPreuzimanja" asp-format="{0:yyyy-MM-dd}" name="DatumPreuzimanja" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum povrata: </label>
+                        <input type="date" asp-for="@Model.DatumPovrata" asp-format="{0:yyyy-MM-dd}" name="DatumPovrata" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Broj dana iznajmljivanja: </label>
+                        <strong>@Model.BrojDanaIznajmljivanja</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cijena: </label>
+                        <strong>@Model.Cijena</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nacin placanja: </label>
+                        <div>
+                            <select type="text" name="NacinPlacanja" class="form-control">
+                                @foreach (var x in Model.naciniPlacanja)
+                                {
+                                    @if (Model.NacinPlacanja.ToString() == x.Value)
+                                    {
+                                        <option value="@x.Value" selected> @x.Text </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Zakljucen: </label>
+                        <div>
+                            <select type="text" name="Zakljucen" class="form-control">
+                                @foreach (var x in Model.zakljuceni)
+                                {
+
+                                    @if (Model.Zakljucen.ToString() == x.Value)
+                                    {
+                                        <option value="@x.Value" selected> @x.Text </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Informacije o klijentu
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Ime: </label>
+                        <input type="text" name="Ime" value="@Model.Ime" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Prezime: </label>
+                        <input type="text" name="Prezime" value="@Model.Prezime" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum rodjenja: </label>
+                        <input type="date" name="DatumRodjenja" asp-for="@Model.DatumRodjenja" asp-format="{0:yyyy-MM-dd}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adresa: </label>
+                        <input type="text" name="Adresa" value="@Model.Adresa" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>JMBG: </label>
+                        <input type="text" name="jmbg" value="@Model.jmbg" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Spol: </label>
+                        <div class=" radio radio-inline">
+                            @if (Model.Spol == "M")
+                            {
+                                <input type="radio" name="Spol" value="M" checked><span class="text-dark"> M</span>
+                            }
+                            else
+                            {
+                                <input type="radio" name="Spol" value="M"><span class="text-dark"> M</span>
+                            }
+                            @if (Model.Spol == "Z")
+                            {
+                                <input type="radio" name="Spol" value="Z" checked><span class="text-dark"> Z</span>
+                            }
+                            else
+                            {
+                                <input type="radio" name="Spol" value="Z"><span class="text-dark"> Z</span>
+                            }
+                            @if (Model.Spol == "other")
+                            {
+                                <input type="radio" name="Spol" value="other" checked><span class="text-dark"> other</span>
+                            }
+                            else
+                            {
+                                <input type="radio" name="Spol" value="other"><span class="text-dark"> other</span>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Dodatne usluge -->
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Uredi dodatne usluge
+                </div>
+                <div class="row" id="uslugeREZ">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 10px;">
+                <input type="submit" value="Snimi" class="btn btn-success" />
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<script>
+    document.getElementById("rezervacije").className = "active";
+
+    $(function () {
+        $.get("/Uposlenik/Rezervacija/DodatneUslugeUrediREZ?id=" + @Model.RezervacijaID, function (data, status) {
+            $("#uslugeREZ").html(data);
+        });
+    });
+</script>
+

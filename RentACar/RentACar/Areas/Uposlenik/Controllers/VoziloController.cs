@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -17,26 +18,31 @@ namespace RentACar.Areas.Uposlenik.Controllers
     public class VoziloController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _signInManager;
 
-        public VoziloController(ApplicationDbContext context)
+        public VoziloController(ApplicationDbContext context, UserManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
 
         [Authorize]
         public IActionResult Index()
         {
+            int userID = int.Parse(_signInManager.GetUserId(User));
+            int poslovnicaID = _context.UgovorZaposlenja.Where(u => u.UposlenikID == userID).Select(s => s.PoslovnicaID).SingleOrDefault();
+
             var model = new VoziloVM
             {
-                rows = _context.Vozilo.Select(v => new VoziloVM.Row
+                rows = _context.TrenutnaPoslovnica.Where(t => t.PoslovnicaID == poslovnicaID).Select(v => new VoziloVM.Row
                 {
                     VoziloID = v.VoziloID,
-                    Brend = v.Brend.Naziv,
-                    Naziv = v.Naziv,
-                    Model = v.Model,
-                    BrojVrata = v.BrojVrata,
-                    TipVozila = v.TipVozila,
-                    Transmisija = v.Transmisija
+                    Brend = v.Vozilo.Brend.Naziv,
+                    Naziv = v.Vozilo.Naziv,
+                    Model = v.Vozilo.Model,
+                    BrojVrata = v.Vozilo.BrojVrata,
+                    TipVozila = v.Vozilo.TipVozila,
+                    Transmisija = v.Vozilo.Transmisija
                 }).ToList()
             };
 
