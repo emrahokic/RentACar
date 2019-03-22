@@ -23,6 +23,24 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    @if (Model.imaPrikolicu == true)
+                    {
+                        <div class="form-group">
+                            <label>Prikolice: </label><span>  (Za promjenu prikolice ili uklanjanje odaberi iz menija)</span>
+                            <div>
+                                <select type="text" name="Prikolica" class="form-control">
+                                    <option value="0">Odaberi</option>
+                                    @foreach (var x in Model.prikolice)
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                    <option value="-1">Ukloni prikolicu</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
 
             <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
@@ -160,30 +178,16 @@
                 </div>
             </div>
 
-            <!-- Dodatne usluge -->
-            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
-                <div class="card-header card-header-info">
-                    Uredi dodatne usluge
-                </div>
-                <div class="row" id="uslugeREZ">
-                </div>
-            </div>
+
 
             <div class="form-group" style="margin-left: 10px;">
-                <input type="submit" value="Snimi" class="btn btn-success" />
+                <input type="submit" value="Dalje" class="btn btn-success" />
             </div>
         </form>
-        
     </div>
 </div>
 
 <script>
     document.getElementById("rezervacije").className = "active";
-
-    $(function () {
-        $.get("/Uposlenik/Rezervacija/DodatneUslugeUrediREZ?id=" + @Model.RezervacijaID, function (data, status) {
-            $("#uslugeREZ").html(data);
-        });
-    });
 </script>
 

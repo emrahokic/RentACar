@@ -69,7 +69,7 @@
 <div class="col-md-12">
     <a href="/uposlenik/Rezervacija/RezervacijaUsluge?=@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="uslugeAdd" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ USLUGE</span></a>
     <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Detalji" asp-route-id="@Model.RezervacijaID"><i class="material-icons">send</i><span style="padding-left: 3px;">ZAVRSI</span></a>
-    <a class="btn btn-danger"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">PONISTI</span></a>
+    <a class="btn btn-danger"  asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Obrisi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">PONISTI</span></a>
 </div>
 
 <div class="col-md-6" id="uslugeAdd"></div>

@@ -48,11 +48,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
             return View(nameof(Index), model);
         }
-
-
-
        
-        //ostavi i ovaj
         public IActionResult Detalji(int id)
         {
             VoziloDetaljnoVM model = _context.Vozilo.Where(z => z.VoziloID == id).Select(x => new VoziloDetaljnoVM

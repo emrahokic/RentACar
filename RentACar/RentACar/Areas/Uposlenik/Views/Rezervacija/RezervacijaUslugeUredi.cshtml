@@ -7,14 +7,14 @@
     <div class="card-header card-header-success">
         Dodaj uslugu rezervaciji
     </div>
-    <form id="dodajUsluguRezervaciji" asp-action="RezervacijaUslugeSnimi">
+    <form id="dodajUsluguRezervaciji" asp-action="RezervacijaUslugeUrediSnimi">
         <div class="form-group">
             <input type="hidden" name="RezervacijaID" class="form-control" value="@Model.RezervacijaID" />
         </div>
 
         <div class="form-group">
             <label>Kolicina: </label>
-            <input type="text" name="Kolicina" class="form-control" value="1"/>
+            <input type="text" name="Kolicina" class="form-control" value="1" />
         </div>
 
         <div class="form-group">

@@ -7,10 +7,10 @@ namespace RentACar.Areas.Uposlenik.ViewModels
 {
     public class RezervacijaUslugeUrediVM
     {
-        public List<Row> rows { get; set; }
+       public int RezervacijaID { get; set; }
+       public List<Row> rows { get; set; }
        public class Row
         {
-            public int RezervacijaID { get; set; }
             public int UslugaID { get; set; }
             public string Naziv { get; set; }
             public string Opis { get; set; }

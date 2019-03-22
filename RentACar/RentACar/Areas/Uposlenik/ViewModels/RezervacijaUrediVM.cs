@@ -33,7 +33,8 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public string jmbg { get; set; }
 
         //prikolica
-        public int? Prikolica { get; set; }
+        public bool imaPrikolicu { get; set; }
+        public int? PrikolicaID { get; set; }
         public List<SelectListItem> prikolice { get; set; }
 
     }

@@ -32,6 +32,7 @@ function DodajAjaxEvente() {
         });
     });
 
+
     $("form[ajax-poziv='da']").submit(function (event) {
         $(this).attr("ajax-poziv", "dodan");
         event.preventDefault();

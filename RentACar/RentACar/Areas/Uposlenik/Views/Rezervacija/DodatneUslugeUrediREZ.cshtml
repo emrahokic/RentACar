@@ -3,9 +3,11 @@
     ViewData["Title"] = "DodatneUslugeUrediREZ";
 }
 
-
 <div class="col-md-12">
     <div class="card card-plain">
+        <div class="card-header card-header-success">
+            <h4 class="card-title mt-0"> Uredi dodatne usluge </h4>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -16,37 +18,36 @@
                             <th>Cijena</th>
                             <th>Kolicina</th>
                             <th>Ukupno cijena</th>
-
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var x in Model.rows)
                         {
-                        <tr>
-                            <td>@x.Naziv</td>
-                            <td>@x.Opis</td>
-                            <td>@x.Cijena KM</td>
-                            <td>@x.Kolicina</td>
-                            <td>@x.Ukupno KM</td>
-                            <td>
-                                <form asp-action="DodatneUslugeUrediREZobrisi" ajax-poziv="da" ajax-rezultat="uslugeREZ" method="post">
-                                    <input value="@x.UslugaID" hidden name="uslugaID" />
-                                    <input value="@x.RezervacijaID" hidden name="rezervacijaID" />
-
-                                    <button type="submit" class="btn btn-white text-dark">
-                                        <i class="material-icons">delete_forever</i>
-                                        <span style="padding-left: 3px;">UKLONI</span>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>@x.Naziv</td>
+                                <td>@x.Opis</td>
+                                <td>@x.Cijena KM</td>
+                                <td>@x.Kolicina</td>
+                                <td>@x.Ukupno KM</td>
+                                <td>
+                                    <a class="btn btn-danger" href="/Uposlenik/Rezervacija/DodatneUslugeUrediREZobrisi?uslugaID=@x.UslugaID&rezervacijaID=@Model.RezervacijaID">
+                                        OBRISI
+                                    </a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
+        <div id="rezervacijaUrediDodajUsluge">
+            <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="RezervacijaUslugeUredi" asp-route-id="@Model.RezervacijaID" ajax-poziv="da" ajax-rezultat="rezervacijaUrediDodajUsluge">
+                <i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ NOVU USLUGU</span>
+            </a>
+        </div>
     </div>
 </div>
-
-
+<a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Detalji" asp-route-id="@Model.RezervacijaID">
+    <i class="material-icons">send</i><span style="padding-left: 3px;">ZAVRSI</span>
+</a>

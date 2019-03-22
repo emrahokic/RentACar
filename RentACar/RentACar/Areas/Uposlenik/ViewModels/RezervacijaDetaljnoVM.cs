@@ -45,12 +45,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public double Cijena { get; set; }
 
         }
-        public double Ukupno {
-            get {
-
-                return Cijena + UkupnaCijenaUsluga + CijenaPrikolice;
-            }
-        }
+        public double Ukupno { get; set; }
 
         public double UkupnaCijenaUsluga
         {

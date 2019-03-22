@@ -126,7 +126,7 @@ $().ready(function () {
         rules: {
             Ime: {
                 required: true,
-                regex: "^[a-zA-Z]+$",
+                regex: "^[a-zA-Z ]+$",
                 minlength: 2,
                 maxlength: 50
                 
@@ -143,7 +143,7 @@ $().ready(function () {
             Adresa: {
                 required: true,
                 minlength: 2,
-                regex: "^[a-zA-Z0-9]+$"
+                regex: "^[a-zA-Z0-9 ]+$"
             },
             jmbg: {
                 required: true,
@@ -236,7 +236,7 @@ $().ready(function () {
         rules: {
             Naziv: {
                 required: true,
-                regex: "^[a-zA-Z]+$",
+                regex: "^[a-zA-Z -]+$",
                 minlength: 3,
                 maxlength: 25
 
