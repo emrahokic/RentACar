@@ -11,6 +11,7 @@ using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
 using RentACar.Helper;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -35,7 +36,10 @@ namespace RentACar.Areas.Uposlenik.Controllers
             int PoslovnicaID = db.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == ID).PoslovnicaID;
             RezervacijaIndexVM model = new RezervacijaIndexVM()
             {
-                Rows = db.Rezervacija.Where(z => z.PoslovnicaID == PoslovnicaID && (z.UposlenikID == ID || z.UposlenikID == null) && z.UspjesnoSpremljena == true).Select(x => new RezervacijaIndexVM.Row()
+                Rows = db.Rezervacija
+                .Where(z => z.PoslovnicaID == PoslovnicaID && (z.UposlenikID == ID || z.UposlenikID == null) && z.UspjesnoSpremljena == true)
+                .OrderByDescending(o => o.DatumRezervacije)
+                .Select(x => new RezervacijaIndexVM.Row()
                 {
                     RezervacijaID = x.RezervacijaID,
                     Vozilo = x.Vozilo.Naziv,
@@ -50,7 +54,69 @@ namespace RentACar.Areas.Uposlenik.Controllers
             };
             return View(model);
         }
+        /* -------------------------------------------->  Prikaz rezervacije detaljno*/
+        public IActionResult Detalji(int id)
+        {
+            RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM
+            {
+                RezervacijaID = x.RezervacijaID,
+                Grad = x.Poslovnica.Grad.Naziv,
+                DatumRezervacije = x.DatumRezervacije,
+                SlikaVozila = db.Slika.Where(sl => sl.VoziloID == x.VoziloID && sl.Pozicija == 1).Select(c => new Slika
+                {
+                    Name = c.Name,
+                    SlikaID = c.SlikaID,
+                    URL = c.URL,
+                    Pozicija = c.Pozicija
+                }).FirstOrDefault(),
+                DatumPreuzimanja = x.DatumPreuzimanja,
+                DatumPovrata = x.DatumPovrata,
+                Zakljucen = x.Zakljucen,
+                Ukupno = x.Cijena,
+                BrojDanaIznajmljivanja = x.BrojDanaIznajmljivanja,
+                NacinPlacanja = x.NacinPlacanja,
+                Vozilo = x.Vozilo.Naziv,
+                Brend = x.Vozilo.Brend.Naziv,
+                Poslovnica = x.Poslovnica.Naziv,
+                Ime = x.Klijent.Ime,
+                Prezime = x.Klijent.Prezime,
+                DatumRodjenja = x.Klijent.DatumRodjenja.ToShortDateString(),
+                Adresa = x.Klijent.Adresa,
+                Spol = x.Klijent.Spol,
+                jmbg = x.Klijent.JMBG,
+                ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
+                {
+                    Poruka = c.Poruka,
+                    OcjenaVrijednost = c.OcjenaVrijednost
+                }).FirstOrDefault(),
+                dodatneUsluge = db.RezervisanaUsluga.Where(u => u.RezervacijaID == x.RezervacijaID).Select(ru => new RezervacijaDetaljnoVM.Row
+                {
+                    Naziv = ru.DodatneUsluge.Naziv,
+                    RezervisanaUslugaID = ru.RezervisanaUslugaID,
+                    Cijena = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Cijena,
+                    Kolicina = ru.Kolicina,
+                    Opis = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Opis,
+                    UkupnaCijenaUsluge = ru.UkupnaCijenaUsluge
+                }).ToList()
+            }).FirstOrDefault();
 
+            var temp = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => s.Prikolica).SingleOrDefault();
+            if (temp != null)
+            {
+                model.Prikolica = true;
+                model.CijenaPrikolice = temp.Cijna;
+            }
+            else
+            {
+                model.Prikolica = false;
+                model.CijenaPrikolice = 0;
+            }
+
+            model.Cijena = model.Ukupno - model.UkupnaCijenaUsluga - model.CijenaPrikolice;
+            return View(nameof(Detalji), model);
+        }
+
+        /* -------------------------------------------->  Interakcija sa rezervacijama*/
         public IActionResult Prihvati(int id)
         {
             int rezervacijaID = id;
@@ -60,8 +126,17 @@ namespace RentACar.Areas.Uposlenik.Controllers
             rezervacija.UposlenikID = uposlenikID;
             rezervacija.Zakljucen = (int) InfoRezervacija.Odobrena;
 
+            //postavi vozilo kao nedostupno
+            var trPoslovnica = db.TrenutnaPoslovnica.Where(v => v.VoziloID == rezervacija.VoziloID).Select(s => s).SingleOrDefault();
+            trPoslovnica.VoziloRezervisano = true;
+            trPoslovnica.DatumIzlaza = rezervacija.DatumPreuzimanja;
+
+            //napravi notifikaciju klijentu
+            string vozilo = db.Vozilo.Where(v => v.VoziloID == rezervacija.VoziloID).Select(n => n.Naziv).SingleOrDefault();
+            string poruka = "Vasa rezervacija za vozilo " + vozilo + " je uspjesno prihvacena. Ugodan dan.";
+            NapraviNotifikaciju(id, rezervacija.KlijentID, poruka);
+
             db.SaveChanges();
-            db.Dispose();
 
             return RedirectToAction(nameof(Index), new { id = rezervacijaID });
         }
@@ -76,12 +151,42 @@ namespace RentACar.Areas.Uposlenik.Controllers
             voziloPoslovnica.DatumIzlaza = null;
             voziloPoslovnica.VoziloRezervisano = false;
 
+            var sifra = rezervacija.SifraRezervacije;
+            Regex regex = new Regex(@"#pos");
+            Match match = regex.Match(sifra);
+            if (match.Success)
+            {
+                //posalji mail
+            }
+            else
+            {
+                string vozilo = db.Vozilo.Where(v => v.VoziloID == rezervacija.VoziloID).Select(n => n.Naziv).SingleOrDefault();
+                string poruka = "Vasa rezervacija za vozilo " + vozilo + " je uspjesno zavrsena. Hvala na povjerenju :)";
+                NapraviNotifikaciju(id, rezervacija.KlijentID, poruka);
+            }
+
             db.SaveChanges();
             db.Dispose();
 
             return RedirectToAction(nameof(Index), new { id = rezervacijaID });
         }
-       
+
+        public IActionResult Odbij(int id)
+        {
+            int rezervacijaID = id;
+            var rezervacija = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => s).SingleOrDefault();
+            rezervacija.Zakljucen = (int)InfoRezervacija.Odbijena;
+
+            //napravi novu notifikaciju
+            string vozilo = db.Vozilo.Where(v => v.VoziloID == rezervacija.VoziloID).Select(n => n.Naziv).SingleOrDefault();
+            string poruka = "Vasa rezervacija za vozilo " + vozilo + " je odbijena!";
+            NapraviNotifikaciju(id, rezervacija.KlijentID, poruka);
+            
+            db.SaveChanges();
+
+            return RedirectToAction(nameof(Index), new { id = rezervacijaID });
+        }
+        /* -------------------------------------------->  Prikaz vozila za rezervaciju u karticama*/
         public async Task<IActionResult> Dodaj()
         {
             int userID = int.Parse(_signInManager.GetUserId(User));
@@ -89,7 +194,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
             var model = new VoziloRezervacijaVM
             {
-                vozila = db.TrenutnaPoslovnica.Where(t => t.PoslovnicaID == poslovnicaID).Select(v => new VoziloRezervacijaVM.Row
+                vozila = db.TrenutnaPoslovnica.Where(t => t.PoslovnicaID == poslovnicaID && t.VoziloRezervisano == false).Select(v => new VoziloRezervacijaVM.Row
                 {
                     Boja =v.Vozilo.Boja,
                     Brend = v.Vozilo.Brend.Naziv,
@@ -106,11 +211,13 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     slike =  db.Slika.Where(s => s.Pozicija == 1 && s.VoziloID == v.VoziloID).Select(p => p.URL).FirstOrDefault(),
                     SnagaMotora = v.Vozilo.SnagaMotora,
                     TipVozila = v.Vozilo.TipVozila,
-                    Transmisija = v.Vozilo.Transmisija
+                    Transmisija = v.Vozilo.Transmisija,
+                    Cijena = v.Vozilo.Cijena
                 }).ToList()
             };
             return View(model);
         }
+        /* -------------------------------------------->  Rezervisanje vozila*/
         public IActionResult Rezervisi(int id)
         {
             var model = new RezervacijaPocetakVM();
@@ -147,12 +254,12 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return View(nameof(Rezervisi), model);
         }
 
-        public async Task<IActionResult> RezervisiSnimi(int VoziloID, string Ime, string Prezime, string datumRodjenja,
+        public async Task<IActionResult> RezervisiSnimi(int VoziloID, string Ime, string Prezime, string Mail, string datumRodjenja,
             string Adresa, string jmbg, string Spol, int UposlenikID, string DatumPreuzimanja, string DatumPovrata,
             int NacinPlacanja, int Prikolica)
         {
             //klijent napravi i pronadji id
-            string username = Ime + "." + Prezime + "@gm." + Prezime;
+            string username = Mail;
             await _signInManager.CreateAsync(new ApplicationUser
             {
                 UserName = username,
@@ -217,7 +324,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             var rezervacija = db.Rezervacija.Where(r => r.SifraRezervacije == sifra).Select(s => s).SingleOrDefault();
             int rezervacijaID = rezervacija.RezervacijaID;
             int pr = rezervacija.PrikolicaID ?? 0;
-            rezervacija.SifraRezervacije = DateTime.Now.Day + "" + DateTime.Now.Month + "-" + rezervacija.PoslovnicaID + "" + rezervacija.VoziloID + "" + rezervacija.RezervacijaID + "" + pr + "/" + DateTime.Now.Year;
+            rezervacija.SifraRezervacije = DateTime.Now.Day + "" + DateTime.Now.Month + "-" + rezervacija.PoslovnicaID + "" + rezervacija.VoziloID + "" + rezervacija.RezervacijaID + "" + pr + "/" + DateTime.Now.Year + "#pos";
 
             db.SaveChanges();
             db.Dispose();
@@ -267,7 +374,14 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
             return PartialView(nameof(RezervacijaUsluge), model);
         }
+        public IActionResult RezervacijaUslugeSnimi(int RezervacijaID, int Kolicina, int UslugaID)
+        {
+            UslugaSnimi(RezervacijaID, Kolicina, UslugaID);
+            string route = "/Uposlenik/Rezervacija/DodajUslugeRezervaciji?id=" + RezervacijaID.ToString();
+            return Redirect(route);
+        }
 
+        /* -------------------------------------------->  Uredjivanje postojece rezervacije*/
         public IActionResult RezervacijaUslugeUredi(int id)
         {
             var model = new RezervacijaUslugeVM();
@@ -286,12 +400,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
             return PartialView(nameof(RezervacijaUslugeUredi), model);
         }
-        public IActionResult RezervacijaUslugeSnimi(int RezervacijaID, int Kolicina, int UslugaID)
-        {
-            UslugaSnimi(RezervacijaID, Kolicina, UslugaID);
-            string route = "/Uposlenik/Rezervacija/DodajUslugeRezervaciji?id=" + RezervacijaID.ToString();
-            return Redirect(route);
-        }
+       
         public IActionResult RezervacijaUslugeUrediSnimi(int RezervacijaID, int Kolicina, int UslugaID)
         {
             UslugaSnimi(RezervacijaID, Kolicina, UslugaID);
@@ -299,82 +408,8 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return Redirect(route);
         }
 
-        private void UslugaSnimi(int RezervacijaID, int Kolicina, int UslugaID)
-        {
-            double cijena = db.DodatneUsluge.Where(d => d.DodatneUslugeID == UslugaID).Select(s => s.Cijena).SingleOrDefault();
-            double ukupno = Kolicina * cijena;
-            RezervisanaUsluga nova = new RezervisanaUsluga
-            {
-                RezervacijaID = RezervacijaID,
-                DodatneUslugeID = UslugaID,
-                Kolicina = Kolicina,
-                Opis = "Opis",
-                UkupnaCijenaUsluge = ukupno
-            };
-            db.Add(nova);
-            db.SaveChanges();
-            var temp = db.Rezervacija.Where(r => r.RezervacijaID == RezervacijaID).Select(s => s).SingleOrDefault();
-            temp.Cijena += ukupno;
-            db.SaveChanges();
-        }
-        public IActionResult Detalji(int id)
-        {
-            RezervacijaDetaljnoVM model = db.Rezervacija.Where(z => z.RezervacijaID == id).Select(x => new RezervacijaDetaljnoVM {
-                RezervacijaID = x.RezervacijaID,
-                Grad = x.Poslovnica.Grad.Naziv,
-                DatumRezervacije = x.DatumRezervacije,
-                SlikaVozila= db.Slika.Where(sl => sl.VoziloID == x.VoziloID && sl.Pozicija ==1 ).Select(c => new Slika
-                {
-                    Name = c.Name,
-                    SlikaID = c.SlikaID,
-                    URL = c.URL,
-                    Pozicija = c.Pozicija
-                }).FirstOrDefault(),
-                DatumPreuzimanja = x.DatumPreuzimanja,
-                DatumPovrata = x.DatumPovrata,
-                Zakljucen = x.Zakljucen,
-                Ukupno = x.Cijena,
-                BrojDanaIznajmljivanja = x.BrojDanaIznajmljivanja,
-                NacinPlacanja = x.NacinPlacanja,
-                Vozilo = x.Vozilo.Naziv,
-                Brend = x.Vozilo.Brend.Naziv,
-                Poslovnica = x.Poslovnica.Naziv,
-                Ime = x.Klijent.Ime,
-                Prezime = x.Klijent.Prezime,
-                DatumRodjenja = x.Klijent.DatumRodjenja.ToShortDateString(),
-                Adresa = x.Klijent.Adresa,
-                Spol = x.Klijent.Spol,
-                jmbg = x.Klijent.JMBG,
-                ocjenaRezervacija = db.OcjenaRezervacija.Where(y => y.RezervacijaID == x.RezervacijaID).Select(c => new OcjenaRezervacija
-                {
-                    Poruka = c.Poruka,
-                    OcjenaVrijednost = c.OcjenaVrijednost
-                }).FirstOrDefault(),
-                dodatneUsluge = db.RezervisanaUsluga.Where(u => u.RezervacijaID == x.RezervacijaID).Select(ru => new RezervacijaDetaljnoVM.Row{
-                    Naziv = ru.DodatneUsluge.Naziv,
-                    RezervisanaUslugaID = ru.RezervisanaUslugaID,
-                    Cijena = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Cijena,
-                    Kolicina = ru.Kolicina,
-                    Opis = db.DodatneUsluge.FirstOrDefault(d => d.DodatneUslugeID == ru.DodatneUslugeID).Opis,
-                    UkupnaCijenaUsluge = ru.UkupnaCijenaUsluge
-                }).ToList()
-            }).FirstOrDefault();
-
-            var temp = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => s.Prikolica).SingleOrDefault();
-            if (temp != null)
-            {
-                model.Prikolica = true;
-                model.CijenaPrikolice = temp.Cijna;
-            }
-            else
-            {
-                model.Prikolica = false;
-                model.CijenaPrikolice = 0;
-            }
-
-            model.Cijena = model.Ukupno - model.UkupnaCijenaUsluga - model.CijenaPrikolice;
-            return View(nameof(Detalji), model);
-        }
+        
+     
 
         public IActionResult RezervacijaUredi(int id)
         {
@@ -392,6 +427,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Vozilo = s.Vozilo.Naziv,
                 Ime = s.Klijent.Ime,
                 Prezime = s.Klijent.Prezime,
+                Email = db.Users.Where(us => us.Id == s.KlijentID).Select(ma => ma.Email).SingleOrDefault(),
                 DatumRodjenja = s.Klijent.DatumRodjenja,
                 Adresa = s.Klijent.Adresa,
                 Spol = s.Klijent.Spol,
@@ -432,7 +468,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
         }
 
         public IActionResult RezervacijaUrediSnimi(int Prikolica,int RezervacijaID, string DatumPreuzimanja, string DatumPovrata, int NacinPlacanja, int Zakljucen, 
-            string Ime, string Prezime, string DatumRodjenja, string Adresa, string jmbg, string Spol)
+            string Ime, string Prezime, string Mail, string DatumRodjenja, string Adresa, string jmbg, string Spol)
         {
             //pronadji rezervaciju i smjesti je u temp
             var temp = db.Rezervacija.Where(r => r.RezervacijaID == RezervacijaID).Select(s => s).SingleOrDefault();
@@ -448,6 +484,8 @@ namespace RentACar.Areas.Uposlenik.Controllers
             var klijent = db.Users.Where(u => u.Id == temp.KlijentID).Select(s => s).SingleOrDefault();
             klijent.Ime = Ime;
             klijent.Prezime = Prezime;
+            klijent.Email = Mail;
+            klijent.NormalizedEmail = Mail.ToUpper();
             klijent.DatumRodjenja = DateTime.Parse(DatumRodjenja);
             klijent.Adresa = Adresa;
             klijent.JMBG = jmbg;
@@ -460,17 +498,27 @@ namespace RentACar.Areas.Uposlenik.Controllers
             //update prikolice
             if (Prikolica != 0 && Prikolica != -1)
             {
-                temp.PrikolicaID = Prikolica;
+                if (temp.PrikolicaID == 0)
+                {
+                    temp.PrikolicaID = Prikolica;
+                }
+                else
+                {
+                    var cijenaPrikoliceOld = db.Prikolica.Where(prik => prik.PrikolicaID == temp.PrikolicaID).Select(pr => pr.Cijna).SingleOrDefault();
+                    temp.Cijena -= cijenaPrikoliceOld;
+                    var cijenaPrikoliceNew = db.Prikolica.Where(prik => prik.PrikolicaID == Prikolica).Select(pr => pr.Cijna).SingleOrDefault();
+                    temp.Cijena += cijenaPrikoliceNew;
+                    temp.PrikolicaID = Prikolica;
+                }
             }
-            else if(Prikolica == -1)
+            else if (Prikolica == -1)
             {
-                if(temp.PrikolicaID != null)
+                if (temp.PrikolicaID != null)
                 {
                     double c = db.Prikolica.Where(pri => pri.PrikolicaID == temp.PrikolicaID).Select(cij => cij.Cijna).FirstOrDefault();
                     temp.Cijena -= c;
                 }
                 temp.PrikolicaID = null;
-                
             }
             db.SaveChanges();
             db.Dispose();
@@ -513,6 +561,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
             return RedirectToAction(nameof(DodatneUslugeUrediREZ), new { id = rezervacijaID });
         }
 
+        /* -------------------------------------------->  Brisanje rezervacije*/
         public IActionResult Obrisi(int id)
         {
             var temp = db.Rezervacija.Where(r => r.RezervacijaID == id).Select(s => s).SingleOrDefault();
@@ -527,10 +576,65 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 return Content("Klijent ne postoji u bazi!");
             }
 
-            db.Remove(temp);
-            db.Remove(klijent);
+            //provjerava ukoliko je rezervacija zavrsena, onda je ne moze obrisati
+            if(temp.Zakljucen != (int)InfoRezervacija.Zavrsena)
+            {
+                db.Remove(temp);
+            }
+
+            //brisanje notifikacija
+            var notifikacije = db.Notifikacija.Where(n => n.RezervacijaID == id).Select(ntf => ntf).ToList();
+            if(notifikacije != null)
+            {
+                db.RemoveRange(notifikacije);
+            }
+
+            //brise informacije o klijentu ukoliko su podaci uneseni od strane uposlenika
+            var sifra = temp.SifraRezervacije;
+            Regex regex = new Regex(@"#pos");
+            Match match = regex.Match(sifra);
+            if (match.Success)
+            {
+                db.Remove(klijent);
+            }
+
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        /* -------------------------------------------->  Zajednicke funkcije*/
+        private void UslugaSnimi(int RezervacijaID, int Kolicina, int UslugaID)
+        {
+            double cijena = db.DodatneUsluge.Where(d => d.DodatneUslugeID == UslugaID).Select(s => s.Cijena).SingleOrDefault();
+            double ukupno = Kolicina * cijena;
+            RezervisanaUsluga nova = new RezervisanaUsluga
+            {
+                RezervacijaID = RezervacijaID,
+                DodatneUslugeID = UslugaID,
+                Kolicina = Kolicina,
+                Opis = "Opis",
+                UkupnaCijenaUsluge = ukupno
+            };
+            db.Add(nova);
+            db.SaveChanges();
+            var temp = db.Rezervacija.Where(r => r.RezervacijaID == RezervacijaID).Select(s => s).SingleOrDefault();
+            temp.Cijena += ukupno;
+            db.SaveChanges();
+        }
+
+        private void NapraviNotifikaciju(int rezervacijaID, int klijentID, string poruka)
+        {
+            Notifikacija nova = new Notifikacija
+            {
+                Otvorena = false,
+                Poruka = poruka,
+                RezervacijaID = rezervacijaID,
+                UserID = klijentID,
+                Vrijeme = DateTime.Now
+            };
+            db.Add(nova);
+            db.SaveChanges();
+            db.Dispose();
         }
     }
 }

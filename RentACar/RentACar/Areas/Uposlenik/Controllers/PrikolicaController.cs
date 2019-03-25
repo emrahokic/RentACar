@@ -9,6 +9,7 @@ using RentACar.Data;
 using RentACar.Models;
 using RentACar.Areas.Uposlenik.ViewModels;
 using RentACar.Helper;
+using Microsoft.AspNetCore.Identity;
 
 namespace RentACar.Areas.Uposlenik.Controllers
 {
@@ -17,9 +18,11 @@ namespace RentACar.Areas.Uposlenik.Controllers
     public class PrikolicaController : Controller
     {
         private ApplicationDbContext _context;
-        public PrikolicaController(ApplicationDbContext context)
+        private UserManager<ApplicationUser> _signInManager;
+        public PrikolicaController(ApplicationDbContext context, UserManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
         
         public IActionResult Index()
@@ -119,6 +122,7 @@ namespace RentACar.Areas.Uposlenik.Controllers
                 Cijna = Cijena,
                 TipPrikolice = TipPrikolice
             };
+
             _context.Add(nova);
             _context.SaveChanges();
             _context.Dispose();
@@ -151,8 +155,14 @@ namespace RentACar.Areas.Uposlenik.Controllers
 
         public IActionResult DodajVozilo(int id)
         {
+            //dobavi ID poslovnice
+            int ID = int.Parse(_signInManager.GetUserId(User));
+            int PoslovnicaID = _context.UgovorZaposlenja.FirstOrDefault(g => g.UposlenikID == ID).PoslovnicaID;
+
             var vozPrikolica = _context.KompatibilnostPrikolica.Where(p => p.PrikolicaID == id).Select(v => v.Vozilo);
-            var voz = _context.Vozilo.Select(x => x);
+            var voz = _context.TrenutnaPoslovnica.Where(pos => pos.PoslovnicaID == PoslovnicaID && pos.Vozilo.Kuka == true).Select(x => x.Vozilo);
+
+            //u rez ce se smjestiti vozila koja nemaju prikolicu
             var rez = voz.Where(p1 => vozPrikolica.All(p2 => p2.VoziloID != p1.VoziloID)).Select(p3 => p3);
             var ulazniModel = new DodajVoziloPrikolicaVM();
             ulazniModel.vozila = rez.Select(x => new SelectListItem

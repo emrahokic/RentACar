@@ -26,6 +26,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public int Gorivo { get; set; }
             public int Transmisija { get; set; }
             public int GrupniTipVozila { get; set; }
+            public double Cijena { get; set; }
         }
     }
 }

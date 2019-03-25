@@ -32,6 +32,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public List<string> Slike { get; set; }
         public int Kilometraza { get; set; }
         public double Cijena { get; set; }
+        public bool Kuka { get; set; }
         public List<Row> prikolice { get; set; }
         
         public class Row

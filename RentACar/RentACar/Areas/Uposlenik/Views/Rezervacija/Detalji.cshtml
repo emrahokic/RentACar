@@ -16,9 +16,16 @@
                 <div class="col-md-6 text-right">
                     @if (Model.Zakljucen != (int)InfoRezervacija.Zavrsena)
                     {
-                    <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="RezervacijaUredi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
-                    <a class="btn btn-danger" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Obrisi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">OBRISI</span></a>
-                    <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="ZakljuciRezervaciju" asp-route-id="@Model.RezervacijaID"><i class="material-icons">done</i><span style="padding-left: 3px;">ZAKLJUCI</span></a>
+                        <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="RezervacijaUredi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">edit</i><span style="padding-left: 3px;">UREDI</span></a>
+                        <a class="btn btn-danger" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Obrisi" asp-route-id="@Model.RezervacijaID"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">OBRISI</span></a>
+                        @if (Model.Zakljucen == (int)InfoRezervacija.Odobrena)
+                        {
+                            <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="ZakljuciRezervaciju" asp-route-id="@Model.RezervacijaID"><i class="material-icons">done</i><span style="padding-left: 3px;">ZAKLJUCI</span></a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-white text-dark" asp-controller="Rezervacija" asp-area="Uposlenik" asp-action="Prihvati" asp-route-id="@Model.RezervacijaID"><i class="material-icons">check_circle</i><span style="padding-left: 3px;">PRIHVATI</span></a>
+                        }
                     }
                 </div>
             </div>

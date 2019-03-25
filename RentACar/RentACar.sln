@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACar", "RentACar\RentACar.csproj", "{11571AA3-1FF8-474D-AEFB-E78636557B1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACar_UnitTest", "RentACar_UnitTest\RentACar_UnitTest.csproj", "{5F883B10-348D-419C-BC56-1DE66B72B11B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{11571AA3-1FF8-474D-AEFB-E78636557B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11571AA3-1FF8-474D-AEFB-E78636557B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11571AA3-1FF8-474D-AEFB-E78636557B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F883B10-348D-419C-BC56-1DE66B72B11B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F883B10-348D-419C-BC56-1DE66B72B11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F883B10-348D-419C-BC56-1DE66B72B11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F883B10-348D-419C-BC56-1DE66B72B11B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

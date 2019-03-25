@@ -54,6 +54,7 @@ namespace RentACar.Data
             var ocjenePrijevoz = new List<OcjenaPrijevoz>();
 
             var korisnici = new List<ApplicationUser>();
+            var notifikacije = new List<Notifikacija>();
 
             //dodavanje gradova sa opcinama, regijama i drzavama
             drzave.Add(new Drzava { Naziv = "Bosna i Hercegovina", Skracenica = "BiH" });
@@ -174,11 +175,23 @@ namespace RentACar.Data
             await KreirajKorisnika(userManager, "homer.simpson@sunnycars.com", "Homer", "Simpson", "Mostarska bb", Mostar, "0643215575", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", mehanicar);
             await KreirajKorisnika(userManager, "rodrigo.bui@sunnycars.com", "Rodrigo", "Bui", "Mostarska bb", Mostar, "063123654", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
 
-            //KLIJENTI
-            await KreirajKorisnika(userManager, "janell.kearns@gmail.com", "Janell", "Kearns", "Dzemala Bijedica bb", Sarajevo, "0623665544", new DateTime(1989, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "ronnie.spidle@gmail.com", "Ronnie", "Spidle", "Dzemala Bijedica bb", Sarajevo, "062544887", new DateTime(1975, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "merle.bowe@gmail.com", "Merle", "Bowe", "Dzemala Bijedica bb", Sarajevo, "062453987", new DateTime(1985, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
-            await KreirajKorisnika(userManager, "ena.schlueter@gmail.com", "Ena", "Schlueter", "Dzemala Bijedica bb", Sarajevo, "062456888", new DateTime(1987, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
+            //za poslovnicu Velika Kladusa Centar
+            await KreirajKorisnika(userManager, "jenifer.campbell@sunnycars.com", "Jenifer", "Campbell", "Kladusa bb", Kladusa, "062335489", new DateTime(1995, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "charles.espinoza@sunnycars.com", "Charles", "Espinoza", "Kladusa bb", Kladusa, "063326548", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "henry.ballard@sunnycars.com", "Henry", "Ballard", "Kladusa bb", Kladusa, "062511354", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", mehanicar);
+            await KreirajKorisnika(userManager, "antonio.taylor@sunnycars.com", "Antonio", "Taylor", "Kladusa bb", Kladusa, "0645887223", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
+
+            //za poslovnicu Tuzla Stupine
+            await KreirajKorisnika(userManager, "rebecca.moore@sunnycars.com", "Rebecca", "Moore", "Stupine bb", Tuzla, "0621444877", new DateTime(1995, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "chad.pang@sunnycars.com", "Chad", "Pang", "Stupine bb", Tuzla, "620356548", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", uposlenik);
+            await KreirajKorisnika(userManager, "earl.clark@sunnycars.com", "Earl", "Clark", "Stupine bb", Tuzla, "062465772", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", mehanicar);
+            await KreirajKorisnika(userManager, "nicholas.becker@sunnycars.com", "Nicholas", "Becker", "Stupine bb", Tuzla, "063365548", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
+
+            //KLIJENTI sa profilom 
+            await KreirajKorisnika(userManager, "janell.kearns@gmail.com", "Janell", "Kearns", "Dzemala Bijedica bb", Sarajevo, "0623665544", new DateTime(1989, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent); // 1
+            await KreirajKorisnika(userManager, "ronnie.spidle@gmail.com", "Ronnie", "Spidle", "Dzemala Bijedica bb", Sarajevo, "062544887", new DateTime(1975, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent); // 1
+            await KreirajKorisnika(userManager, "merle.bowe@gmail.com", "Merle", "Bowe", "Dzemala Bijedica bb", Sarajevo, "062453987", new DateTime(1985, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent); // 1
+            await KreirajKorisnika(userManager, "ena.schlueter@gmail.com", "Ena", "Schlueter", "Dzemala Bijedica bb", Sarajevo, "062456888", new DateTime(1987, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent); // 1
 
             await KreirajKorisnika(userManager, "brent.pae@gmail.com", "Brent", "Pae", "Dzemala Bijedica bb", Sarajevo, "062654899", new DateTime(1989, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
             await KreirajKorisnika(userManager, "eleonora.odaniel@gmail.com", "Eleonora", "Odaniel", "Dzemala Bijedica bb", Sarajevo, "063548798", new DateTime(1975, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
@@ -189,6 +202,12 @@ namespace RentACar.Data
             await KreirajKorisnika(userManager, "alise.keister@gmail.com", "Alise", "Keister", "Dzemala Bijedica bb", Sarajevo, "06311254658", new DateTime(1975, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
             await KreirajKorisnika(userManager, "julio.falkner@gmail.com", "Julio", "Falkner", "Dzemala Bijedica bb", Sarajevo, "0624665789", new DateTime(1985, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", klijent);
             await KreirajKorisnika(userManager, "camila.ginn@gmail.com", "Camila", "Ginn", "Dzemala Bijedica bb", Sarajevo, "063123654", new DateTime(1987, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", klijent);
+
+            //KLIJENTI sa unesenim informacijama u poslovnici, tj bez profila su
+            await KreirajKorisnika(userManager, "joseph.eagan@gmail.com", "Joseph", "Eagan", "2191 Pennsylvania Avenue", Sarajevo, "0", new DateTime(1989, 5, 6), "M", "nema", "P@sword123", klijent); // 1
+            await KreirajKorisnika(userManager, "nerissa.vinson@gmail.com", "Nerissa", "Vinson", "2354 Luke Lane", Sarajevo, "0", new DateTime(1975, 5, 6), "Z", "nema", "P@sword123", klijent); // 1
+            await KreirajKorisnika(userManager, "eddie.green@gmail.com", "Eddie", "Green", "4283 Lighthouse Drive", Sarajevo, "0", new DateTime(1985, 5, 6), "M", "nema", "P@sword123", klijent);
+            await KreirajKorisnika(userManager, "julie.hall@gmail.com", "Julie", "Hall", "2802 Carolyns Circle", Sarajevo, "0", new DateTime(1987, 5, 6), "Z", "nema", "P@sword123", klijent);
 
             /****************************************** DODAVANJE UPOSLENIKA POSLOVNICAMA ***************************************************/
 
@@ -219,7 +238,6 @@ namespace RentACar.Data
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = bascarsija, RadnoMjesto = "poslovnica", Uposlenik = zack.Result });
 
             //dodavanje uposlenika poslovnici Mostar Zalik
-            //dodavanje uposlenika poslovnici Sarajevo Bascarsija
             var mostarZalik = context.Poslovnica.Select(s => s).SingleOrDefault(x => x.Naziv == "Mostar Zalik");
             var nina = userManager.FindByEmailAsync("nina.thiem@sunnycars.com");
             var eddie = userManager.FindByEmailAsync("eddie.bachicha@sunnycars.com");
@@ -230,6 +248,30 @@ namespace RentACar.Data
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = mostarZalik, RadnoMjesto = "salter", Uposlenik = eddie.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = mostarZalik, RadnoMjesto = "radnja", Uposlenik = homer.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = mostarZalik, RadnoMjesto = "poslovnica", Uposlenik = rodrigo.Result });
+
+            //dodavanje uposlenika poslovnici Velika Kladusa Centar
+            var KladusaCentar = context.Poslovnica.Select(s => s).SingleOrDefault(x => x.Naziv == "Velika Kladusa Centar");
+            var jenifer = userManager.FindByEmailAsync("jenifer.campbell@sunnycars.com");
+            var charles = userManager.FindByEmailAsync("charles.espinoza@sunnycars.com");
+            var henry = userManager.FindByEmailAsync("henry.ballard@sunnycars.com");
+            var antonio = userManager.FindByEmailAsync("antonio.taylor@sunnycars.com");
+
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = KladusaCentar, RadnoMjesto = "salter", Uposlenik = jenifer.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = KladusaCentar, RadnoMjesto = "salter", Uposlenik = charles.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = KladusaCentar, RadnoMjesto = "radnja", Uposlenik = henry.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = KladusaCentar, RadnoMjesto = "poslovnica", Uposlenik = antonio.Result });
+
+            //dodavanje uposlenika poslovnici Tuzla Stupine
+            var TuzlaStupine = context.Poslovnica.Select(s => s).SingleOrDefault(x => x.Naziv == "Tuzla Stupine");
+            var rebbeca = userManager.FindByEmailAsync("rebecca.moore@sunnycars.com");
+            var chad = userManager.FindByEmailAsync("chad.pang@sunnycars.com");
+            var earl = userManager.FindByEmailAsync("earl.clark@sunnycars.com");
+            var nicholas = userManager.FindByEmailAsync("nicholas.becker@sunnycars.com");
+
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = TuzlaStupine, RadnoMjesto = "salter", Uposlenik = rebbeca.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = TuzlaStupine, RadnoMjesto = "salter", Uposlenik = chad.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = TuzlaStupine, RadnoMjesto = "radnja", Uposlenik = earl.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = TuzlaStupine, RadnoMjesto = "poslovnica", Uposlenik = nicholas.Result });
 
 
             context.AddRange(ugovoriZaposlenja);
@@ -242,7 +284,7 @@ namespace RentACar.Data
             vozila.Add(new Vozilo
             {
                 BrojSasije = 1324,
-                RegistarskaOznaka = "123-A-654",
+                RegistarskaOznaka = "835-A-111",
                 Boja = "Bijela",
                 Model = "A6",
                 GodinaProizvodnje = 2016,
@@ -269,7 +311,7 @@ namespace RentACar.Data
             vozila.Add(new Vozilo
             {
                 BrojSasije = 615654,
-                RegistarskaOznaka = "455-A-644",
+                RegistarskaOznaka = "835-A-222",
                 Boja = "Crna",
                 Kuka = true,
                 Model = "A4",
@@ -294,12 +336,40 @@ namespace RentACar.Data
                 GrupniTipVozila = (int)GrupniTipVozila.Putnicko
             });
 
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 13245654,
+                RegistarskaOznaka = "835-A-333",
+                Boja = "Bijela",
+                Model = "A6",
+                GodinaProizvodnje = 2016,
+                SnagaMotora = 210,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 600,
+                BrojMjesta = 5,
+                BrojVrata = 4,
+                Cijena = 60,
+                Kilometraza = 165442,
+                ZapreminaPrtljaznika = 60,
+                ZapreminaPrtljaznikaNaprijed = 0,
+                Naziv = "Audi A6",
+                Brend = audi,
+                Kuka = true,
+                Klima = true,
+                TipVozila = (int)TipVozila.Normal,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Dizel,
+                Pogon = "4x4",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
+
             /******************* BMW ********************/
             var bmw = context.Brend.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW");
             vozila.Add(new Vozilo
             {
                 BrojSasije = 654984,
-                RegistarskaOznaka = "599-S-698",
+                RegistarskaOznaka = "599-B-111",
                 Boja = "Bijela",
                 Kilometraza =92354,
                 Kuka = true,
@@ -327,7 +397,7 @@ namespace RentACar.Data
             vozila.Add(new Vozilo
             {
                 BrojSasije = 112332211,
-                RegistarskaOznaka = "876-G-554",
+                RegistarskaOznaka = "599-B-222",
                 Boja = "Bijela",
                 Kilometraza = 12354,
                 Kuka = false,
@@ -358,7 +428,7 @@ namespace RentACar.Data
             vozila.Add(new Vozilo
             {
                 BrojSasije = 65488984,
-                RegistarskaOznaka = "687-A-126",
+                RegistarskaOznaka = "911-O-111",
                 Boja = "Bijela",
                 Kuka = true,
                 Model = "Insignia",
@@ -382,19 +452,104 @@ namespace RentACar.Data
                 Transmisija = (int)Transmisija.Automatik,
                 GrupniTipVozila = (int)GrupniTipVozila.Putnicko
             });
+
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 1232155,
+                RegistarskaOznaka = "911-O-222",
+                Boja = "Bijela",
+                Kuka = true,
+                Model = "Insignia",
+                GodinaProizvodnje = 2018,
+                SnagaMotora = 230,
+                Kilometraza = 321254,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 520,
+                BrojMjesta = 5,
+                BrojVrata = 4,
+                Cijena = 70,
+                ZapreminaPrtljaznika = 140,
+                ZapreminaPrtljaznikaNaprijed = 0,
+                Naziv = "Opel Insignia",
+                Brend = opel,
+                Klima = true,
+                TipVozila = (int)TipVozila.Normal,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Dizel,
+                Pogon = "Prednji",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
             /******************* Tesla ********************/
             var tesla = context.Brend.Select(s => s).SingleOrDefault(x => x.Naziv == "Tesla");
 
             vozila.Add(new Vozilo
             {
                 BrojSasije = 789999852,
-                RegistarskaOznaka = "123-A-666",
+                RegistarskaOznaka = "555-T-111",
                 Boja = "Siva",
                 Kuka = false,
                 Model = "Model S",
                 GodinaProizvodnje = 2017,
                 SnagaMotora = 630,
                 Kilometraza = 51002,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 650,
+                BrojMjesta = 5,
+                BrojVrata = 4,
+                Cijena = 130,
+                ZapreminaPrtljaznika = 140,
+                ZapreminaPrtljaznikaNaprijed = 50,
+                Naziv = "Tesla Model S",
+                Brend = tesla,
+                Klima = true,
+                TipVozila = (int)TipVozila.Elektricno,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Struja,
+                Pogon = "Dinamicno",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
+
+            /*Dodavanje jos vozila */
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 489862621,
+                RegistarskaOznaka = "555-T-222",
+                Boja = "Siva",
+                Kuka = false,
+                Model = "Model S",
+                GodinaProizvodnje = 2018,
+                SnagaMotora = 630,
+                Kilometraza = 21000,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 650,
+                BrojMjesta = 5,
+                BrojVrata = 4,
+                Cijena = 130,
+                ZapreminaPrtljaznika = 140,
+                ZapreminaPrtljaznikaNaprijed = 50,
+                Naziv = "Tesla Model S",
+                Brend = tesla,
+                Klima = true,
+                TipVozila = (int)TipVozila.Elektricno,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Struja,
+                Pogon = "Dinamicno",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
+
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 23549156,
+                RegistarskaOznaka = "555-T-333",
+                Boja = "Siva",
+                Kuka = false,
+                Model = "Model S",
+                GodinaProizvodnje = 2019,
+                SnagaMotora = 630,
+                Kilometraza = 10000,
                 DatumMijenjanjUlja = DateTime.Now,
                 Domet = 650,
                 BrojMjesta = 5,
@@ -420,14 +575,14 @@ namespace RentACar.Data
             kompatibilnostPrikolice.Add(new KompatibilnostPrikolica
             {
                 Prikolica = context.Prikolica.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
-                Vozilo = context.Vozilo.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
+                Vozilo = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "835-A-111"),
                 Tezina = "50",
                 TipKuke = "Otvorena",
             });
             kompatibilnostPrikolice.Add(new KompatibilnostPrikolica
             {
                 Prikolica = context.Prikolica.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
-                Vozilo = context.Vozilo.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
+                Vozilo = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "599-B-111"),
                 Tezina = "60",
                 TipKuke = "Otvorena",
             });
@@ -435,37 +590,64 @@ namespace RentACar.Data
             context.SaveChanges();
 
             //dodavanje vozila u trenutnu poslovnicu 
-            var audia6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Audi A6");
-            var audia4 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Audi A4");
-            var bmwx6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW X6");
-            var opelInsignia = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Opel Insignia");
-            var teslaModelS = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "Tesla Model S");
-            var bmwi3 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.Naziv == "BMW i3");
+            var audia6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "835-A-111");
+            var audia4 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "835-A-222");
+            var bmwx6 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "599-B-111");
+            var opelInsignia = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "911-O-111");
+            var teslaModelS = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "555-T-111");
+            var bmwi3 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "599-B-222");
+            var teslaModelS_1 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "555-T-222");
+            var teslaModelS_2 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "555-T-333");
+            var audia6_1 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "835-A-333");
+            var opelInsignia_1 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "911-O-222");
 
-            //dodavanje vozila u poslovncu Sarajevo Aeodrom
+            
+
+            //dodavanje vozila u poslovnicu Sarajevo Aeodrom
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now,VoziloRezervisano = true, Poslovnica = aeodrom, Vozilo = audia4});
-            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now,VoziloRezervisano = true, Poslovnica = aeodrom, Vozilo = audia6 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false, Poslovnica = aeodrom, Vozilo = audia6 });
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = bmwx6 });
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = opelInsignia });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = teslaModelS_1 });
 
             //dodavanje vozila u poslovnicu Mostar Zalik
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = mostarZalik, Vozilo = teslaModelS });
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = mostarZalik, Vozilo = bmwi3 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = mostarZalik, Vozilo = audia6_1 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = mostarZalik, Vozilo = opelInsignia_1 });
+            
+            //dodavanje vozila u poslovnicu Sarajevo Bascarsija
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false, Poslovnica = bascarsija, Vozilo = teslaModelS_2 });
+
             context.AddRange(trenutnePoslovnice);
             context.SaveChanges();
 
-            //dodavanje rezervacija 
-            var klijentJanell = userManager.FindByEmailAsync("janell.kearns@gmail.com");
+            /****************************************** DODAVANJE REZERVACIJA ***************************************************/
+
+            //dobavljanje klijenata profil
+            var klijentJanell = userManager.FindByEmailAsync("janell.kearns@gmail.com"); //*
+            var klijentRonnie = userManager.FindByEmailAsync("ronnie.spidle@gmail.com");
+            var klijentMerle = userManager.FindByEmailAsync("merle.bowe@gmail.com");
+            var klijentEna = userManager.FindByEmailAsync("ena.schlueter@gmail.com");
+            
+
+
+              //dobavljanje klijenata no profil
+              var klijentJoseph = userManager.FindByEmailAsync("joseph.eagan@gmail.com");
+            var klijentNerissa = userManager.FindByEmailAsync("nerissa.vinson@gmail.com");
+            var klijentEddie = userManager.FindByEmailAsync("eddie.green@gmail.com");
+
+
             rezervacije.Add(new Rezervacija
             {
-                DatumRezervacije = DateTime.Now,
-                Cijena = 400,
-                DatumPreuzimanja = DateTime.Now,
-                DatumPovrata = DateTime.Now,
+                DatumRezervacije = new DateTime(2019, 1, 28),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 6)) - (new DateTime(2019, 2, 1))).TotalDays) + 40,
+                DatumPreuzimanja = new DateTime(2019, 2, 1),
+                DatumPovrata = new DateTime(2019, 2, 6),
                 UspjesnoSpremljena = true,
-                BrojDanaIznajmljivanja = 4,
-                Zakljucen = (int) InfoRezervacija.U_Obradi, 
-                Vozilo = audia6,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 6)) - (new DateTime(2019, 2, 1))).TotalDays),
+                Zakljucen = (int) InfoRezervacija.Zavrsena, 
+                Vozilo = audia4,
                 SifraRezervacije = "001/19",
                 Klijent = klijentJanell.Result,
                 Uposlenik = dona.Result,
@@ -473,19 +655,117 @@ namespace RentACar.Data
             });
             rezervacije.Add(new Rezervacija
             {
-                DatumRezervacije = DateTime.Now,
-                Cijena = 400,
-                DatumPreuzimanja = DateTime.Now,
-                DatumPovrata = DateTime.Now,
+                DatumRezervacije = new DateTime(2019, 2, 7),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 15)) - (new DateTime(2019, 2, 11))).TotalDays),
+                DatumPreuzimanja = new DateTime(2019, 2, 11),
+                DatumPovrata = new DateTime(2019, 2, 15),
                 UspjesnoSpremljena = true,
-                BrojDanaIznajmljivanja = 4,
-                Zakljucen = (int)InfoRezervacija.Odobrena,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 15)) - (new DateTime(2019, 2, 11))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Zavrsena,
                 Vozilo = audia4,
                 SifraRezervacije = "002/19",
+                Klijent = klijentRonnie.Result,
+                Uposlenik = dona.Result,
+                Poslovnica = aeodrom
+            });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = new DateTime(2019, 2, 18),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 20)) - (new DateTime(2019, 2, 18))).TotalDays),
+                DatumPreuzimanja = new DateTime(2019, 2, 18),
+                DatumPovrata = new DateTime(2019, 2, 20),
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 20)) - (new DateTime(2019, 2, 18))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Zavrsena,
+                Vozilo = audia4,
+                SifraRezervacije = "003/19#pos",
+                Klijent = klijentJoseph.Result,
+                Uposlenik = dona.Result,
+                Poslovnica = aeodrom
+            });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = new DateTime(2019, 2, 25),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 28)) - (new DateTime(2019, 2, 25))).TotalDays),
+                DatumPreuzimanja = new DateTime(2019, 2, 25),
+                DatumPovrata = new DateTime(2019, 2, 28),
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 28)) - (new DateTime(2019, 2, 25))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Zavrsena,
+                Vozilo = audia4,
+                SifraRezervacije = "005/19#pos",
+                Klijent = klijentNerissa.Result,
+                Uposlenik = dona.Result,
+                Poslovnica = aeodrom
+            });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = DateTime.Today.AddDays(-8),
+                Cijena = audia4.Cijena * Convert.ToInt32(((DateTime.Now) - (DateTime.Today.AddDays(-4))).TotalDays),
+                DatumPreuzimanja = DateTime.Today.AddDays(-4),
+                DatumPovrata = DateTime.Now,
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((DateTime.Now) - (DateTime.Today.AddDays(-4))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Odobrena,
+                Vozilo = audia4,
+                SifraRezervacije = "006/19",
+                Klijent = klijentMerle.Result,
+                Uposlenik = dona.Result,
+                Poslovnica = aeodrom
+            });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = DateTime.Now,
+                Cijena = opelInsignia.Cijena * Convert.ToInt32(((DateTime.Today.AddDays(9)) - (DateTime.Today.AddDays(3))).TotalDays),
+                DatumPreuzimanja = DateTime.Today.AddDays(3),
+                DatumPovrata = DateTime.Today.AddDays(9),
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((DateTime.Today.AddDays(9)) - (DateTime.Today.AddDays(3))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.U_Obradi,
+                Vozilo = opelInsignia,
+                SifraRezervacije = "007/19",
+                Klijent = klijentEna.Result,
+                Uposlenik = null,
+                Poslovnica = aeodrom
+            });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = new DateTime(2019, 2, 9),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 14)) - (new DateTime(2019, 2, 11))).TotalDays),
+                DatumPreuzimanja = new DateTime(2019, 2, 11),
+                DatumPovrata = new DateTime(2019, 2, 14),
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 14)) - (new DateTime(2019, 2, 11))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Zavrsena,
+                Vozilo = audia6,
+                SifraRezervacije = "008/19",
                 Klijent = klijentJanell.Result,
                 Uposlenik = dona.Result,
                 Poslovnica = aeodrom
             });
+
+            rezervacije.Add(new Rezervacija
+            {
+                DatumRezervacije = new DateTime(2019, 2, 19),
+                Cijena = audia4.Cijena * Convert.ToInt32(((new DateTime(2019, 2, 22)) - (new DateTime(2019, 2, 19))).TotalDays),
+                DatumPreuzimanja = new DateTime(2019, 2, 19),
+                DatumPovrata = new DateTime(2019, 2, 22),
+                UspjesnoSpremljena = true,
+                BrojDanaIznajmljivanja = Convert.ToInt32(((new DateTime(2019, 2, 22)) - (new DateTime(2019, 2, 19))).TotalDays),
+                Zakljucen = (int)InfoRezervacija.Zavrsena,
+                Vozilo = audia6,
+                SifraRezervacije = "009/19#pos",
+                Klijent = klijentEddie.Result,
+                Uposlenik = dona.Result,
+                Poslovnica = aeodrom
+            });
+
+
             context.AddRange(rezervacije);
             context.SaveChanges();
 
@@ -493,16 +773,38 @@ namespace RentACar.Data
             rezervisaneUsluge.Add(new RezervisanaUsluga
             {
                 Kolicina = 1,
-                Opis = "Neki opis",
-                UkupnaCijenaUsluge = 80,
-                DodatneUsluge = context.DodatneUsluge.OrderBy(x => Guid.NewGuid()).FirstOrDefault(),
-                Rezervacija = context.Rezervacija.OrderBy(x => Guid.NewGuid()).FirstOrDefault()
+                Opis = "Nema",
+                UkupnaCijenaUsluge = 15,
+                DodatneUsluge = context.DodatneUsluge.Select(s => s).SingleOrDefault(x => x.Naziv == "Djecije sjedalo"),
+                Rezervacija = context.Rezervacija.Select(s => s).SingleOrDefault(x => x.SifraRezervacije == "001/19")
             });
+            rezervisaneUsluge.Add(new RezervisanaUsluga
+            {
+                Kolicina = 1,
+                Opis = "Nema",
+                UkupnaCijenaUsluge = 25,
+                DodatneUsluge = context.DodatneUsluge.Select(s => s).SingleOrDefault(x => x.Naziv == "GPS - navigacija"),
+                Rezervacija = context.Rezervacija.Select(s => s).SingleOrDefault(x => x.SifraRezervacije == "001/19")
+            });
+
+
             context.AddRange(rezervisaneUsluge);
             context.SaveChanges();
 
+            //dodavanje notifikacija
+            notifikacije.Add(new Notifikacija
+            {
+                Otvorena = false,
+                Poruka = "Nova rezervacija za vozilo " +opelInsignia.Naziv + ", potreban pregled!",
+                Poslovnica = aeodrom,
+                Rezervacija = context.Rezervacija.Select(s => s).SingleOrDefault(x => x.SifraRezervacije == "007/19"),
+                Vrijeme = DateTime.Now
+            });
+            context.AddRange(notifikacije);
+            context.SaveChanges();
+
             //dodavanje prijevoza 
-            var klijentRonnie = userManager.FindByEmailAsync("ronnie.spidle@gmail.com");
+            var klijentRonnie1 = userManager.FindByEmailAsync("ronnie.spidle@gmail.com");
             prijevozi.Add(new Prijevoz
             {
                 DatumRezervacije = DateTime.Now,
@@ -511,7 +813,7 @@ namespace RentACar.Data
                 CijenaCekanjaPoSatu = 0.3,
                 NacinPlacanja = (int) NacinPlacanja.Karticno,
                 TipPrijevoza = (int) TipPrijevoza.Specijal,
-                Klijent = klijentRonnie.Result
+                Klijent = klijentRonnie1.Result
             });
             context.AddRange(prijevozi);
             context.SaveChanges();
@@ -533,9 +835,9 @@ namespace RentACar.Data
             slike.Add(new Slika { Name = "BMW X6", Pozicija = 4, URL = "/images/Vozila/BMWX6/BMWX6_bijela_4.jpg", Vozilo = bmwx6 });
 
             slike.Add(new Slika { Name = "Audi A6", Pozicija = 1, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_1.jpg", Vozilo = audia6 });
-            slike.Add(new Slika { Name = "Audi A6", Pozicija = 2, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_3.jpg", Vozilo = audia6 });
-            slike.Add(new Slika { Name = "Audi A6", Pozicija = 3, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_4.jpg", Vozilo = audia6 });
-            slike.Add(new Slika { Name = "Audi A6", Pozicija = 4, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_5.jpg", Vozilo = audia6 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 2, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_2.jpg", Vozilo = audia6 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 3, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_3.jpg", Vozilo = audia6 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 4, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_4.jpg", Vozilo = audia6 });
 
             slike.Add(new Slika { Name = "Audi A4", Pozicija = 1, URL = "/images/Vozila/AudiA4_crna/AudiA4_crna_1.jpg", Vozilo = audia4 });
             slike.Add(new Slika { Name = "Audi A4", Pozicija = 2, URL = "/images/Vozila/AudiA4_crna/AudiA4_crna_2.png", Vozilo = audia4 });
@@ -556,6 +858,26 @@ namespace RentACar.Data
             slike.Add(new Slika { Name = "BMW i3", Pozicija = 2, URL = "/images/Vozila/bmw_i3/i3_2.jpg", Vozilo = bmwi3 });
             slike.Add(new Slika { Name = "BMW i3", Pozicija = 3, URL = "/images/Vozila/bmw_i3/i3_3.jpeg", Vozilo = bmwi3 });
             slike.Add(new Slika { Name = "BMW i3", Pozicija = 4, URL = "/images/Vozila/bmw_i3/i3_4.jpg", Vozilo = bmwi3 });
+
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 1, URL = "/images/Vozila/TeslaModelS/tesla_1.jpg", Vozilo = teslaModelS_1 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 2, URL = "/images/Vozila/TeslaModelS/tesla_2.jpg", Vozilo = teslaModelS_1 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 3, URL = "/images/Vozila/TeslaModelS/tesla_3.jpg", Vozilo = teslaModelS_1 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 4, URL = "/images/Vozila/TeslaModelS/tesla_4.jpg", Vozilo = teslaModelS_1 });
+
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 1, URL = "/images/Vozila/TeslaModelS/tesla_1.jpg", Vozilo = teslaModelS_2 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 2, URL = "/images/Vozila/TeslaModelS/tesla_2.jpg", Vozilo = teslaModelS_2 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 3, URL = "/images/Vozila/TeslaModelS/tesla_3.jpg", Vozilo = teslaModelS_2 });
+            slike.Add(new Slika { Name = "Tesla Model S", Pozicija = 4, URL = "/images/Vozila/TeslaModelS/tesla_4.jpg", Vozilo = teslaModelS_2 });
+
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 1, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_1.jpg", Vozilo = audia6_1 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 2, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_2.jpg", Vozilo = audia6_1 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 3, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_3.jpg", Vozilo = audia6_1 });
+            slike.Add(new Slika { Name = "Audi A6", Pozicija = 4, URL = "/images/Vozila/AudiA6_bijela/AudiA6_bijela_4.jpg", Vozilo = audia6_1 });
+
+            slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 1, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_1.jpg", Vozilo = opelInsignia_1 });
+            slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 2, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_2.jpg", Vozilo = opelInsignia_1 });
+            slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 3, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_3.jpg", Vozilo = opelInsignia_1 });
+            slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 4, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_4.jpg", Vozilo = opelInsignia_1 });
 
             context.AddRange(slike);
             context.SaveChanges();

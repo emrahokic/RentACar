@@ -52,12 +52,13 @@
                     <h4><strong>Transmisija:</strong></h4>
                     <h4><strong>Gorivo:</strong></h4>
                     <h4><strong>Tip vozila:</strong></h4>
+                    <h4><strong>Kuka za prikolicu:</strong></h4>
                 </div>
                 <div class="col-md-4">
                     <h4>@Model.Brend</h4>
                     <h4>@Model.Model</h4>
                     <h4>@Model.GodinaProizvodnje</h4>
-                    <h4>@Model.SnagaMotora</h4>
+                    <h4>@Model.SnagaMotora KS</h4>
                     @if (Model.Klima == true)
                     {
                         <h4>DA</h4>
@@ -72,6 +73,14 @@
                     <h4>@Enum.GetName(typeof(Transmisija), Model.Transmisija)</h4>
                     <h4>@Enum.GetName(typeof(Gorivo), Model.Gorivo)</h4>
                     <h4>@Enum.GetName(typeof(TipVozila), Model.TipVozila)</h4>
+                    @if (Model.Kuka == true)
+                    {
+                        <h4>IMA</h4>
+                    }
+                    else
+                    {
+                        <h4>NEMA</h4>
+                    }
                 </div>
                 <div class="col-md-12">
                     <a class="btn btn-success pull-right" asp-area="Uposlenik" asp-controller="Rezervacija" asp-action="Rezervisi" asp-route-id="@Model.VoziloID"><i class="material-icons">send</i><span style="padding-left: 3px;">REZERVISI</span></a>
@@ -94,28 +103,48 @@
     </div>
 </div>
 
-    <div class="card card-nav-tabs" style="width: 64rem;">
-        <div class="card-header card-header-info">
-            Detaljne informacije
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Pogon:</strong> <input type="text" class="form-control" value="@Model.Pogon" readonly /></li>
-            <li class="list-group-item"><strong>Domet:</strong> <input type="text" class="form-control" value="@Model.Domet" readonly /></li>
-            <li class="list-group-item"><strong>Zpremina prtljaznika:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznika" readonly /></li>
-            @if (Model.ZapreminaPrtljaznikaNaprijed != 0)
-            {
-                <li class="list-group-item"><strong>Zpremina prtljaznika naprijed:</strong> <input type="text" class="form-control" value="@Model.ZapreminaPrtljaznikaNaprijed" readonly /></li>
-            }
-            <li class="list-group-item"><strong>Datum mijenjanja ulja: </strong> <input type="text" class="form-control" value="@Model.DatumMijenjanjUlja" readonly /></li>
-            <li class="list-group-item"><strong>Kilometraza: </strong> <input type="text" class="form-control" value="@Model.Kilometraza" readonly /></li>
-            <li class="list-group-item"><strong>Registarska oznaka:</strong> <input type="text" class="form-control" value="@Model.RegistarskaOznaka" readonly /></li>
-            <li class="list-group-item"><strong>Broj sasije:</strong><input type="text" class="form-control" value="@Model.BrojSasije" readonly /></li>
-            <li class="list-group-item"><strong>Dodatni opis:</strong> <input type="text" class="form-control" value="@Model.DodatniOpis" readonly /></li>
-        </ul>
+<div class="card card-nav-tabs" style="width: 64rem;">
+    <div class="card-header card-header-info">
+        Detaljne informacije
     </div>
+
+    <div class="card-body">
+        <div class="row text-left">
+            <div class="col-md-5">
+                <h4><strong>Pogon:</strong></h4>
+                <h4><strong>Domet:</strong></h4>
+                <h4><strong>Zapremina prtljaznika:</strong></h4>
+                @if (Model.ZapreminaPrtljaznikaNaprijed != 0)
+                {
+                    <h4><strong>Zapremina prtljaznika naprijed:</strong></h4>
+                }
+                <h4><strong>Datum mijenjanja ulja:</strong></h4>
+                <h4><strong>Kilometraza:</strong></h4>
+                <h4><strong>Registarska oznaka:</strong></h4>
+                <h4><strong>Broj sasije:</strong></h4>
+                <h4><strong>Dodatni opis:</strong></h4>
+            </div>
+            <div class="col-md-4">
+                <h4>@Model.Pogon</h4>
+                <h4>@Model.Domet km</h4>
+                <h4>@Model.ZapreminaPrtljaznika cm^3</h4>
+                @if (Model.ZapreminaPrtljaznikaNaprijed != 0)
+                {
+                    <h4>@Model.ZapreminaPrtljaznikaNaprijed cm^3</h4>
+                }
+                <h4>@Model.DatumMijenjanjUlja</h4>
+                <h4>@Model.Kilometraza km</h4>
+                <h4>@Model.RegistarskaOznaka</h4>
+                <h4>@Model.BrojSasije</h4>
+                <h4>@Model.DodatniOpis</h4>
+            </div>
+        </div>
+    </div>
+</div>
  
     <br />
-
+@if (Model.Kuka == true)
+{
     <div class="col-md-12">
         <div class="card card-plain">
             <div class="card-header card-header-info">
@@ -153,7 +182,7 @@
             </div>
         </div>
     </div>
-
+}
     <script>
         document.getElementById("vozila").className = "active";
     </script>
