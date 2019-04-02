@@ -14,10 +14,6 @@ namespace RentACar.Areas.Uposlenik.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public DashboardController()
-        {
-        }
-
         public DashboardController(ApplicationDbContext context)
         {
             _context = context;

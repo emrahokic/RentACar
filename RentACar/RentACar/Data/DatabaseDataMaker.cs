@@ -100,6 +100,7 @@ namespace RentACar.Data
             brendovi.Add(new Brend { Naziv = "Skoda" });
             brendovi.Add(new Brend { Naziv = "Mercedes" });
             brendovi.Add(new Brend { Naziv = "Tesla" });
+            brendovi.Add(new Brend { Naziv = "Maserati" });
 
 
             context.AddRange(brendovi);
@@ -162,6 +163,8 @@ namespace RentACar.Data
             await KreirajKorisnika(userManager, "dona.gomez@sunnycars.com", "Dona", "Gomez", "Dzemala Bijedica bb", Sarajevo, "062231254", new DateTime(1994, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", uposlenik);
             await KreirajKorisnika(userManager, "jack.olivero@sunnycars.com", "Jack", "Olivero", "Dzemala Bijedica bb", Sarajevo, "062365458", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", mehanicar);
             await KreirajKorisnika(userManager, "antone.no@sunnycars.com", "Antone", "No", "Dzemala Bijedica bb", Sarajevo, "062325558", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
+            await KreirajKorisnika(userManager, "olaf.block@sunnycars.com", "Olaf", "Block", "Dzemala Bijedica bb", Sarajevo, "062325558", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
+            await KreirajKorisnika(userManager, "trey.treutel@sunnycars.com", "Trey", "Treutel", "Dzemala Bijedica bb", Sarajevo, "062325558", new DateTime(1994, 5, 6), "M", "/images/profile-man.jpg", "P@sword123", vozac);
 
             //za poslovnicu Sarajevo Bascarsija
             await KreirajKorisnika(userManager, "zenaida.aubry@sunnycars.com", "Zenaida", "Aubry", "Dzemala Bijedica bb", Sarajevo, "062456852", new DateTime(1995, 5, 6), "Z", "/images/profile-woman.jpg", "P@sword123", uposlenik);
@@ -218,12 +221,16 @@ namespace RentACar.Data
             var jackOlivero = userManager.FindByEmailAsync("jack.olivero@sunnycars.com");
             var antoneNo = userManager.FindByEmailAsync("antone.no@sunnycars.com");
             var johny = userManager.FindByEmailAsync("johny@sunnycars.admin.com");
+            var olaf = userManager.FindByEmailAsync("olaf.block@sunnycars.com");
+            var trey = userManager.FindByEmailAsync("trey.treutel@sunnycars.com");
 
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "salter", Uposlenik = sonny.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "salter", Uposlenik = dona.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "kancelarija", Uposlenik = johny.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "radnja", Uposlenik = jackOlivero.Result });
             ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "poslovnica", Uposlenik = antoneNo.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "poslovnica", Uposlenik = olaf.Result });
+            ugovoriZaposlenja.Add(new UgovorZaposlenja { DatumZaposlenja = DateTime.Now, Poslovnica = aeodrom, RadnoMjesto = "poslovnica", Uposlenik = trey.Result });
 
             //dodavanje uposlenika poslovnici Sarajevo Bascarsija
             var bascarsija = context.Poslovnica.Select(s => s).SingleOrDefault(x => x.Naziv == "Sarajevo Bascarsija");
@@ -568,6 +575,65 @@ namespace RentACar.Data
                 GrupniTipVozila = (int)GrupniTipVozila.Putnicko
             });
 
+            /*Maserati Limo*/
+            var maserati = context.Brend.Select(s => s).SingleOrDefault(x => x.Naziv == "Maserati");
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 2342322,
+                RegistarskaOznaka = "101-M-101",
+                Boja = "Bijela",
+                Kuka = false,
+                Model = "Limo",
+                GodinaProizvodnje = 2017,
+                SnagaMotora = 320,
+                Kilometraza = 15025,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 650,
+                BrojMjesta = 8,
+                BrojVrata = 4,
+                Cijena = 0,
+                ZapreminaPrtljaznika = 140,
+                ZapreminaPrtljaznikaNaprijed = 0,
+                Naziv = "Maserati Limo",
+                Brend = maserati,
+                Klima = true,
+                TipVozila = (int)TipVozila.Normal,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Benzin,
+                Pogon = "Prednji",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
+
+            var RangeRover = context.Brend.Select(s => s).SingleOrDefault(x => x.Naziv == "Range Rover");
+            vozila.Add(new Vozilo
+            {
+                BrojSasije = 2342322,
+                RegistarskaOznaka = "988-R-988",
+                Boja = "Crna",
+                Kuka = false,
+                Model = "Sport",
+                GodinaProizvodnje = 2017,
+                SnagaMotora = 360,
+                Kilometraza = 98654,
+                DatumMijenjanjUlja = DateTime.Now,
+                Domet = 600,
+                BrojMjesta = 4,
+                BrojVrata = 4,
+                Cijena = 0,
+                ZapreminaPrtljaznika = 140,
+                ZapreminaPrtljaznikaNaprijed = 0,
+                Naziv = "Range Rover Sport",
+                Brend = RangeRover,
+                Klima = true,
+                TipVozila = (int)TipVozila.Normal,
+                DodatniOpis = "Bez dodatnog opisa",
+                Gorivo = (int)Gorivo.Benzin,
+                Pogon = "Prednji",
+                Transmisija = (int)Transmisija.Automatik,
+                GrupniTipVozila = (int)GrupniTipVozila.Putnicko
+            });
+
             context.AddRange(vozila);
             context.SaveChanges();
 
@@ -600,8 +666,10 @@ namespace RentACar.Data
             var teslaModelS_2 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "555-T-333");
             var audia6_1 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "835-A-333");
             var opelInsignia_1 = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "911-O-222");
+            var maseratiLimo = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "101-M-101");
+            var RoverSport = context.Vozilo.Select(s => s).SingleOrDefault(x => x.RegistarskaOznaka == "988-R-988");
 
-            
+
 
             //dodavanje vozila u poslovnicu Sarajevo Aeodrom
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = DateTime.Now,VoziloRezervisano = true, Poslovnica = aeodrom, Vozilo = audia4});
@@ -609,6 +677,8 @@ namespace RentACar.Data
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = bmwx6 });
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = opelInsignia });
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = teslaModelS_1 });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = maseratiLimo });
+            trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = aeodrom, Vozilo = RoverSport });
 
             //dodavanje vozila u poslovnicu Mostar Zalik
             trenutnePoslovnice.Add(new TrenutnaPoslovnica { DatumUlaza = DateTime.Now, DatumIzlaza = null, VoziloRezervisano = false,Poslovnica = mostarZalik, Vozilo = teslaModelS });
@@ -824,7 +894,7 @@ namespace RentACar.Data
             context.AddRange(uposleniciPrijevoz);
             context.SaveChanges();
 
-            vozilaPrijevoz.Add(new PrijevozVozilo { Prijevoz = prijevoz1, Vozilo = bmwx6 });
+            vozilaPrijevoz.Add(new PrijevozVozilo { Prijevoz = prijevoz1, Vozilo = maseratiLimo });
             context.AddRange(vozilaPrijevoz);
             context.SaveChanges();
 
@@ -878,6 +948,17 @@ namespace RentACar.Data
             slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 2, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_2.jpg", Vozilo = opelInsignia_1 });
             slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 3, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_3.jpg", Vozilo = opelInsignia_1 });
             slike.Add(new Slika { Name = "Opel Insignia", Pozicija = 4, URL = "/images/Vozila/Opel_insignia/Opel_Insignia_bijela_4.jpg", Vozilo = opelInsignia_1 });
+
+            slike.Add(new Slika { Name = "Maserati Limo", Pozicija = 1, URL = "/images/Vozila/MaseratiLimo/limo_1.jpg", Vozilo = maseratiLimo });
+            slike.Add(new Slika { Name = "Maserati Limo", Pozicija = 2, URL = "/images/Vozila/MaseratiLimo/limo_2.jpg", Vozilo = maseratiLimo });
+            slike.Add(new Slika { Name = "Maserati Limo", Pozicija = 3, URL = "/images/Vozila/MaseratiLimo/limo_3.jpg", Vozilo = maseratiLimo });
+            slike.Add(new Slika { Name = "Maserati Limo", Pozicija = 4, URL = "/images/Vozila/MaseratiLimo/limo_4.jpg", Vozilo = maseratiLimo });
+
+            slike.Add(new Slika { Name = "Range Rover Sport", Pozicija = 1, URL = "/images/Vozila/RangeRoverSport/Rover_Sport_1.jpg", Vozilo = RoverSport });
+            slike.Add(new Slika { Name = "Range Rover Sport", Pozicija = 2, URL = "/images/Vozila/RangeRoverSport/Rover_Sport_2.jpg", Vozilo = RoverSport });
+            slike.Add(new Slika { Name = "Range Rover Sport", Pozicija = 3, URL = "/images/Vozila/RangeRoverSport/Rover_Sport_3.jpg", Vozilo = RoverSport });
+            slike.Add(new Slika { Name = "Range Rover Sport", Pozicija = 4, URL = "/images/Vozila/RangeRoverSport/Rover_Sport_4.jpg", Vozilo = RoverSport });
+            slike.Add(new Slika { Name = "Range Rover Sport", Pozicija = 5, URL = "/images/Vozila/RangeRoverSport/Rover_Sport_5.jpg", Vozilo = RoverSport });
 
             context.AddRange(slike);
             context.SaveChanges();

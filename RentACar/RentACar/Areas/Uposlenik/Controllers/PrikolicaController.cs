@@ -146,7 +146,8 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     TipKuke = p.TipKuke,
                     Tezina = p.Tezina.ToString(),
                     Auto = p.Vozilo.Brend.Naziv + " " + p.Vozilo.Model,
-                    tipAuta = p.Vozilo.GrupniTipVozila
+                    tipAuta = p.Vozilo.GrupniTipVozila,
+                    VoziloID = p.VoziloID
                 }).ToList()
             };
 
@@ -191,6 +192,22 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _context.Dispose();
             string route = "/uposlenik/Prikolica/Detalji/" + PrikolicaID.ToString();
             return Redirect(route);
+        }
+
+        public IActionResult UkloniVozilo(int VoziloID, int PrikolicaID)
+        {
+            var temp = _context.KompatibilnostPrikolica.Where(p => p.PrikolicaID == PrikolicaID && p.VoziloID == VoziloID)
+                .Select(s => s)
+                .SingleOrDefault();
+            if (temp == null)
+            {
+                return Content("Vozilo za prikolicu ne postoji");
+            }
+
+            _context.Remove(temp);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Detalji), new { id = PrikolicaID });
         }
     }
 }

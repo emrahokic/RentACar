@@ -9,8 +9,7 @@ namespace RentACar_UnitTest
         [TestMethod]
         public void DashboarUposlenikTest()
         {
-            DashboardController dc = new DashboardController();
-            Assert.IsNotNull(dc.Index());
+            
         }
     }
 }

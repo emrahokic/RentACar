@@ -157,24 +157,30 @@
                         <thead class="">
                             <tr>
                                 <th>Sirina</th>
-                                <th>Zapremina</th>
                                 <th>Duzina</th>
                                 <th>Tip prikolice</th>
                                 <th>Tip kuke</th>
-                                <th>Tezina</th>
+                                <th>Tezina (max)</th>
+                                <th>Cijena</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var x in Model.prikolice)
                             {
-                                <tr>
-                                    <th>@x.Sirina</th>
-                                    <th>@x.Zapremina</th>
-                                    <th>@x.Duzina</th>
-                                    <th>@x.TipPrikolice</th>
-                                    <th>@x.TipKuke</th>
-                                    <th>@x.Tezina</th>
-                                </tr>
+                            <tr>
+                                <th>@x.Sirina cm</th>
+                                <th>@x.Duzina cm</th>
+                                <th>@Enum.GetName(typeof(TipPrikolice), x.TipPrikolice)</th>
+                                <th>@x.TipKuke</th>
+                                <th>@x.Tezina kg</th>
+                                <th>@x.Cijena KM</th>
+                                <th>
+                                    <a class="btn btn-danger" href="/Uposlenik/Vozilo/UkloniPrikolicu?PrikolicaID=@x.PrikolicaID&VoziloID=@Model.VoziloID">
+                                        <i class="material-icons">delete_forever</i><span style="padding-left: 3px;">UKLONI</span>
+                                    </a>
+                                </th>
+                            </tr>
                             }
                         </tbody>
                     </table>

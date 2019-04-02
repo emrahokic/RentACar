@@ -1,0 +1,108 @@
+﻿@model PrijevozDodajVoziloVM
+@{
+    ViewData["Title"] = "DodajVozilo";
+}
+<div class="col-lg-12">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-primary">
+            <h4>Prijevoz --- dodavanje vozila</h4>
+        </div>
+
+        <div class="card card-nav-tabs col-md-11" style="margin-top: 45px; margin-left: 10px; background-color: #fcfcfc;">
+            <div class="card-header card-header-success">
+                Informacije o prijevozu
+            </div>
+            <div class="row text-left" style="padding-top: 30px; padding-left: 15px;">
+                <div class="col-md-4">
+                    <h4><strong>Klijent:</strong></h4>
+                    <h4><strong>JMBG:</strong></h4>
+                    <h4><strong>Datum prijevoza:</strong></h4>
+                    <h4><strong>Nacin placanja:</strong></h4>
+                    <h4><strong>Tip  prijevoza:</strong></h4>
+                    <h4><strong>Cijena cekanja po satu:</strong></h4>
+                    <h4><strong>Cijena po kilometru:</strong></h4>
+                    <h4><strong>Cijena po vozacu:</strong></h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>@Model.klijent</h4>
+                    <h4>@Model.jmbg</h4>
+                    <h4>@Model.DatumPrijevoza</h4>
+                    <h4>@Enum.GetName(typeof(NacinPlacanja), Model.NacinPlacanja)</h4>
+                    <h4>@Enum.GetName(typeof(TipPrijevoza), Model.TipPrijevoza)</h4>
+                    <h4>@Model.CijenaSat KM</h4>
+                    <h4>@Model.CijenaKilometar KM</h4>
+                    <h4>@Model.CijenaVozac KM</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title mt-0"> Vozila </h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="">
+                                <tr>
+                                    <th>Slika</th>
+                                    <th>Naziv</th>
+                                    <th>Godina proizvodnje</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model.vozila)
+                                {
+                                    <tr>
+                                        <td><img src="@x.slika" class="card-img" width="200" height="250"/></td>
+                                        <td>@x.Naziv</td>
+                                        <td>@x.GodinaProizvodnje </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title mt-0"> Vozaci </h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="">
+                                <tr>
+                                    <th>Ime</th>
+                                    <th>Prezime</th>
+                                    <th>Mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model.vozaci)
+                                {
+                                    <tr>
+                                        <td>@x.Ime</td>
+                                        <td>@x.Prezime</td>
+                                        <td>@x.Mail</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="vozvoz">
+            <a href="/uposlenik/Prijevoz/DodajVozilo?=@Model.PrijevozID" ajax-poziv="da" ajax-rezultat="vozvoz" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ VOZILO</span></a>
+            <a href="/uposlenik/Prijevoz/DodajVozaca?=@Model.PrijevozID" ajax-poziv="da" ajax-rezultat="vozvoz" class="btn btn-white text-dark"><i class="material-icons">add</i><span style="padding-left: 3px;">DODAJ VOZACA</span></a>
+            <a href="/uposlenik/Prijevoz/Index" class="btn btn-success "><i class="material-icons">send</i><span style="padding-left: 3px;">ZAVRSI</span></a>
+        </div>
+    </div>
+    </div>
+

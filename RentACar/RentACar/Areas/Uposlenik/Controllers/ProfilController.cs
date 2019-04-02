@@ -21,22 +21,20 @@ namespace RentACar.Areas.Uposlenik.Controlers
     public class ProfilController : Controller
     {
         private UserManager<ApplicationUser> _signInManager;
-        private ApplicationDbContext db;
-        private IHostingEnvironment _He;
+        private ApplicationDbContext _context;
+        private IHostingEnvironment _he;
 
-
-        public ProfilController(UserManager<ApplicationUser> signInManager, ApplicationDbContext db, IHostingEnvironment _he)
+        public ProfilController(UserManager<ApplicationUser> signInManager, ApplicationDbContext context, IHostingEnvironment he)
         {
             _signInManager = signInManager;
-            this.db = db;
-            _He = _he;
+            this._context = context;
+            _he = he;
         }
 
         public IActionResult Index(string msg)
         {
-
             int id = int.Parse(_signInManager.GetUserId(User));
-            ProfilDetaljnoVM model = db.Users.Where(x => x.Id == id).Select(x => new ProfilDetaljnoVM
+            ProfilDetaljnoVM model = _context.Users.Where(x => x.Id == id).Select(x => new ProfilDetaljnoVM
             {
                 Adresa = x.Adresa,
                 BrTelefona = x.PhoneNumber,
@@ -57,15 +55,14 @@ namespace RentACar.Areas.Uposlenik.Controlers
             if (model.Slika == null)
             {
                 model.Slika = Path.Combine("\\images\\Profilne\\65U.svg");
-
             }
             else
             {
-
-            model.Slika = Path.Combine("\\images\\Profilne", model.Slika);
+                model.Slika = Path.Combine("\\images\\Profilne", model.Slika);
             }
+
             List<SelectListItem> listagradova = new List<SelectListItem>();
-            listagradova.AddRange(db.Grad.Select(x => new SelectListItem()
+            listagradova.AddRange(_context.Grad.Select(x => new SelectListItem()
             {
                 Value = x.GradID.ToString(),
                 Text = x.Naziv
@@ -79,45 +76,46 @@ namespace RentACar.Areas.Uposlenik.Controlers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProfilImage(ProfilDetaljnoVM model, IFormFile SlikaURL)
         {
-
             int id = int.Parse(_signInManager.GetUserId(User));
-            ApplicationUser ap = db.Users.Find(id);
+            ApplicationUser user = _context.Users.Find(id);
 
-            ap.Slika = SlikaURL.FileName;
-
-            var filePath = Path.Combine(_He.WebRootPath + "\\images\\Profilne", SlikaURL.FileName);
+            user.Slika = SlikaURL.FileName;
+            var filePath = Path.Combine(_he.WebRootPath + "\\images\\Profilne", SlikaURL.FileName);
             SlikaURL.CopyTo(new FileStream(filePath, FileMode.Create));
 
-            db.SaveChanges();
-            db.Dispose();
+            _context.SaveChanges();
+            _context.Dispose();
 
             var values = new RouteValueDictionary();
             values.Add("msg", "ok");
             return RedirectToAction(nameof(Index),values);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateProfil(ProfilDetaljnoVM model)
+        public IActionResult ProfilUrediSnimi(ProfilDetaljnoVM model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(nameof(Index));
+            }
+
             int id = int.Parse(_signInManager.GetUserId(User));
-            ApplicationUser ap = db.Users.Find(id);
+            var user = _context.Users.Find(id);
 
-            ap.Adresa = model.Adresa;
-            ap.Email = model.Email;
-            ap.UserName = model.Username;
-            ap.PhoneNumber = model.BrTelefona;
-            ap.Ime = model.Ime;
-            ap.Prezime = model.Prezime;
-            ap.Spol = model.Spol;
-            ap.DatumRodjenja = model.DatumRodjenja;
-            ap.JMBG = model.JMBG;
-            ap.GradID = model.GradID ;
-            
-            db.SaveChanges();
-            db.Dispose();
+            user.Adresa = model.Adresa;
+            user.Email = model.Email;
+            user.UserName = model.Username;
+            user.PhoneNumber = model.BrTelefona;
+            user.Ime = model.Ime;
+            user.Prezime = model.Prezime;
+            user.Spol = model.Spol;
+            user.DatumRodjenja = model.DatumRodjenja;
+            user.JMBG = model.JMBG;
+            user.GradID = model.GradID;
 
-
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }

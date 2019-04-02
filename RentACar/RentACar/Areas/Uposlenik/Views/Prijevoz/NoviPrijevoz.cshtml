@@ -1,0 +1,123 @@
+﻿@model PrijevozNoviVM
+@{
+    ViewData["Title"] = "NoviPrijevoz";
+}
+
+<div class="col-lg-12">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-primary">
+            <h4>Novi prijevoz</h4>
+        </div>
+        <form asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="NoviPrijevozSnimiAsync" method="post">
+            <div class="card card-nav-tabs col-md-11" style="margin-top: 45px; margin-left: 10px; background-color: #fcfcfc;">
+                <div class="card-header card-header-success">
+                    Informacije o klijentu
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label asp-for="Ime" class="control-label">Ime</label>
+                            <input type="text" asp-for="Ime" class="form-control" data-val-required="Polje Ime je obavezno"/>
+                            <span asp-validation-for="Ime" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <label asp-for="Prezime" class="control-label">Prezime</label>
+                            <input type="text" asp-for="Prezime" class="form-control" data-val-required="Polje Prezime je obavezno"/>
+                            <span asp-validation-for="Prezime" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">E-mail</label>
+                        <input type="text" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DatumRodjenja" class="control-label">Datum rođenja</label>
+                        <input type="date" asp-for="DatumRodjenja" class="form-control" max="2200-12-31" min="1900-01-01" data-val-required="Polje Datum rođenja je obavezno"/>
+                        <span asp-validation-for="DatumRodjenja" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Adresa" class="control-label">Adresa</label>
+                        <input type="text" asp-for="Adresa" class="form-control" />
+                        <span asp-validation-for="Adresa" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="jmbg" class="control-label">JMBG</label>
+                        <input type="text" asp-for="jmbg" class="form-control" data-val-required="Polje JMBG je obavezno"/>
+                        <span asp-validation-for="jmbg" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Spol</label>
+                        <div class=" radio radio-inline">
+                            <input type="radio" asp-for="Spol" value="M" data-val-required="Polje Spol je obavezno"> M
+                            <input type="radio" asp-for="Spol" name="Spol" value="Z" data-val-required="Polje Spol je obavezno"> F
+                            <input type="radio" asp-for="Spol" name="Spol" value="other" data-val-required="Polje Spol je obavezno"> Other
+                        </div>
+                        <span asp-validation-for="Spol" class="text-danger"></span>
+                    </div>
+                </div>
+                </div>
+                <br />
+                <br />
+                <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; background-color: #fcfcfc;">
+                    <div class="card-header card-header-success">
+                        Informacije o prijevozu
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label asp-for="DatumPrijevoza" class="control-label">Datum prijevoza</label>
+                                <input type="date" asp-for="DatumPrijevoza" class="form-control" max="2200-12-31" min="1900-01-01" data-val-required="Polje Datum prijevoza je obavezno"/>
+                                <span asp-validation-for="DatumPrijevoza" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nacin placanja</label>
+                            <select type="text" asp-for="NacinPlacanja" class="form-control" data-val-required="Polje Nacin placanja je obavezno">
+                                <option value="0">Odaberi</option>
+                                @foreach (var x in Model.nacinPlacanja)
+                                {
+                                    <option value="@x.Value"> @x.Text </option>
+                                }
+                            </select>
+                            <span asp-validation-for="NacinPlacanja" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tip prijevoza</label>
+                            <select type="text" asp-for="TipPrijevoza" class="form-control">
+                                <option value="0">Odaberi</option>
+                                @foreach (var x in Model.tipPrijevoza)
+                                {
+                                    <option value="@x.Value"> @x.Text </option>
+                                }
+                            </select>
+                            <span asp-validation-for="TipPrijevoza" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-left: 10px;">
+                    <input type="submit" value="DALJE" class="btn btn-success" />
+                </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("prijevoz").className = "active";
+</script>
+

@@ -75,6 +75,7 @@ namespace RentACar.Areas.Klijent.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateProfilImage(ProfilDetaljnoVM model, IFormFile SlikaURL)

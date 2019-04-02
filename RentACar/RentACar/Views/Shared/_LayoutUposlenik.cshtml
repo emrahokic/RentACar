@@ -21,7 +21,8 @@
     <link href="~/css/material-dashboard.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js"></script>
 
 
@@ -83,9 +84,9 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="#">
-                                <i class="material-icons">credit_card</i>
-                                <p>Uplate</p>
+                            <a class="nav-link" asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="Index">
+                                <i class="material-icons">local_taxi</i>
+                                <p>Prijevozi</p>
                             </a>
                         </li>
                         <li class="nav-item" id="profil">

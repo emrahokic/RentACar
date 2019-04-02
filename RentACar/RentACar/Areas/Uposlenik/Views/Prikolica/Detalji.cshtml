@@ -68,13 +68,17 @@
                     <tbody>
                         @foreach (var x in Model.rows)
                         {
-                            <tr>
-                                <th>@x.TipKuke</th>
-                                <th>@x.Tezina</th>
-                                <th>@x.Auto</th>
-                                <th>@Enum.GetName(typeof(TipVozila), x.tipAuta)</th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>@x.TipKuke</th>
+                            <th>@x.Tezina</th>
+                            <th>@x.Auto</th>
+                            <th>@Enum.GetName(typeof(TipVozila), x.tipAuta)</th>
+                            <th>
+                                <a class="btn btn-danger" href="/Uposlenik/Prikolica/UkloniVozilo?VoziloID=@x.VoziloID&PrikolicaID=@Model.PrikolicaID">
+                                    <i class="material-icons">delete_forever</i><span style="padding-left: 3px;">UKLONI</span>
+                                </a>
+                            </th>
+                        </tr>
                         }
                     </tbody>
                 </table>
