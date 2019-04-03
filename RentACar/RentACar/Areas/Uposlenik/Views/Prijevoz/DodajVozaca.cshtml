@@ -1,0 +1,35 @@
+﻿@model PrijevozDodajVozacaVM
+@{
+    ViewData["Title"] = "DodajVozaca";
+}
+
+<div class="card card-nav-tabs" style="width: 45rem;">
+    <div class="card-header card-header-success">
+        Dodaj vozaca
+    </div>
+    <div class="col-md-8">
+        <form asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="DodajVozacSnimi" method="post">
+            <div class="form-group">
+                <input type="hidden" name="PrijevozID" value="@Model.PrijevozID" />
+            </div>
+
+            <div class="form-group">
+                <label>Vozilo: </label>
+                <div>
+                    <select type="text" name="UposlenikID" class="form-control">
+                        <option value="0">Odaberi</option>
+                        @foreach (var x in Model.vozaci)
+                        {
+                            <option value="@x.Value"> @x.Text </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success"><i class="material-icons">save</i><span style="padding-left: 3px;">SNIMI</span></button>
+            </div>
+
+        </form>
+    </div>
+</div>

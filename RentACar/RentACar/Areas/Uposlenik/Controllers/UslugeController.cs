@@ -101,6 +101,11 @@ namespace RentACar.Areas.Uposlenik.Controllers
         {
             DodatneUsluge x = _context.DodatneUsluge.Find(DodatneUslugeID);
 
+            if (x == null)
+            {
+                return Content("Usluga ne postoji");
+            }
+
             x.DodatneUslugeID = DodatneUslugeID;
             x.Naziv = Naziv;
             x.Opis = Opis;

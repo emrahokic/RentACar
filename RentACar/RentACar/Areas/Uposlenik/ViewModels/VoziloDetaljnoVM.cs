@@ -44,6 +44,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
             public int TipPrikolice { get; set; }
             public string TipKuke { get; set; }
             public string Tezina { get; set; }
+            public double Cijena { get; set; }
         }
     }
 }

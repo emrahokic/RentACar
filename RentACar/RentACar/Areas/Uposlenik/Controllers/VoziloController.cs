@@ -26,12 +26,12 @@ namespace RentACar.Areas.Uposlenik.Controllers
             _signInManager = signInManager;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             int userID = int.Parse(_signInManager.GetUserId(User));
             int poslovnicaID = _context.UgovorZaposlenja.Where(u => u.UposlenikID == userID).Select(s => s.PoslovnicaID).SingleOrDefault();
 
+            //vozila koja se smjestaju u model su vezana za jednu poslovnicu 
             var model = new VoziloVM
             {
                 rows = _context.TrenutnaPoslovnica.Where(t => t.PoslovnicaID == poslovnicaID).Select(v => new VoziloVM.Row
@@ -87,11 +87,26 @@ namespace RentACar.Areas.Uposlenik.Controllers
                     Duzina = p.Prikolica.Duzina,
                     TipPrikolice = p.Prikolica.TipPrikolice,
                     TipKuke = p.TipKuke,
-                    Tezina = p.Tezina.ToString()
+                    Tezina = p.Tezina.ToString(),
+                    Cijena = p.Prikolica.Cijna
                 }).ToList()
             }).FirstOrDefault();
 
             return View(nameof(Detalji), model);
+        }
+
+        public IActionResult UkloniPrikolicu(int PrikolicaID, int VoziloID)
+        {
+            var temp = _context.KompatibilnostPrikolica.Where(p => p.PrikolicaID == PrikolicaID && p.VoziloID == VoziloID).Select(s => s).SingleOrDefault();
+            if(temp == null)
+            {
+                return Content("Prikolica sa vozilom ne postoji");
+            }
+
+            _context.Remove(temp);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Detalji), new { id = VoziloID });
         }
     }
 

@@ -17,6 +17,7 @@ namespace RentACar.Areas.Uposlenik.ViewModels
         public List<Row> rows { get; set; }
         public class Row
         {
+            public int VoziloID { get; set; }
             public string TipKuke { get; set; }
             public string Tezina { get; set; }
             public string Auto { get; set; }

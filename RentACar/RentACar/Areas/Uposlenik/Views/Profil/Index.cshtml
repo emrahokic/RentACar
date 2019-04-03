@@ -15,77 +15,107 @@
                 <p class="card-category">Uredi podatke</p>
             </div>
             <div class="card-body">
-                <form asp-action="ProfilUrediSnimi" asp-area="Uspolenik" asp-controller="Profil" method="post">
+                <form asp-action="ProfilUrediSnimi" method="post">
                     <div class="form-group"></div>
                     <div class="row">
 
                         <div class="col-md-3">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Username</label>
-                                <input asp-for="Username" class="form-control" />
+                                <label class="bmd-label-floating">Korisnicko ime</label>
+                                <input asp-for="Username" class="form-control" data-val-required="Polje Korisnicko ime je obavezno."/>
+                                <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Email address</label>
-                                <input asp-for="Email" class="form-control" />
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Fist Name</label>
-                                <input asp-for="Ime" class="form-control" />
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Last Name</label>
-                                <input asp-for="Prezime" class="form-control" />
-
-                            </div>
-                        </div><div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Birth date</label>
-                                <input asp-for="DatumRodjenja" class="form-control" />
+                                <label class="bmd-label-floating">Email adresa</label>
+                                <input asp-for="Email" class="form-control" data-val-required="Polje Email je obavezno." data-val-regex="Format maila: text.text@example.com or text@example.com"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Gender</label>
-                                <input asp-for="Spol" class="form-control" />
+                                <label class="bmd-label-floating">Ime</label>
+                                <input asp-for="Ime" class="form-control" data-val-required="Polje Ime je obavezno." data-val-regex="Ime moze da sadrzi samo velika slova, mala slova, razmak i -"/>
+                                <span asp-validation-for="Ime" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Phone number</label>
-                                <input asp-for="BrTelefona" class="form-control" />
+                                <label class="bmd-label-floating">Prezime</label>
+                                <input asp-for="Prezime" class="form-control" data-val-required="Polje Prezime je obavezno." data-val-regex="Prezime moze da sadrzi samo velika slova, mala slova, razmak i -"/>
+                                <span asp-validation-for="Prezime" class="text-danger"></span>
+                            </div>
+                        </div>
+                            <div class="col-md-4">
+                                <div class="form-group bmd-form-group is-filled">
+                                    <label class="bmd-label-floating">Datum rođenja</label>
+                                    <input type="date" asp-for="DatumRodjenja" class="form-control" data-val-required="Polje Datum Rođenja je obavezno." />
+                                    <span asp-validation-for="DatumRodjenja" class="text-danger"></span>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Spol</label>
+                                <select class="form-control">
+                                    @if (Model.Spol == "M")
+                                    {
+                                        <option value="M" selected>M</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="M">M</option>
+                                    }
+                                    @if (Model.Spol == "Z")
+                                    {
+                                        <option value="Z" selected>Z</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Z">Z</option>
+                                    }@if (Model.Spol == "Other")
+                                    {
+                                        <option value="Other" selected>Other</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Other">Other</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">Broj telefona</label>
+                                <input type="tel" asp-for="BrTelefona" class="form-control" data-val-required="Polje broj telefona je obavezno." data-val-regex="formati: 06x-xxx-xxx ili 06x-xxx-xxxx"/>
+                                <span asp-validation-for="BrTelefona" class="text-danger"></span>
                             </div>
                         </div> 
                         <div class="col-md-4" >
                             <div class="form-group bmd-form-group is-filled">
-                                <label  class="bmd-label-floating">JMBG</label>
-                                <input asp-for="JMBG" class="form-control" />
+                                <label class="bmd-label-floating">JMBG</label>
+                                <input asp-for="JMBG" class="form-control" data-val-required="Polje JMBG je obavezno." />
+                                <span asp-validation-for="JMBG" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">Adress</label>
-                                <input asp-for="Adresa" class="form-control" />
+                                <label class="bmd-label-floating">Adresa</label>
+                                <input asp-for="Adresa" class="form-control" data-val-regex="Primjer: 190 Rock's Cage-cafe"/>
+                                <span asp-validation-for="Adresa" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">City</label>
+                                <label class="bmd-label-floating">Grad</label>
                                 <select asp-for="GradID" asp-items="Model.Gradovi" class="form-control"> </select>
                             </div>
                         </div>
@@ -94,15 +124,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>About Me</label>
                                 <div class="form-group bmd-form-group">
-                                    <textarea class="form-control" rows="5"></textarea>
+                                    <textarea class="form-control" rows="3" readonly></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile<div class="ripple-container"></div></button>
+                    <button type="submit" class="btn btn-primary pull-right">Snimi promjene<div class="ripple-container"></div></button>
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -126,7 +155,7 @@
                 <h4 class="card-title">@Model.Ime @Model.Prezime</h4>
                 <h4 class="card-title">@Model.Username</h4>
                 <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    I've always been asked, 'What is my favorite car?' and I've always said 'The next one.'
                 </p>
             </div>
         </div>

@@ -1,0 +1,47 @@
+﻿@model PrijevoziVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header card-header-info">
+            <h4 class="card-title mt-0"> Prijevozi </h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th>Datum prijevoza</th>
+                            <th>Klijent</th>
+                            <th>Tip prijevoza</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model.prijevozi)
+                        {
+                            <tr>
+                                <td>@x.DatumPrijevoza</td>
+                                <td>@x.Klijent</td>
+                                <td>@x.TipPrijevoza</td>
+                                <td>
+                                    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="Detalji" asp-route-id="@x.PrijevozID"><i class="material-icons">info</i><span style="padding-left: 3px;">DETALJI</span></a>
+                                    @if (x.Zavrsna == 0)
+                                    {
+                                    <a class="btn btn-danger" asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="Obrisi" asp-route-id="@x.PrijevozID"><i class="material-icons">delete_forever</i><span style="padding-left: 3px;">OBRISI</span></a>
+                                    <a class="btn btn-success" asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="Zavrsi" asp-route-id="@x.PrijevozID"><i class="material-icons">done</i><span style="padding-left: 3px;">ZAVRSI</span></a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-white text-dark" asp-area="Uposlenik" asp-controller="Prijevoz" asp-action="NoviPrijevoz"><i class="material-icons">add</i><span style="padding-left: 3px;">NOVI PRIJEVOZ</span></a>
+</div>
