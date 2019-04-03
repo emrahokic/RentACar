@@ -34,18 +34,13 @@ namespace RentACar.Areas.Klijent.ViewModels
             public double Cijena { get; set; }
 
         }
-        public double Ukupno {
-            get {
-
-                return Cijena + UkupnaCijenaUsluga;
-            }
-        }
+        public double Ukupno { get; set; }
 
         public double UkupnaCijenaUsluga
         {
             get
             {
-                double sum=0;
+                double sum = 0;
                 for (int i = 0; i < dodatneUsluge.Count; i++)
                 {
                     sum += dodatneUsluge[i].Cijena * dodatneUsluge[i].Kolicina;

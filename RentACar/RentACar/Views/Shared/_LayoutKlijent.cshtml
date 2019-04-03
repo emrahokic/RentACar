@@ -21,7 +21,8 @@
     <link href="~/css/material-dashboard.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
-  
+    <script src="~/js/jsAjax.js"></script>
+
 </head>
 
 <body class="">
@@ -169,7 +170,7 @@
                                 </li>
                                 <li>
                                     <a href="https://www.creative-tim.com/license">
-                                        Licence
+                                        Licence 
                                     </a>
                                 </li>
                             </ul>
@@ -207,7 +208,6 @@
 
 
     }
-
     <script>
 
          $(document).ready(function () {
@@ -216,7 +216,14 @@
                 $("#notifikacije").html(rezultat);
 
             });
-    });
+        });
+        setInterval(function () {
+            $.get("/Notifikacija/GetNotifications",
+                function (rezultat, status) {
+                    $("#notifikacije").html(rezultat);
+
+                });
+        }, 60000);
     </script>
     <!--   Core JS Files   -->
     <script src="/js/core/jquery.min.js"></script>

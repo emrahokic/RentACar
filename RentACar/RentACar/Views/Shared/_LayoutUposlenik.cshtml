@@ -176,8 +176,7 @@
                         </div>
                     </div>
                 </div>
-
-
+                
                 <!-- footer -->
                 <footer class="footer">
 
@@ -242,9 +241,17 @@
         $.get("/Notifikacija/GetNotifications",
             function (rezultat, status) {
                 $("#notifikacije").html(rezultat);
-
+               
             });
-    });
+        });
+
+        setInterval(function () {
+            $.get("/Notifikacija/GetNotifications",
+                function (rezultat, status) {
+                    $("#notifikacije").html(rezultat);
+
+                });
+        }, 60000);
     </script>
     <!--   Core JS Files   -->
     <script src="/js/core/jquery.min.js"></script>

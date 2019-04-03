@@ -15,7 +15,7 @@ namespace RentACar.ViewModels
             public string Poruka { get; set; }
             public string Vrijeme { get; set; }
             public bool Otvorena { get; set; }
-            public int RezervacijaID { get; set; }
+            public int? RezervacijaID { get; set; }
 
         }
     }

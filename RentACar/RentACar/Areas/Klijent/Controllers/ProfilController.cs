@@ -31,10 +31,10 @@ namespace RentACar.Areas.Klijent.Controllers
             this.db = db;
             _He = _he;
         }
-
+        
         public IActionResult Index(string msg)
         {
-
+            
             int id = int.Parse(_signInManager.GetUserId(User));
             ProfilDetaljnoVM model = db.Users.Where(x => x.Id == id).Select(x => new ProfilDetaljnoVM
             {

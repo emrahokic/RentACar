@@ -828,7 +828,7 @@ namespace RentACar.Migrations
                         .HasForeignKey("PoslovnicaID");
 
                     b.HasOne("RentACar.Models.Rezervacija", "Rezervacija")
-                        .WithMany()
+                        .WithMany("Notifikacije")
                         .HasForeignKey("RezervacijaID");
 
                     b.HasOne("RentACar.Models.ApplicationUser", "User")

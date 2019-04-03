@@ -1,0 +1,110 @@
+﻿@model RezervacijaUrediVM
+@{
+    ViewData["Title"] = "RezervacijaUredi";
+}
+
+<div class="col-lg-12">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-primary">
+            <h4>Uredi rezervaciju</h4>
+        </div>
+        <form asp-area="Klijent" asp-controller="Rezervacija" asp-action="RezervacijaUrediSnimi" method="post">
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Vozilo
+                </div>
+                <div class="col-md-8">
+                    <div class="row" style="margin-top:20px; margin-bottom: 20px;">
+                        <div class="col-md-5">
+                            <img src="@Model.SlikaVozila" class="card-img" />
+                        </div>
+                        <div class="col-md-5">
+                            <div>Vozilo: <strong>@Model.Vozilo</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    @if (Model.imaPrikolicu == true)
+                    {
+                        <div class="form-group">
+                            <label>Prikolice: </label><span>  (Za promjenu prikolice ili uklanjanje odaberi iz menija)</span>
+                            <div>
+                                <select type="text" name="Prikolica" class="form-control">
+                                    <option value="0">Odaberi</option>
+                                    @foreach (var x in Model.prikolice)
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                    <option value="-1">Ukloni prikolicu</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card card-nav-tabs col-md-11" style="margin-left: 10px; margin-top:50px; background-color: #fcfcfc;">
+                <div class="card-header card-header-info">
+                    Rezervacija ---- Datum rezervisanja: @Model.DatumRezervacije ----
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.RezervacijaID" name="RezervacijaID" />
+                    </div>
+                    <div class="form-group">
+                        <label>Datum preuzimanja: </label>
+                        <input type="date" asp-for="@Model.DatumPreuzimanja" asp-format="{0:yyyy-MM-dd}" name="DatumPreuzimanja" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Datum povrata: </label>
+                        <input type="date" asp-for="@Model.DatumPovrata" asp-format="{0:yyyy-MM-dd}" name="DatumPovrata" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Broj dana iznajmljivanja: </label>
+                        <strong>@Model.BrojDanaIznajmljivanja</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cijena: </label>
+                        <strong>@Model.Cijena</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nacin placanja: </label>
+                        <div>
+                            <select type="text" name="NacinPlacanja" class="form-control">
+                                @foreach (var x in Model.naciniPlacanja)
+                                {
+                                    @if (Model.NacinPlacanja.ToString() == x.Value)
+                                    {
+                                        <option value="@x.Value" selected> @x.Text </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@x.Value"> @x.Text </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+
+
+
+            <div class="form-group" style="margin-left: 10px;">
+                <input type="submit" value="Dalje" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("rezervacije").className = "active";
+</script>
+

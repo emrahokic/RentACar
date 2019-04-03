@@ -19,7 +19,10 @@ namespace RentACar.Controllers
             _signInManager = signInManager;
             this.db = db;
         }
-
+        public NotifikacijaController()
+        {
+            
+        }
         public IActionResult Index()
         {
             return Redirect("/Profil");
@@ -35,7 +38,7 @@ namespace RentACar.Controllers
             {
                 NotifikacijaProfilVM model = new NotifikacijaProfilVM()
                 {
-                    notifikacije = db.Notifikacija.Where(x => x.UserID == id).Select(n => new NotifikacijaProfilVM.Row()
+                    notifikacije = db.Notifikacija.Where(x => x.UserID == id).OrderByDescending(x=>x.Vrijeme).Select(n => new NotifikacijaProfilVM.Row()
                     {
                         Poruka = n.Poruka,
                         Otvorena = n.Otvorena,
@@ -43,6 +46,7 @@ namespace RentACar.Controllers
                         Vrijeme = getVrijeme(n.Vrijeme)
                     }).ToList()
                 };
+                
                 model.BrojNeprocitanih = model.notifikacije.Count(r => r.Otvorena == false);
                 return PartialView("NotifikacijaPV", model);
 
@@ -55,7 +59,7 @@ namespace RentACar.Controllers
                 int poslovnicaId = db.UgovorZaposlenja.Where(x => x.UposlenikID == id).Select(y => y.PoslovnicaID).FirstOrDefault();
                 NotifikacijaProfilVM model = new NotifikacijaProfilVM()
                 {
-                    notifikacije = db.Notifikacija.Where(x => x.PoslovnicaID == poslovnicaId).Select(n => new NotifikacijaProfilVM.Row()
+                    notifikacije = db.Notifikacija.Where(x => x.PoslovnicaID == poslovnicaId).OrderByDescending(x => x.Vrijeme).Select(n => new NotifikacijaProfilVM.Row()
                     {
                         Poruka = n.Poruka,
                         Otvorena = n.Otvorena,
@@ -71,7 +75,7 @@ namespace RentACar.Controllers
             return PartialView("NotifikacijaPV");
         }
 
-        private string getVrijeme(DateTime vrijeme)
+        public string getVrijeme(DateTime vrijeme)
         {
 
 
