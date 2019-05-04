@@ -19,10 +19,7 @@ namespace RentACar.Controllers
             _signInManager = signInManager;
             this.db = db;
         }
-        public NotifikacijaController()
-        {
-            
-        }
+        
         public IActionResult Index()
         {
             return Redirect("/Profil");

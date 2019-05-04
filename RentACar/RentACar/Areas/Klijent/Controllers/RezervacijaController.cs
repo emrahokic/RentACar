@@ -22,10 +22,7 @@ namespace RentACar.Areas.Klijent.Controllers
         private UserManager<ApplicationUser> _signInManager;
         private ApplicationDbContext db;
 
-        public RezervacijaController()
-        {
-
-        }
+       
         public RezervacijaController(ApplicationDbContext _db, UserManager<ApplicationUser> signInManager)
         {
             db = _db;

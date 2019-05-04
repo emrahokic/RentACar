@@ -14,38 +14,38 @@ namespace RentACar_UnitTest
             
         }
 
-        [TestMethod]
-        public void NotifikacijaGetVrijemeTest()
-        {
-            NotifikacijaController notifikacijaController = new NotifikacijaController();
+        //[TestMethod]
+        //public void NotifikacijaGetVrijemeTest()
+        //{
+        //    NotifikacijaController notifikacijaController = new NotifikacijaController();
 
-            Assert.IsInstanceOfType(notifikacijaController.getVrijeme(DateTime.Now),typeof(string));
+        //    Assert.IsInstanceOfType(notifikacijaController.getVrijeme(DateTime.Now),typeof(string));
 
-        }
+        //}
 
-        [TestMethod]
-        public void DateDiffTest()
-        {
+        //[TestMethod]
+        //public void DateDiffTest()
+        //{
 
-            RentACar.Areas.Klijent.Controllers.RezervacijaController rezervacijaController = new RentACar.Areas.Klijent.Controllers.RezervacijaController();
+        //    RentACar.Areas.Klijent.Controllers.RezervacijaController rezervacijaController = new RentACar.Areas.Klijent.Controllers.RezervacijaController();
 
-            int diff = 5;
-            DateTime a = new DateTime(2019, 3, 20);
-            DateTime b = new DateTime(2019, 3, 25);
+        //    int diff = 5;
+        //    DateTime a = new DateTime(2019, 3, 20);
+        //    DateTime b = new DateTime(2019, 3, 25);
 
-            int x = rezervacijaController.dateDiff(a, b);
+        //    int x = rezervacijaController.dateDiff(a, b);
 
-            Assert.IsInstanceOfType(x,typeof(int));
-            Assert.AreEqual(diff, x);
+        //    Assert.IsInstanceOfType(x,typeof(int));
+        //    Assert.AreEqual(diff, x);
 
-            int diff1 = 1;
-            DateTime a1 = new DateTime(2019, 3, 20);
-            DateTime b1 = new DateTime(2019, 3, 20);
+        //    int diff1 = 1;
+        //    DateTime a1 = new DateTime(2019, 3, 20);
+        //    DateTime b1 = new DateTime(2019, 3, 20);
 
-            int x1 = rezervacijaController.dateDiff(a1, b1);
+        //    int x1 = rezervacijaController.dateDiff(a1, b1);
 
-            Assert.AreEqual(diff1, x1);
+        //    Assert.AreEqual(diff1, x1);
 
-        }
+        //}
     }
 }
